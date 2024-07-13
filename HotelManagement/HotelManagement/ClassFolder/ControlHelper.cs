@@ -16,6 +16,26 @@ namespace HotelManagement.ClassFolder
                 control.Enabled = true;
             }
         }
+        public static bool IsAllControlEmpty(List<Control> controls)
+        {
+            foreach (Control control in controls)
+            {
+                if (control.Text == "") return true;
+            }
+            return false;
+        }
+
+        public static bool IsAllTextIsNumber(List<Control> controls)
+        {
+            foreach (Control control in controls)
+            {
+                // Kiểm tra nếu Text của TextBox không phải là số thì trả về false
+                if (!double.TryParse(control.Text, out _))
+                    return false;
+            }
+            // Nếu tất cả đều là số thì trả về true
+            return true;
+        }
 
     }
 }

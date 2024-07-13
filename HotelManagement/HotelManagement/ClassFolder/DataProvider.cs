@@ -1,4 +1,5 @@
 ﻿
+using Guna.UI2.WinForms.Suite;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -181,7 +182,7 @@ namespace HotelManagement.ClassFolder
                             string id = reader["RoomID"].ToString();
                             string type = reader["RoomType"].ToString();
                             int capacity = (int)reader["Capacity"];
-                            Double price = (Double)reader["Price"];
+                            double price = Convert.ToDouble(reader["Price"]);
                             string status = reader["Status"].ToString();
                             string des = reader["Description"].ToString();
 
@@ -206,5 +207,36 @@ namespace HotelManagement.ClassFolder
                 }
             }
         }
+
+        public static void SaveAllRooms(string id, string cap, string type, double price, string des)
+        {
+            using (SqlCommand command = new SqlCommand(
+                "INSERT INTO Rooms (RoomID, Capacity, RoomType, Price, Description, Status) VALUES (@RoomID, @Capacity, @RoomType, @Price, @Description, @Status)",
+                DatabaseConnection.Instance.Connection))
+            {
+                command.Parameters.AddWithValue("@RoomID", id);
+                command.Parameters.AddWithValue("@Capacity", cap);
+                command.Parameters.AddWithValue("@RoomType", type);
+                command.Parameters.AddWithValue("@Price", price);
+                command.Parameters.AddWithValue("@Status", "Trống");
+                command.Parameters.AddWithValue("@Description", des);
+
+                try
+                {
+                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    int rowsAffected = command.ExecuteNonQuery();
+                    MessageBox.Show("Thêm dữ liệu thành công!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+                finally
+                {
+                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                }
+            }
+        }
+
     }
 }
