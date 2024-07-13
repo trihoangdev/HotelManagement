@@ -200,7 +200,7 @@ namespace HotelManagement.Forms
                 DataProvider.UpdateRoom(txtRoomId.Text, numbericRoomCapacity.Text,
                     comboRoomType.SelectedItem.ToString(), Double.Parse(txtRoomPrice.Text), txtRoomDes.Text);
                 //Fill lại data vào dtgv
-                DataProvider.FillDataGridView(dtgvRoom);
+                DataProvider.FillDataGridView(dtgvRoom, "Rooms");
             }
         }
     }

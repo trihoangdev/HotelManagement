@@ -274,12 +274,12 @@ namespace HotelManagement.ClassFolder
             }
         }
 
-        public static void FillDataGridView(Guna2DataGridView dtgv)
+        public static void FillDataGridView(Guna2DataGridView dtgv, string tableName)
         {
             try
             {
                 string connectionString = "Data Source=HOANGMINHTRI\\SQLEXPRESS;Initial Catalog=HotelManagement;Integrated Security=True;TrustServerCertificate=true";
-                string selectQuery = "SELECT * FROM Rooms";
+                string selectQuery = $"SELECT * FROM {tableName}";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
