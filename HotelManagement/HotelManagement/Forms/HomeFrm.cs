@@ -203,5 +203,17 @@ namespace HotelManagement.Forms
                 DataProvider.FillDataGridView(dtgvRoom, "Rooms");
             }
         }
+
+        private void btnDeleteRoom_Click(object sender, EventArgs e)
+        {
+            var res = MessageBox.Show("Bạn có chắc chắn muốn xóa?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (res == DialogResult.Yes)
+            {
+                //Xóa phòng khỏi csdl
+                DataProvider.RemoveRoom(txtRoomId.Text);
+                //fill lại dtgv
+                DataProvider.FillDataGridView(dtgvRoom, "Rooms");
+            }
+        }
     }
 }

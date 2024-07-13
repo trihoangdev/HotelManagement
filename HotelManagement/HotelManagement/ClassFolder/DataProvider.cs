@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Net;
 using System.Security.Cryptography;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
@@ -230,7 +231,7 @@ namespace HotelManagement.ClassFolder
                 {
                     DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
                     int rowsAffected = command.ExecuteNonQuery();
-                    MessageBox.Show("Thêm dữ liệu thành công!");
+                    MessageBox.Show("Thêm phòng thành công!");
                 }
                 catch (Exception ex)
                 {
@@ -261,7 +262,7 @@ namespace HotelManagement.ClassFolder
                 {
                     DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
                     int rowsAffected = command.ExecuteNonQuery();
-                    MessageBox.Show("Thêm dữ liệu thành công!");
+                    MessageBox.Show("Cập nhật phòng thành công!");
                 }
                 catch (Exception ex)
                 {
@@ -297,5 +298,28 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        public static void RemoveRoom(string id)
+        {
+            using (SqlCommand command = new SqlCommand(
+               "DELETE Rooms WHERE RoomId = @RoomId",
+               DatabaseConnection.Instance.Connection))
+            {
+                command.Parameters.AddWithValue("@RoomID", id);
+                try
+                {
+                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    int rowsAffected = command.ExecuteNonQuery();
+                    MessageBox.Show("Xóa phòng thành công!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+                finally
+                {
+                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                }
+            }
+        }
     }
 }
