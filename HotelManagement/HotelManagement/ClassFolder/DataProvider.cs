@@ -1,8 +1,13 @@
 ﻿
+using Guna.UI2.WinForms;
 using Guna.UI2.WinForms.Suite;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Security.Cryptography;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 namespace HotelManagement.ClassFolder
@@ -235,6 +240,60 @@ namespace HotelManagement.ClassFolder
                 {
                     DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
                 }
+            }
+        }
+
+        public static void UpdateRoom(string id, string cap, string type, double price, string des)
+        {
+            using (SqlCommand command = new SqlCommand(
+                "UPDATE Rooms " +
+                   "SET Capacity = @Capacity, RoomType = @RoomType, Price = @Price, Description = @Description " +
+                   "WHERE RoomId = @RoomId",
+                DatabaseConnection.Instance.Connection))
+            {
+                command.Parameters.AddWithValue("@RoomID", id);
+                command.Parameters.AddWithValue("@Capacity", cap);
+                command.Parameters.AddWithValue("@RoomType", type);
+                command.Parameters.AddWithValue("@Price", price);
+                command.Parameters.AddWithValue("@Description", des);
+
+                try
+                {
+                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    int rowsAffected = command.ExecuteNonQuery();
+                    MessageBox.Show("Thêm dữ liệu thành công!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+                finally
+                {
+                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                }
+            }
+        }
+
+        public static void FillDataGridView(Guna2DataGridView dtgv)
+        {
+            try
+            {
+                string connectionString = "Data Source=HOANGMINHTRI\\SQLEXPRESS;Initial Catalog=HotelManagement;Integrated Security=True;TrustServerCertificate=true";
+                string selectQuery = "SELECT * FROM Rooms";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    // Gán dữ liệu vào DataGridView
+                    dtgv.DataSource = dataTable;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi điền dữ liệu vào DataGridView: " + ex.Message);
             }
         }
 

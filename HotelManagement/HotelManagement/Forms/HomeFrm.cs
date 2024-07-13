@@ -174,5 +174,34 @@ namespace HotelManagement.Forms
             }
         }
 
+        private void btnUpdateRoom_Click(object sender, EventArgs e)
+        {
+            if (ControlHelper.IsAllControlEmpty(new List<Control> { txtRoomId, txtRoomPrice, comboRoomType, numbericRoomCapacity }))
+                MessageBox.Show("Không được để trống bất kì thông tin nào ngoại trừ \"Mô tả\"");
+            //Kiểm tra định dạng của các textbox
+            if (!ControlHelper.IsAllTextIsNumber(new List<Control> { txtRoomPrice }))
+            {
+                MessageBox.Show("Giá tiền phải là số!");
+                txtRoomPrice.Focus();
+            }
+            else if (comboRoomType.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn loại phòng");
+                comboRoomType.Focus();
+            }
+            else if (numbericRoomCapacity.Text == "0")
+            {
+                MessageBox.Show("Vui lòng chọn sức chứa!");
+                numbericRoomCapacity.Focus();
+            }
+            else
+            {
+                //Lưu vào CSDL
+                DataProvider.UpdateRoom(txtRoomId.Text, numbericRoomCapacity.Text,
+                    comboRoomType.SelectedItem.ToString(), Double.Parse(txtRoomPrice.Text), txtRoomDes.Text);
+                //Fill lại data vào dtgv
+                DataProvider.FillDataGridView(dtgvRoom);
+            }
+        }
     }
 }
