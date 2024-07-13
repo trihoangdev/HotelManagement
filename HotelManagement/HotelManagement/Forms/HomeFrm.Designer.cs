@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -64,12 +65,6 @@
             this.c = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dtgvRoom = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.colRoomId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colRoomType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColCapacity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.colRoomDetail = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabRoomBooking = new System.Windows.Forms.TabPage();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2DataGridView2 = new Guna.UI2.WinForms.Guna2DataGridView();
@@ -195,6 +190,15 @@
             this.colCustomerDateJoin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCustomerNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCustmerEdit = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.hotelManagementDataSet = new HotelManagement.HotelManagementDataSet();
+            this.roomsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.roomsTableAdapter = new HotelManagement.HotelManagementDataSetTableAdapters.RoomsTableAdapter();
+            this.roomIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.roomTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.capacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.controlTabHome.SuspendLayout();
             this.tabRoom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numbericCapacity)).BeginInit();
@@ -213,6 +217,8 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView3)).BeginInit();
             this.tabEmpInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.hotelManagementDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.roomsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // controlTabHome
@@ -480,6 +486,7 @@
             this.dtgvRoom.AllowUserToOrderColumns = true;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(216)))), ((int)(((byte)(189)))));
             this.dtgvRoom.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dtgvRoom.AutoGenerateColumns = false;
             this.dtgvRoom.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.dtgvRoom.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -493,13 +500,14 @@
             this.dtgvRoom.ColumnHeadersHeight = 25;
             this.dtgvRoom.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dtgvRoom.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colRoomId,
-            this.colRoomType,
-            this.ColCapacity,
-            this.colPrice,
-            this.colStatus,
-            this.colRoomDetail});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.roomIDDataGridViewTextBoxColumn,
+            this.roomTypeDataGridViewTextBoxColumn,
+            this.capacityDataGridViewTextBoxColumn,
+            this.priceDataGridViewTextBoxColumn,
+            this.statusDataGridViewTextBoxColumn,
+            this.descriptionDataGridViewTextBoxColumn});
+            this.dtgvRoom.DataSource = this.roomsBindingSource;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(229)))), ((int)(((byte)(211)))));
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
@@ -510,6 +518,7 @@
             this.dtgvRoom.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(209)))), ((int)(((byte)(177)))));
             this.dtgvRoom.Location = new System.Drawing.Point(6, 6);
             this.dtgvRoom.Name = "dtgvRoom";
+            this.dtgvRoom.ReadOnly = true;
             this.dtgvRoom.RowHeadersVisible = false;
             this.dtgvRoom.Size = new System.Drawing.Size(1205, 341);
             this.dtgvRoom.TabIndex = 0;
@@ -527,7 +536,7 @@
             this.dtgvRoom.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.dtgvRoom.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dtgvRoom.ThemeStyle.HeaderStyle.Height = 25;
-            this.dtgvRoom.ThemeStyle.ReadOnly = false;
+            this.dtgvRoom.ThemeStyle.ReadOnly = true;
             this.dtgvRoom.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(229)))), ((int)(((byte)(211)))));
             this.dtgvRoom.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dtgvRoom.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -535,42 +544,6 @@
             this.dtgvRoom.ThemeStyle.RowsStyle.Height = 22;
             this.dtgvRoom.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
             this.dtgvRoom.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
-            // 
-            // colRoomId
-            // 
-            this.colRoomId.HeaderText = "Mã Phòng";
-            this.colRoomId.Name = "colRoomId";
-            this.colRoomId.ReadOnly = true;
-            // 
-            // colRoomType
-            // 
-            this.colRoomType.HeaderText = "Loại Phòng";
-            this.colRoomType.Name = "colRoomType";
-            this.colRoomType.ReadOnly = true;
-            // 
-            // ColCapacity
-            // 
-            this.ColCapacity.HeaderText = "Sức chứa";
-            this.ColCapacity.Name = "ColCapacity";
-            this.ColCapacity.ReadOnly = true;
-            // 
-            // colPrice
-            // 
-            this.colPrice.HeaderText = "Giá Phòng/Đêm";
-            this.colPrice.Name = "colPrice";
-            this.colPrice.ReadOnly = true;
-            // 
-            // colStatus
-            // 
-            this.colStatus.HeaderText = "Còn Phòng";
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
-            // 
-            // colRoomDetail
-            // 
-            this.colRoomDetail.HeaderText = "Chi tiết phòng";
-            this.colRoomDetail.Name = "colRoomDetail";
-            this.colRoomDetail.Text = "Xem chi tiết";
             // 
             // tabRoomBooking
             // 
@@ -2520,6 +2493,62 @@
             this.colCustmerEdit.Name = "colCustmerEdit";
             this.colCustmerEdit.Text = "Sửa";
             // 
+            // hotelManagementDataSet
+            // 
+            this.hotelManagementDataSet.DataSetName = "HotelManagementDataSet";
+            this.hotelManagementDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // roomsBindingSource
+            // 
+            this.roomsBindingSource.DataMember = "Rooms";
+            this.roomsBindingSource.DataSource = this.hotelManagementDataSet;
+            // 
+            // roomsTableAdapter
+            // 
+            this.roomsTableAdapter.ClearBeforeFill = true;
+            // 
+            // roomIDDataGridViewTextBoxColumn
+            // 
+            this.roomIDDataGridViewTextBoxColumn.DataPropertyName = "RoomID";
+            this.roomIDDataGridViewTextBoxColumn.HeaderText = "Mã Phòng";
+            this.roomIDDataGridViewTextBoxColumn.Name = "roomIDDataGridViewTextBoxColumn";
+            this.roomIDDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // roomTypeDataGridViewTextBoxColumn
+            // 
+            this.roomTypeDataGridViewTextBoxColumn.DataPropertyName = "RoomType";
+            this.roomTypeDataGridViewTextBoxColumn.HeaderText = "Loại Phòng";
+            this.roomTypeDataGridViewTextBoxColumn.Name = "roomTypeDataGridViewTextBoxColumn";
+            this.roomTypeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // capacityDataGridViewTextBoxColumn
+            // 
+            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "Capacity";
+            this.capacityDataGridViewTextBoxColumn.HeaderText = "Sức Chứa";
+            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
+            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // priceDataGridViewTextBoxColumn
+            // 
+            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
+            this.priceDataGridViewTextBoxColumn.HeaderText = "Giá Phòng/Đêm";
+            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // statusDataGridViewTextBoxColumn
+            // 
+            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
+            this.statusDataGridViewTextBoxColumn.HeaderText = "Tình Trạng";
+            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
+            this.statusDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Mô Tả";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // HomeFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -2564,6 +2593,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView3)).EndInit();
             this.tabEmpInfo.ResumeLayout(false);
             this.tabEmpInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.hotelManagementDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.roomsBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2619,12 +2650,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private Guna.UI2.WinForms.Guna2ImageButton guna2ImageButton1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colRoomId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colRoomType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColCapacity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colPrice;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn colStatus;
-        private System.Windows.Forms.DataGridViewButtonColumn colRoomDetail;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TabPage tabRoomBooking;
         private System.Windows.Forms.Label label18;
@@ -2717,5 +2742,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colCustomerDateJoin;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCustomerNote;
         private System.Windows.Forms.DataGridViewButtonColumn colCustmerEdit;
+        private HotelManagementDataSet hotelManagementDataSet;
+        private System.Windows.Forms.BindingSource roomsBindingSource;
+        private HotelManagementDataSetTableAdapters.RoomsTableAdapter roomsTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn roomIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn roomTypeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn capacityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
     }
 }

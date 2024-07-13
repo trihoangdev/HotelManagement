@@ -50,6 +50,8 @@ namespace HotelManagement.Forms
 
         private void HomeFrm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'hotelManagementDataSet.Rooms' table. You can move, or remove it, as needed.
+            this.roomsTableAdapter.Fill(this.hotelManagementDataSet.Rooms);
             //Load thông tin của Emp đó vào form
             DataProvider.GettAllEmployee();
 
@@ -60,6 +62,11 @@ namespace HotelManagement.Forms
         {
             switch (controlTabHome.SelectedIndex)
             {
+                case 0:
+                    {
+                        break;
+                    }
+
                 case 3:
                     {
                         DataProvider.GetAllCustomer();

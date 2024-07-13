@@ -12,6 +12,7 @@ namespace HotelManagement.ClassFolder
         public static List<Login> Logins = new List<Login>();
         public static List<Employee> Employees = new List<Employee>();
         public static List<Customer> Customers = new List<Customer>();
+        public static List<Room> Rooms = new List<Room>();
         static DataProvider()
         {
             dbConnection = DatabaseConnection.Instance;
@@ -160,5 +161,50 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        public static void GetAllRooms()
+        {
+            using (SqlCommand command = new SqlCommand("SELECT * from Rooms", DatabaseConnection.Instance.Connection))
+            {
+                try
+                {
+                    // Kiểm tra trạng thái kết nối trước khi mở
+                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Closed)
+                    {
+                        DatabaseConnection.Instance.Connection.Open();
+                    }
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Xóa danh sách cũ trước khi tải mới
+                        Rooms.Clear();
+                        while (reader.Read())
+                        {
+                            string id = reader["RoomID"].ToString();
+                            string type = reader["RoomType"].ToString();
+                            int capacity = (int)reader["Capacity"];
+                            Double price = (Double)reader["Price"];
+                            string status = reader["Status"].ToString();
+                            string des = reader["Description"].ToString();
+
+                            Room r = new Room(id, type, capacity, price, status, des);
+
+                            Rooms.Add(r);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Xử lý các lỗi nếu có
+                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+                }
+                finally
+                {
+                    // Đảm bảo rằng kết nối được đóng
+                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Open)
+                    {
+                        DatabaseConnection.Instance.Connection.Close();
+                    }
+                }
+            }
+        }
     }
 }
