@@ -53,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassFolder\ControlHelper.cs" />
+    <Compile Include="ClassFolder\Customer.cs" />
+    <Compile Include="ClassFolder\DatabaseConnection.cs" />
+    <Compile Include="ClassFolder\DataProvider.cs" />
+    <Compile Include="ClassFolder\Employee.cs" />
+    <Compile Include="ClassFolder\Login.cs" />
+    <Compile Include="ClassFolder\Person.cs" />
     <Compile Include="Forms\HomeFrm.cs">
       <SubType>Form</SubType>
     </Compile>

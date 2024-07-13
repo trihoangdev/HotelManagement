@@ -1,12 +1,6 @@
-﻿using HotelManagement.Forms;
+﻿using HotelManagement.ClassFolder;
+using HotelManagement.Forms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace HotelManagement
 {
@@ -19,8 +13,27 @@ namespace HotelManagement
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            HomeFrm homeFrm = new HomeFrm();
-            homeFrm.ShowDialog();
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
+            string role = comboRole.SelectedItem.ToString().Trim();
+            if (CheckLogin(username,password,role))
+            {
+                HomeFrm homeFrm = new HomeFrm(username);
+                homeFrm.ShowDialog();
+            }
+            else
+                MessageBox.Show("Sai tài khoản hoặc mật khẩu");
+        }
+
+        private bool CheckLogin(string username, string password, string role)
+        {
+            DataProvider.GetAllLogins();
+            foreach (var login in DataProvider.Logins)
+            {
+                if (login.Username == username && login.Password == password && login.Role == role)
+                    return true;
+            }
+            return false;
         }
     }
 }

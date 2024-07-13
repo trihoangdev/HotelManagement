@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelManagement.ClassFolder;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,23 +13,27 @@ namespace HotelManagement.Forms
 {
     public partial class HomeFrm : Form
     {
-        public HomeFrm()
+        private string empId;
+        private Employee emp = new Employee();
+
+        public HomeFrm(string empId)
         {
+            this.empId = empId;
             InitializeComponent();
         }
 
         private void btnCreateNewCustomer_Click(object sender, EventArgs e)
         {
             //Kích hoạt các control
-            txtCustomerId.Enabled = true;
-            txtCustomerName.Enabled = true;
-            txtCustomerAddress.Enabled = true;
-            txtCustomerEmail.Enabled = true;    
-            txtCustomerPhone.Enabled = true;
-            dtCustomerBirthDate.Enabled = true;
-            dtCustomerDateJoined.Value = DateTime.Now;  
-            gbCustomerGender.Enabled = true;
-            txtCustomerNote.Enabled = true;
+            txtRegisCustomerId.Enabled = true;
+            txtRegisCustomerName.Enabled = true;
+            txtRegisCustomerAddress.Enabled = true;
+            txtRegisCustomerEmail.Enabled = true;
+            txtRegisCustomerPhone.Enabled = true;
+            dtRegisCustomerBirthDate.Enabled = true;
+            dtRegisCustomerDateJoined.Value = DateTime.Now;
+            gbRegisCustomerGender.Enabled = true;
+            txtRegisCustomerNote.Enabled = true;
 
         }
 
@@ -38,11 +43,61 @@ namespace HotelManagement.Forms
             numbericCapacity.Enabled = true;
             txtRoomPrice.Enabled = true;
             comboRoomType.Enabled = true;
-            btnAddNewCustomer.Enabled = true;
+            btnRegisAddNewCustomer.Enabled = true;
 
             //Khởi tạo mã phòng tự động tăng
         }
 
+        private void HomeFrm_Load(object sender, EventArgs e)
+        {
+            //Load thông tin của Emp đó vào form
+            DataProvider.GettAllEmployee();
 
+            emp = emp.FindEmpById(DataProvider.Employees, empId);
+        }
+
+        private void controlTabHome_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (controlTabHome.SelectedIndex)
+            {
+                case 3:
+                    {
+                        DataProvider.GetAllCustomer();
+                        //Xóa dữ liệu trong bảng hiện tại
+                        dtgvCustomer.Rows.Clear();
+
+                        //Truyền dữ liệu từ danh sách vào DataGridView
+                        foreach (var customer in DataProvider.Customers)
+                        {
+                            dtgvCustomer.Rows.Add(
+                                customer.CustomerID,
+                                customer.FullName,
+                                customer.DateOfBirth.ToString("dd/MM/yyyy"),
+                                customer.Gender,
+                                customer.Email,
+                                customer.PhoneNumber,
+                                customer.DateJoined.ToString("dd/MM/yyyy"),
+                                customer.Notes,
+                                "Sửa");
+                        }
+                        break;
+                    }
+
+                case 6:
+                    {
+                        txtInfoEmpName.Text = emp.FullName.ToString();
+                        txtInfoEmpId.Text = emp.EmployeeID.ToString();
+                        txtInfoEmpGender.Text = emp.Gender.ToString();
+                        txtInfoEmpAddress.Text = emp.Address.ToString();
+                        txtInfoEmpPhone.Text = emp.PhoneNumber.ToString();
+                        txtInfoEmpUsername.Text = emp.EmployeeID.ToString();
+                        txtInfoEmpPassword.Text = emp.FindLoginById(DataProvider.Logins, empId).Password.ToString();
+                        txtInfoEmpPos.Text = emp.Position.ToString();
+                        txtInfoEmpStatus.Text = emp.Status.ToString();
+                        dtInfoEmpDateHired.Value = emp.DateHired;
+                        break;
+                    }
+            }
+        }
     }
 }
