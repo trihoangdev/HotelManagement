@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HotelManagement.ClassFolder
 {
@@ -23,6 +24,13 @@ namespace HotelManagement.ClassFolder
             string phoneNumber, string email, DateTime dateJoined, string notes)
         {
             DataProvider.Customers.Add(new Customer(fullName, dateOfBirth, gender, address, phoneNumber, email, customerID, dateJoined, notes));
+        }
+
+        public Customer FindCustomerById(List<Customer> customers, string id)
+        {
+            foreach (Customer customer in customers)
+                if (customer.CustomerID == id) return customer;
+            return null;
         }
     }
 }

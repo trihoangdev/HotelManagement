@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,5 +38,18 @@ namespace HotelManagement.ClassFolder
             return true;
         }
 
+        public static void ClearDataInControls(List<Control> controls)
+        {
+            foreach (Control control in controls)
+                control.Text = "";
+        }
+
+        public static void SetDateTimeNow(List<Guna2DateTimePicker> dts)
+        {
+            foreach (Guna2DateTimePicker dt in dts)
+            {
+                dt.Value = DateTime.Now;
+            }
+        }
     }
 }

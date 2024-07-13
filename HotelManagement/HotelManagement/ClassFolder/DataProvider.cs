@@ -1,14 +1,9 @@
 ﻿
 using Guna.UI2.WinForms;
-using Guna.UI2.WinForms.Suite;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Net;
-using System.Security.Cryptography;
-using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 namespace HotelManagement.ClassFolder
@@ -20,6 +15,7 @@ namespace HotelManagement.ClassFolder
         public static List<Employee> Employees = new List<Employee>();
         public static List<Customer> Customers = new List<Customer>();
         public static List<Room> Rooms = new List<Room>();
+        public static List<Room> RoomFilter = new List<Room>();
         static DataProvider()
         {
             dbConnection = DatabaseConnection.Instance;
@@ -297,6 +293,51 @@ namespace HotelManagement.ClassFolder
                 MessageBox.Show("Lỗi khi điền dữ liệu vào DataGridView: " + ex.Message);
             }
         }
+        public static void FillDataGridViewBooking(Guna2DataGridView dtgv, List<Room> rooms)
+        {
+            dtgv.Rows.Clear();
+            foreach (Room room in rooms)
+            {
+                int rowIndex = dtgv.Rows.Add();
+                dtgv.Rows[rowIndex].Cells[0].Value = room.Id;
+                dtgv.Rows[rowIndex].Cells[1].Value = room.Type;
+                dtgv.Rows[rowIndex].Cells[2].Value = room.Price;
+                dtgv.Rows[rowIndex].Cells[3].Value = "Thêm";
+            }
+        }
+        public static void FillDataGridViewBooking(Guna2DataGridView dtgv, string tableName, List<string> columns)
+        {
+            try
+            {
+                string connectionString = "Data Source=HOANGMINHTRI\\SQLEXPRESS;Initial Catalog=HotelManagement;Integrated Security=True;TrustServerCertificate=true";
+                string selectQuery = $"SELECT {columns[0]}, {columns[1]}, {columns[2]} FROM {tableName}";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    // Xóa dữ liệu cũ
+                    dtgv.Rows.Clear();
+
+
+                    // Gán dữ liệu vào DataGridView
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        int rowIndex = dtgv.Rows.Add();
+                        dtgv.Rows[rowIndex].Cells[0].Value = row[columns[0]];
+                        dtgv.Rows[rowIndex].Cells[1].Value = row[columns[1]];
+                        dtgv.Rows[rowIndex].Cells[2].Value = row[columns[2]];
+                        dtgv.Rows[rowIndex].Cells[3].Value = "Thêm";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi điền dữ liệu vào DataGridView: " + ex.Message);
+            }
+        }
 
         public static void RemoveRoom(string id)
         {
@@ -319,6 +360,66 @@ namespace HotelManagement.ClassFolder
                 {
                     DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
                 }
+            }
+        }
+        public static List<Room> FindRoomByCapacity(string capacity)
+        {
+            if (RoomFilter.Count == 0)
+            {
+                if (capacity == "Phòng đơn")
+                {
+                    foreach (var room in Rooms)
+                        if (room.Capacity <= 2)
+                            RoomFilter.Add(room);
+                }
+                else
+                {
+                    foreach (var room in Rooms)
+                        if (room.Capacity > 2)
+                            RoomFilter.Add(room);
+                }
+                return RoomFilter;
+            }
+            else
+            {
+                //đã có ít nhất 1 phần tử thì tự filter trong nó
+                var filter2 = new List<Room>();
+                if (capacity == "Phòng đơn")
+                {
+                    foreach (var room in RoomFilter)
+                        if (room.Capacity <= 2)
+                            filter2.Add(room);
+                }
+                else
+                {
+                    foreach (var room in RoomFilter)
+                        if (room.Capacity > 2)
+                            filter2.Add(room);
+                }
+                RoomFilter = filter2; //lọc hoàn tất
+                return RoomFilter;
+            }
+        }
+
+        internal static List<Room> FindRoomByType(string type)
+        {
+            if (RoomFilter.Count == 0)
+            {
+                foreach (var room in Rooms)
+                    if (room.Type == type)
+                        RoomFilter.Add(room);
+                return RoomFilter;
+            }
+            else
+            {
+                //đã có ít nhất 1 phần tử thì tự filter trong nó
+                var filter2 = new List<Room>();
+
+                foreach (var room in RoomFilter)
+                    if (room.Type == type)
+                        filter2.Add(room);
+                RoomFilter = filter2;
+                return RoomFilter;
             }
         }
     }
