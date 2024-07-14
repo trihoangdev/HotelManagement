@@ -261,7 +261,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
-        public static void SaveAllRooms(string id, string cap, string type, double price, string des)
+        public static void InsertRoomToDB(string id, string cap, string type, double price, string des)
         {
             using (SqlCommand command = new SqlCommand(
                 "INSERT INTO Rooms (RoomID, Capacity, RoomType, Price, Description, Status) VALUES (@RoomID, @Capacity, @RoomType, @Price, @Description, @Status)",
@@ -279,6 +279,41 @@ namespace HotelManagement.ClassFolder
                     DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
                     int rowsAffected = command.ExecuteNonQuery();
                     MessageBox.Show("Thêm phòng thành công!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+                finally
+                {
+                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                }
+            }
+        }
+
+        //Lưu thông tin Customer vào CSDL
+        public static void InsertCustomerToDB(string id, string name,DateTime birthDate, string gender, string address, string phone, string email, DateTime dateJoined, string note)
+        {
+            using (SqlCommand command = new SqlCommand(
+                "INSERT INTO Customers (CustomerID, FullName, DateOfBirth, Gender, Address, PhoneNumber, Email, DateJoined, Notes) " +
+                "VALUES (@CustomerID, @FullName, @DateOfBirth, @Gender, @Address, @PhoneNumber, @Email, @DateJoined, @Notes)",
+                DatabaseConnection.Instance.Connection))
+            {
+                command.Parameters.AddWithValue("@CustomerID", id);
+                command.Parameters.AddWithValue("@FullName", name);
+                command.Parameters.AddWithValue("@DateOfBirth", birthDate);
+                command.Parameters.AddWithValue("@Gender", gender);
+                command.Parameters.AddWithValue("@Address", address);
+                command.Parameters.AddWithValue("@PhoneNumber", phone);
+                command.Parameters.AddWithValue("@Email", email);
+                command.Parameters.AddWithValue("@DateJoined", dateJoined);
+                command.Parameters.AddWithValue("@Notes", note);
+
+                try
+                {
+                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    int rowsAffected = command.ExecuteNonQuery();
+                    MessageBox.Show("Thêm khách hàng thành công!");
                 }
                 catch (Exception ex)
                 {
@@ -348,12 +383,12 @@ namespace HotelManagement.ClassFolder
         {
             //xóa các dòng trong bảng
             dtgv.Rows.Clear();
-        
+
             //điền dữ liệu vào bảng
-            foreach(Room room in rooms)
+            foreach (Room room in rooms)
             {
                 dtgv.Rows.Add(room.Id, room.Type, room.Price, "Thêm");
-            }    
+            }
         }
 
         public static void RemoveRoom(string id)
@@ -549,7 +584,7 @@ namespace HotelManagement.ClassFolder
 
             //Cập nhật trạng thái phòng
             using (SqlCommand command = new SqlCommand("" +
-                "Update Rooms Set Status = N'Đã đặt' Where RoomID = @RoomID", 
+                "Update Rooms Set Status = N'Đã đặt' Where RoomID = @RoomID",
                 DatabaseConnection.Instance.Connection))
             {
                 command.Parameters.AddWithValue("@RoomID", roomBooking.RoomId);
@@ -566,7 +601,7 @@ namespace HotelManagement.ClassFolder
                 {
                     DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
                 }
-            }    
+            }
 
 
         }

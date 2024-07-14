@@ -17,7 +17,7 @@ namespace HotelManagement.ClassFolder
                 control.Enabled = true;
             }
         }
-        public static bool IsAllControlEmpty(List<Control> controls)
+        public static bool IsAnyControlEmpty(List<Control> controls)
         {
             foreach (Control control in controls)
             {

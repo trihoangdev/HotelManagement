@@ -190,7 +190,7 @@ namespace HotelManagement.Forms
         //Sự kiện thêm mới phòng
         private void btnAddNewRoom_Click(object sender, EventArgs e)
         {
-            if (ControlHelper.IsAllControlEmpty(new List<Control> { txtRoomId, txtRoomPrice, comboRoomType, numbericRoomCapacity }))
+            if (ControlHelper.IsAnyControlEmpty(new List<Control> { txtRoomId, txtRoomPrice, comboRoomType, numbericRoomCapacity }))
                 MessageBox.Show("Không được để trống bất kì thông tin nào ngoại trừ \"Mô tả\"");
             //Kiểm tra định dạng của các textbox
             if (!ControlHelper.IsAllTextIsNumber(new List<Control> { txtRoomPrice }))
@@ -211,7 +211,7 @@ namespace HotelManagement.Forms
             else
             {
                 //Lưu vào CSDL
-                DataProvider.SaveAllRooms(txtRoomId.Text, numbericRoomCapacity.Text,
+                DataProvider.InsertRoomToDB(txtRoomId.Text, numbericRoomCapacity.Text,
                     comboRoomType.SelectedItem.ToString(), Double.Parse(txtRoomPrice.Text), txtRoomDes.Text);
             }
         }
@@ -219,7 +219,7 @@ namespace HotelManagement.Forms
         //Sự kiện cập nhật thông tin phòng
         private void btnUpdateRoom_Click(object sender, EventArgs e)
         {
-            if (ControlHelper.IsAllControlEmpty(new List<Control> { txtRoomId, txtRoomPrice, comboRoomType, numbericRoomCapacity }))
+            if (ControlHelper.IsAnyControlEmpty(new List<Control> { txtRoomId, txtRoomPrice, comboRoomType, numbericRoomCapacity }))
                 MessageBox.Show("Không được để trống bất kì thông tin nào ngoại trừ \"Mô tả\"");
             //Kiểm tra định dạng của các textbox
             if (!ControlHelper.IsAllTextIsNumber(new List<Control> { txtRoomPrice }))
@@ -499,10 +499,41 @@ namespace HotelManagement.Forms
             return vndAmount;
         }
 
-        //Kiểm soát số phòng mà người đó đặt -> Mỗi người chỉ dc đặt 1 phòng
-        private void dtgvBookingSelectedRoom_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        //Chức năng đăng ký tài khoản cho khách hàng
+        private void btnRegisAddNewCustomer_Click(object sender, EventArgs e)
         {
+            if (ControlHelper.IsAnyControlEmpty(new List<Control> { txtRegisCustomerId, txtRegisCustomerAddress,
+                txtRegisCustomerEmail, txtRegisCustomerName, txtRegisCustomerPhone }))
+            {
+                ShowMessageInfo("Phải điền tất cả thông tin ngoại trừ Ghi chú có thể điền hoặc không");
+            }
+            else if (DateTime.Now.Year - dtRegisCustomerBirthDate.Value.Year < 18)
+            {
+                ShowMessageInfo("Chỉ đăng ký cho khách hàng trên 18 tuổi");
+            }
+            else if (!radioRegisGenderFemale.Checked && !radioRegisGenderMale.Checked)
+            {
+                ShowMessageInfo("Vui lòng chọn giới tính");
+            }
+            else
+            {
+                // Lưu thông tin vào lớp
+                var id = txtRegisCustomerId.Text;
+                var name = txtRegisCustomerName.Text;
+                var birthDate = dtRegisCustomerBirthDate.Value;
+                var gender = (radioRegisGenderFemale.Checked) ? "Nữ" : "Nam";
+                var address = txtRegisCustomerAddress.Text;
+                var phone = txtRegisCustomerPhone.Text;
+                var email = txtRegisCustomerEmail.Text;
+                var dateJoined = dtRegisCustomerDateJoined.Value;
+                var note = txtRegisCustomerNote.Text;
 
+                Customer customer = new Customer(name,birthDate,gender,address,phone,email,id,dateJoined,note);
+                DataProvider.Customers.Add(customer);
+
+                //lưu thông tin vào csdl
+                DataProvider.InsertCustomerToDB(id,name,birthDate,gender,address,phone,email,dateJoined,note);
+            }
         }
     }
 }
