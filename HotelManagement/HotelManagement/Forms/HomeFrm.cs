@@ -96,12 +96,12 @@ namespace HotelManagement.Forms
                     {
                         DataProvider.GetAllCustomer();
                         //Xóa dữ liệu trong bảng hiện tại
-                        dtgvCustomer.Rows.Clear();
+                        dtgvInfoCustomer.Rows.Clear();
 
                         //Truyền dữ liệu từ danh sách vào DataGridView
                         foreach (var customer in DataProvider.Customers)
                         {
-                            dtgvCustomer.Rows.Add(
+                            dtgvInfoCustomer.Rows.Add(
                                 customer.CustomerID,
                                 customer.FullName,
                                 customer.DateOfBirth.ToString("dd/MM/yyyy"),
@@ -528,12 +528,85 @@ namespace HotelManagement.Forms
                 var dateJoined = dtRegisCustomerDateJoined.Value;
                 var note = txtRegisCustomerNote.Text;
 
-                Customer customer = new Customer(name,birthDate,gender,address,phone,email,id,dateJoined,note);
+                Customer customer = new Customer(name, birthDate, gender, address, phone, email, id, dateJoined, note);
                 DataProvider.Customers.Add(customer);
 
                 //lưu thông tin vào csdl
-                DataProvider.InsertCustomerToDB(id,name,birthDate,gender,address,phone,email,dateJoined,note);
+                DataProvider.InsertCustomerToDB(id, name, birthDate, gender, address, phone, email, dateJoined, note);
             }
+        }
+
+        //Chức năng tìm kiếm thông tin khách hàng
+        private void btnInfoFindCustomer_Click(object sender, EventArgs e)
+        {
+            if (comboInfoCriteria.SelectedIndex < 0)
+            {
+                ShowMessageInfo("Vui lòng chọn tiêu chí");
+            }
+            else if (txtInfoContentFind.Text == "")
+            {
+                ShowMessageInfo("Vui lòng điền nội dung tìm kiếm");
+            }
+            else
+            {
+                var content = txtInfoContentFind.Text;
+                string columnSearch = "";
+                switch (comboInfoCriteria.SelectedIndex)
+                {
+
+                    case 0:
+                        {
+                            //Tìm theo CCCD
+                            columnSearch = "CustomerId";
+                            break;
+                        }
+                    case 1:
+                        {
+                            //Tìm theo họ tên
+                            columnSearch = "FullName";
+                            break;
+                        }
+                    case 2:
+                        {
+                            //TÌm theo ngày sinh
+                            columnSearch = "DateOfBirth";
+                            break;
+                        }
+                    case 3:
+                        {
+                            //TÌm theo Giới tính
+                            columnSearch = "Gender";
+                            break;
+                        }
+                    case 4:
+                        {
+                            //TÌm theo SĐT
+                            columnSearch = "PhoneNumber";
+                            break;
+                        }
+                    case 5:
+                        {
+                            //TÌm theo Email
+                            columnSearch = "Email";
+                            break;
+                        }
+                    case 6:
+                        {
+                            //TÌm theo ngày tham gia
+                            columnSearch = "DateJoined";
+                            break;
+                        }
+                }
+                var foundCustomer = DataProvider.FindCustomer(columnSearch, content);
+                DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, foundCustomer);
+            }
+        }
+
+        //Refresh lại bảng customer
+        private void btnInfoCustomerRefresh_Click(object sender, EventArgs e)
+        {
+            DataProvider.GetAllCustomer();
+            DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer,DataProvider.Customers);
         }
     }
 }

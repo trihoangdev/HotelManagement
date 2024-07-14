@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Net;
 using System.Security.Cryptography;
+using System.Web.Security;
 using System.Windows.Forms;
 
 namespace HotelManagement.ClassFolder
@@ -127,7 +128,7 @@ namespace HotelManagement.ClassFolder
                 try
                 {
                     // Kiểm tra trạng thái kết nối trước khi mở
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Closed)
+                    if (DatabaseConnection.Instance.Connection.State == ConnectionState.Closed)
                     {
                         DatabaseConnection.Instance.Connection.Open();
                     }
@@ -147,7 +148,7 @@ namespace HotelManagement.ClassFolder
                             DateTime dateJoined = (DateTime)reader["DateJoined"];
                             string notes = reader["Notes"].ToString();
 
-                            Customer customer = new Customer(fullname, dateJoined, gender, address, phone, email, id, dateJoined, notes);
+                            Customer customer = new Customer(fullname, birthDate, gender, address, phone, email, id, dateJoined, notes);
 
                             Customers.Add(customer);
                         }
@@ -161,7 +162,7 @@ namespace HotelManagement.ClassFolder
                 finally
                 {
                     // Đảm bảo rằng kết nối được đóng
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Open)
+                    if (DatabaseConnection.Instance.Connection.State == ConnectionState.Open)
                     {
                         DatabaseConnection.Instance.Connection.Close();
                     }
@@ -292,7 +293,7 @@ namespace HotelManagement.ClassFolder
         }
 
         //Lưu thông tin Customer vào CSDL
-        public static void InsertCustomerToDB(string id, string name,DateTime birthDate, string gender, string address, string phone, string email, DateTime dateJoined, string note)
+        public static void InsertCustomerToDB(string id, string name, DateTime birthDate, string gender, string address, string phone, string email, DateTime dateJoined, string note)
         {
             using (SqlCommand command = new SqlCommand(
                 "INSERT INTO Customers (CustomerID, FullName, DateOfBirth, Gender, Address, PhoneNumber, Email, DateJoined, Notes) " +
@@ -379,6 +380,7 @@ namespace HotelManagement.ClassFolder
                 MessageBox.Show("Lỗi khi điền dữ liệu vào DataGridView: " + ex.Message);
             }
         }
+
         public static void FillDataGridViewBooking(Guna2DataGridView dtgv, List<Room> rooms)
         {
             //xóa các dòng trong bảng
@@ -390,7 +392,18 @@ namespace HotelManagement.ClassFolder
                 dtgv.Rows.Add(room.Id, room.Type, room.Price, "Thêm");
             }
         }
+        public static void FillDataGridViewCustomer(Guna2DataGridView dtgv, List<Customer> customers)
+        {
+            //xóa các dòng trong bảng
+            dtgv.Rows.Clear();
 
+            //điền dữ liệu vào bảng
+            foreach (Customer c in customers)
+            {
+                dtgv.Rows.Add(c.CustomerID, c.FullName, c.DateOfBirth.ToString("dd/MM/yyyy"),
+                    c.Gender, c.Email, c.PhoneNumber, c.DateJoined.ToString("dd/MM/yyyy"), c.Notes, "Sửa");
+            }
+        }
         public static void RemoveRoom(string id)
         {
             using (SqlCommand command = new SqlCommand(
@@ -414,6 +427,7 @@ namespace HotelManagement.ClassFolder
                 }
             }
         }
+
         public static List<Room> FindEmptyRoomByCapacity(string capacity)
         {
             if (RoomFilter.Count == 0)
@@ -452,6 +466,7 @@ namespace HotelManagement.ClassFolder
                 return RoomFilter;
             }
         }
+
         public static List<Room> FindRoomByCapacity(string capacity)
         {
             if (RoomFilter.Count == 0)
@@ -535,6 +550,53 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        public static List<Customer> FindCustomer(string columnName, string content)
+        {
+            var foundedCustomers = new List<Customer>();
+
+            string query = $"SELECT * FROM Customers WHERE {columnName} LIKE @content";
+
+            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Instance.Connection))
+            {
+                command.Parameters.AddWithValue("@content", "%" + content + "%");
+
+                try
+                {
+                    DatabaseConnection.Instance.Connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Customer customer = new Customer
+                            {
+                                CustomerID = reader["CustomerID"].ToString(),
+                                FullName = reader["FullName"].ToString(),
+                                DateOfBirth = reader["DateOfBirth"] != DBNull.Value ? Convert.ToDateTime(reader["DateOfBirth"]) : DateTime.MinValue,
+                                Gender = reader["Gender"].ToString(),
+                                Address = reader["Address"].ToString(),
+                                PhoneNumber = reader["PhoneNumber"].ToString(),
+                                Email = reader["Email"].ToString(),
+                                DateJoined = reader["DateJoined"] != DBNull.Value ? Convert.ToDateTime(reader["DateJoined"]) : DateTime.MinValue,
+                                Notes = reader["Notes"].ToString()
+                            };
+                            foundedCustomers.Add(customer);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle exceptions
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    DatabaseConnection.Instance.Connection.Close();
+                }
+            }
+
+            return foundedCustomers;
+        }
+
         public static void ClearDataGridView(Guna2DataGridView dtgvBookingSelectedRoom)
         {
             // Xóa tất cả các dòng trong DataGridView
@@ -606,6 +668,6 @@ namespace HotelManagement.ClassFolder
 
         }
 
-        
+
     }
 }
