@@ -18,6 +18,7 @@ namespace HotelManagement.ClassFolder
         public static List<Employee> Employees = new List<Employee>();
         public static List<Customer> Customers = new List<Customer>();
         public static List<Room> Rooms = new List<Room>();
+        public static List<Room> EmptyRooms = new List<Room>();
         public static List<Room> RoomFilter = new List<Room>();
         public static List<RoomBooking> RoomBookings = new List<RoomBooking>();
         static DataProvider()
@@ -214,6 +215,52 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        public static void GetAllEmptyRooms()
+        {
+            using (SqlCommand command = new SqlCommand("SELECT * from Rooms WHERE Status = N'Trống'", DatabaseConnection.Instance.Connection))
+            {
+                try
+                {
+                    // Kiểm tra trạng thái kết nối trước khi mở
+                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Closed)
+                    {
+                        DatabaseConnection.Instance.Connection.Open();
+                    }
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Xóa danh sách cũ trước khi tải mới
+                        Rooms.Clear();
+                        while (reader.Read())
+                        {
+                            string id = reader["RoomID"].ToString();
+                            string type = reader["RoomType"].ToString();
+                            int capacity = (int)reader["Capacity"];
+                            double price = Convert.ToDouble(reader["Price"]);
+                            string status = reader["Status"].ToString();
+                            string des = reader["Description"].ToString();
+
+                            Room r = new Room(id, type, capacity, price, status, des);
+
+                            EmptyRooms.Add(r);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Xử lý các lỗi nếu có
+                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+                }
+                finally
+                {
+                    // Đảm bảo rằng kết nối được đóng
+                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Open)
+                    {
+                        DatabaseConnection.Instance.Connection.Close();
+                    }
+                }
+            }
+        }
+
         public static void SaveAllRooms(string id, string cap, string type, double price, string des)
         {
             using (SqlCommand command = new SqlCommand(
@@ -299,48 +346,14 @@ namespace HotelManagement.ClassFolder
         }
         public static void FillDataGridViewBooking(Guna2DataGridView dtgv, List<Room> rooms)
         {
+            //xóa các dòng trong bảng
             dtgv.Rows.Clear();
-            foreach (Room room in rooms)
+        
+            //điền dữ liệu vào bảng
+            foreach(Room room in rooms)
             {
-                int rowIndex = dtgv.Rows.Add();
-                dtgv.Rows[rowIndex].Cells[0].Value = room.Id;
-                dtgv.Rows[rowIndex].Cells[1].Value = room.Type;
-                dtgv.Rows[rowIndex].Cells[2].Value = room.Price;
-                dtgv.Rows[rowIndex].Cells[3].Value = "Thêm";
-            }
-        }
-        public static void FillDataGridViewBooking(Guna2DataGridView dtgv, string tableName, List<string> columns)
-        {
-            try
-            {
-                string connectionString = "Data Source=HOANGMINHTRI\\SQLEXPRESS;Initial Catalog=HotelManagement;Integrated Security=True;TrustServerCertificate=true";
-                string selectQuery = $"SELECT {columns[0]}, {columns[1]}, {columns[2]} FROM {tableName}";
-
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, connection);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-
-                    // Xóa dữ liệu cũ
-                    dtgv.Rows.Clear();
-
-
-                    // Gán dữ liệu vào DataGridView
-                    foreach (DataRow row in dataTable.Rows)
-                    {
-                        int rowIndex = dtgv.Rows.Add();
-                        dtgv.Rows[rowIndex].Cells[0].Value = row[columns[0]];
-                        dtgv.Rows[rowIndex].Cells[1].Value = row[columns[1]];
-                        dtgv.Rows[rowIndex].Cells[2].Value = row[columns[2]];
-                        dtgv.Rows[rowIndex].Cells[3].Value = "Thêm";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi điền dữ liệu vào DataGridView: " + ex.Message);
-            }
+                dtgv.Rows.Add(room.Id, room.Type, room.Price, "Thêm");
+            }    
         }
 
         public static void RemoveRoom(string id)
@@ -364,6 +377,44 @@ namespace HotelManagement.ClassFolder
                 {
                     DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
                 }
+            }
+        }
+        public static List<Room> FindEmptyRoomByCapacity(string capacity)
+        {
+            if (RoomFilter.Count == 0)
+            {
+                if (capacity == "Phòng đơn")
+                {
+                    foreach (var room in EmptyRooms)
+                        if (room.Capacity <= 2)
+                            RoomFilter.Add(room);
+                }
+                else
+                {
+                    foreach (var room in EmptyRooms)
+                        if (room.Capacity > 2)
+                            RoomFilter.Add(room);
+                }
+                return RoomFilter;
+            }
+            else
+            {
+                //đã có ít nhất 1 phần tử thì tự filter trong nó
+                var filter2 = new List<Room>();
+                if (capacity == "Phòng đơn")
+                {
+                    foreach (var room in RoomFilter)
+                        if (room.Capacity <= 2)
+                            filter2.Add(room);
+                }
+                else
+                {
+                    foreach (var room in RoomFilter)
+                        if (room.Capacity > 2)
+                            filter2.Add(room);
+                }
+                RoomFilter = filter2; //lọc hoàn tất
+                return RoomFilter;
             }
         }
         public static List<Room> FindRoomByCapacity(string capacity)
@@ -405,7 +456,29 @@ namespace HotelManagement.ClassFolder
             }
         }
 
-        internal static List<Room> FindRoomByType(string type)
+        public static List<Room> FindEmptyRoomByType(string type)
+        {
+            if (RoomFilter.Count == 0)
+            {
+                foreach (var room in EmptyRooms)
+                    if (room.Type == type)
+                        RoomFilter.Add(room);
+                return RoomFilter;
+            }
+            else
+            {
+                //đã có ít nhất 1 phần tử thì tự filter trong nó
+                var filter2 = new List<Room>();
+
+                foreach (var room in RoomFilter)
+                    if (room.Type == type)
+                        filter2.Add(room);
+                RoomFilter = filter2;
+                return RoomFilter;
+            }
+        }
+
+        public static List<Room> FindRoomByType(string type)
         {
             if (RoomFilter.Count == 0)
             {
@@ -498,6 +571,6 @@ namespace HotelManagement.ClassFolder
 
         }
 
-
+        
     }
 }

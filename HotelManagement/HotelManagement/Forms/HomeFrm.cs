@@ -72,6 +72,7 @@ namespace HotelManagement.Forms
             DataProvider.GetAllCustomer();
             DataProvider.GetAllLogins();
             DataProvider.GetAllRooms();
+            DataProvider.GetAllEmptyRooms();
 
             emp = emp.FindEmpById(DataProvider.Employees, empId);
         }
@@ -151,7 +152,7 @@ namespace HotelManagement.Forms
             DataProvider.ClearDataGridView(dtgvBookingRoom);
 
             //Load data vào bảng phòng
-            DataProvider.FillDataGridViewBooking(dtgvBookingRoom, "Rooms", new List<string> { "RoomId", "RoomType", "Price" });
+            DataProvider.FillDataGridViewBooking(dtgvBookingRoom, DataProvider.EmptyRooms);
 
             //Clear data của bảng select room
             DataProvider.ClearDataGridView(dtgvBookingSelectedRoom);
@@ -295,12 +296,12 @@ namespace HotelManagement.Forms
             if (radBookingSingleRoom.Checked)
             {
                 //lọc các phòng đơn
-                rooms = DataProvider.FindRoomByCapacity(radBookingSingleRoom.Text);
+                rooms = DataProvider.FindEmptyRoomByCapacity(radBookingSingleRoom.Text);
             }
             else
             {
                 //lọc các phòng đôi
-                rooms = DataProvider.FindRoomByCapacity(radBookingDoubleRoom.Text);
+                rooms = DataProvider.FindEmptyRoomByCapacity(radBookingDoubleRoom.Text);
             }
             DataProvider.FillDataGridViewBooking(dtgvBookingRoom, rooms);
         }
