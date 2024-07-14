@@ -60,6 +60,7 @@
     <Compile Include="ClassFolder\Login.cs" />
     <Compile Include="ClassFolder\Person.cs" />
     <Compile Include="ClassFolder\Room.cs" />
+    <Compile Include="ClassFolder\RoomBooking.cs" />
     <Compile Include="Forms\HomeFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +82,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\HomeFrm.resx">
       <DependentUpon>HomeFrm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginFrm.resx">
       <DependentUpon>LoginFrm.cs</DependentUpon>

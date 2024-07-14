@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Net;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace HotelManagement.ClassFolder
@@ -16,6 +19,7 @@ namespace HotelManagement.ClassFolder
         public static List<Customer> Customers = new List<Customer>();
         public static List<Room> Rooms = new List<Room>();
         public static List<Room> RoomFilter = new List<Room>();
+        public static List<RoomBooking> RoomBookings = new List<RoomBooking>();
         static DataProvider()
         {
             dbConnection = DatabaseConnection.Instance;
@@ -422,5 +426,78 @@ namespace HotelManagement.ClassFolder
                 return RoomFilter;
             }
         }
+
+        public static void ClearDataGridView(Guna2DataGridView dtgvBookingSelectedRoom)
+        {
+            // Xóa tất cả các dòng trong DataGridView
+            dtgvBookingSelectedRoom.Rows.Clear();
+        }
+
+        public static Room FindRoomById(string id)
+        {
+            foreach (var room in Rooms)
+                if (room.Id == id)
+                    return room;
+            return null;
+        }
+
+        //Lưu thông tin book phòng vào csdl đồng thời cập nhật trạng thái phòng
+        public static void SaveBookingRoom(RoomBooking roomBooking)
+        {
+            //Lưu thông tin vào CSDL
+            using (SqlCommand command = new SqlCommand(
+              "INSERT INTO RoomBookings (CustomerID, RoomID, CheckInDate, CheckOutDate, NumberOfGuests,TotalPrice,BookingStatus,Notes)" +
+              " VALUES ( @CustomerID, @RoomID, @CheckInDate, @CheckOutDate, @NumberOfGuests, @TotalPrice, @BookingStatus, @Notes)",
+              DatabaseConnection.Instance.Connection))
+            {
+                command.Parameters.AddWithValue("@RoomID", roomBooking.RoomId);
+                command.Parameters.AddWithValue("@CustomerID", roomBooking.CustomerId);
+                command.Parameters.AddWithValue("@CheckInDate", roomBooking.CheckInDate);
+                command.Parameters.AddWithValue("@CheckOutDate", roomBooking.CheckOutDate);
+                command.Parameters.AddWithValue("@NumberOfGuests", roomBooking.NumberOfGuests);
+                command.Parameters.AddWithValue("@TotalPrice", roomBooking.TotalPrice);
+                command.Parameters.AddWithValue("@BookingStatus", roomBooking.BookingStatus);
+                command.Parameters.AddWithValue("@Notes", roomBooking.Notes);
+                try
+                {
+                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    int rowsAffected = command.ExecuteNonQuery();
+                    MessageBox.Show("Thêm dữ liệu đặt phòng thành công!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+                finally
+                {
+                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                }
+            }
+
+            //Cập nhật trạng thái phòng
+            using (SqlCommand command = new SqlCommand("" +
+                "Update Rooms Set Status = N'Đã đặt' Where RoomID = @RoomID", 
+                DatabaseConnection.Instance.Connection))
+            {
+                command.Parameters.AddWithValue("@RoomID", roomBooking.RoomId);
+                try
+                {
+                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    int rowsAffected = command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+                finally
+                {
+                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                }
+            }    
+
+
+        }
+
+
     }
 }

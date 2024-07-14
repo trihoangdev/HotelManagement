@@ -77,12 +77,12 @@
             this.hotelManagementDataSet = new HotelManagement.HotelManagementDataSet();
             this.tabRoomBooking = new System.Windows.Forms.TabPage();
             this.imgBookingFindCustomer = new Guna.UI2.WinForms.Guna2ImageButton();
-            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnBooking = new Guna.UI2.WinForms.Guna2Button();
             this.dtgvBookingSelectedRoom = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.colBookRoomIdInfo = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.colBookRoomIdInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colBookRoomTypeInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colBookRoomPriceInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colBookRoomRemove = new System.Windows.Forms.DataGridViewImageColumn();
+            this.colBookRoomRemove = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dtgvBookingRoom = new Guna.UI2.WinForms.Guna2DataGridView();
             this.colBookRoomId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colBookRoomTyope = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -649,7 +649,7 @@
             // tabRoomBooking
             // 
             this.tabRoomBooking.Controls.Add(this.imgBookingFindCustomer);
-            this.tabRoomBooking.Controls.Add(this.guna2Button1);
+            this.tabRoomBooking.Controls.Add(this.btnBooking);
             this.tabRoomBooking.Controls.Add(this.dtgvBookingSelectedRoom);
             this.tabRoomBooking.Controls.Add(this.dtgvBookingRoom);
             this.tabRoomBooking.Controls.Add(this.gbBookingRoomType);
@@ -695,21 +695,22 @@
             this.imgBookingFindCustomer.TabIndex = 36;
             this.imgBookingFindCustomer.Click += new System.EventHandler(this.imgBookingFindCustomer_Click);
             // 
-            // guna2Button1
+            // btnBooking
             // 
-            this.guna2Button1.BorderRadius = 10;
-            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button1.ForeColor = System.Drawing.Color.Black;
-            this.guna2Button1.Location = new System.Drawing.Point(769, 694);
-            this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(232, 52);
-            this.guna2Button1.TabIndex = 34;
-            this.guna2Button1.Text = "Đặt phòng";
+            this.btnBooking.BorderRadius = 10;
+            this.btnBooking.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBooking.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBooking.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBooking.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBooking.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnBooking.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBooking.ForeColor = System.Drawing.Color.Black;
+            this.btnBooking.Location = new System.Drawing.Point(769, 711);
+            this.btnBooking.Name = "btnBooking";
+            this.btnBooking.Size = new System.Drawing.Size(232, 52);
+            this.btnBooking.TabIndex = 34;
+            this.btnBooking.Text = "Đặt phòng";
+            this.btnBooking.Click += new System.EventHandler(this.btnBooking_Click);
             // 
             // dtgvBookingSelectedRoom
             // 
@@ -753,7 +754,7 @@
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dtgvBookingSelectedRoom.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dtgvBookingSelectedRoom.RowHeadersVisible = false;
-            this.dtgvBookingSelectedRoom.Size = new System.Drawing.Size(358, 305);
+            this.dtgvBookingSelectedRoom.Size = new System.Drawing.Size(358, 328);
             this.dtgvBookingSelectedRoom.TabIndex = 33;
             this.dtgvBookingSelectedRoom.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.Carrot;
             this.dtgvBookingSelectedRoom.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(216)))), ((int)(((byte)(189)))));
@@ -777,6 +778,8 @@
             this.dtgvBookingSelectedRoom.ThemeStyle.RowsStyle.Height = 22;
             this.dtgvBookingSelectedRoom.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
             this.dtgvBookingSelectedRoom.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvBookingSelectedRoom.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvBookingSelectedRoom_CellContentClick);
+            this.dtgvBookingSelectedRoom.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dtgvBookingSelectedRoom_RowsAdded);
             // 
             // colBookRoomIdInfo
             // 
@@ -784,7 +787,6 @@
             this.colBookRoomIdInfo.Name = "colBookRoomIdInfo";
             this.colBookRoomIdInfo.ReadOnly = true;
             this.colBookRoomIdInfo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colBookRoomIdInfo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // colBookRoomTypeInfo
             // 
@@ -801,9 +803,9 @@
             // colBookRoomRemove
             // 
             this.colBookRoomRemove.HeaderText = "Bỏ";
-            this.colBookRoomRemove.Image = global::HotelManagement.Properties.Resources.minus;
             this.colBookRoomRemove.Name = "colBookRoomRemove";
             this.colBookRoomRemove.ReadOnly = true;
+            this.colBookRoomRemove.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // dtgvBookingRoom
             // 
@@ -847,7 +849,7 @@
             dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dtgvBookingRoom.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dtgvBookingRoom.RowHeadersVisible = false;
-            this.dtgvBookingRoom.Size = new System.Drawing.Size(358, 305);
+            this.dtgvBookingRoom.Size = new System.Drawing.Size(358, 328);
             this.dtgvBookingRoom.TabIndex = 32;
             this.dtgvBookingRoom.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.Carrot;
             this.dtgvBookingRoom.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(216)))), ((int)(((byte)(189)))));
@@ -871,6 +873,7 @@
             this.dtgvBookingRoom.ThemeStyle.RowsStyle.Height = 22;
             this.dtgvBookingRoom.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
             this.dtgvBookingRoom.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvBookingRoom.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvBookingRoom_CellContentClick);
             // 
             // colBookRoomId
             // 
@@ -2696,7 +2699,7 @@
         private Guna.UI2.WinForms.Guna2DataGridView dtgvBookingRoom;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private Guna.UI2.WinForms.Guna2DataGridView dtgvBookingSelectedRoom;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
+        private Guna.UI2.WinForms.Guna2Button btnBooking;
         private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView3;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBillId;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBillCustomerId;
@@ -2764,14 +2767,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colBookRoomTyope;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBookRoomPrice;
         private System.Windows.Forms.DataGridViewButtonColumn colBookRoomAdd;
-        private System.Windows.Forms.DataGridViewButtonColumn colBookRoomIdInfo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colBookRoomTypeInfo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colBookRoomPriceInfo;
-        private System.Windows.Forms.DataGridViewImageColumn colBookRoomRemove;
         private System.Windows.Forms.RadioButton radBookingTypeSuite;
         private System.Windows.Forms.RadioButton radBookingTypeDeluxe;
         private System.Windows.Forms.RadioButton radBookingTypeStandard;
         private System.Windows.Forms.RadioButton radBookingDoubleRoom;
         private System.Windows.Forms.RadioButton radBookingSingleRoom;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colBookRoomIdInfo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colBookRoomTypeInfo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colBookRoomPriceInfo;
+        private System.Windows.Forms.DataGridViewButtonColumn colBookRoomRemove;
     }
 }
