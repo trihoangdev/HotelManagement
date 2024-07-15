@@ -283,7 +283,7 @@ namespace HotelManagement.ClassFolder
                             DateTime checkOutDate = (DateTime)reader["CheckOutDate"];
                             int numberOfGuests = (int)reader["NumberOfGuests"];
                             double totalPrice = Convert.ToDouble(reader["TotalPrice"]);
-                            string bookingStatus = reader["Status"].ToString();
+                            string bookingStatus = reader["BookingStatus"].ToString();
                             string notes = reader["Notes"].ToString();
 
                             RoomBooking roomBooking = new RoomBooking(id,customerID,roomId,checkInDate,checkOutDate,numberOfGuests,totalPrice,bookingStatus,notes);
@@ -354,6 +354,8 @@ namespace HotelManagement.ClassFolder
                 }
             }
         }
+
+        //Lưu thông tin phòng vào CSDL
         public static void InsertRoomToDB(string id, string cap, string type, double price, string des)
         {
             using (SqlCommand command = new SqlCommand(
@@ -589,6 +591,25 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        public static void FillDataGridViewInvoice(Guna2DataGridView dtgv)
+        {
+            //xóa các dòng trong bảng
+            dtgv.Rows.Clear();
+            //load lại dữ liệu của hóa đơn và đặt phòng
+            GetAllInvoice();
+            GetAllRoomBooking();
+
+            //điền dữ liệu vào bảng
+            foreach (Invoice invoice in Invoices)
+            {
+                RoomBooking b = FindRoomBookingById(invoice.BookingID); //tìm phòng có mã hợp
+                Customer customer = FindCustomerById(b.CustomerId);
+                dtgv.Rows.Add(invoice.InvoiceID, customer.CustomerID, customer.FullName,b.RoomId, b.CheckInDate.ToString("dd/MM/yyyy"),invoice.PaymentStatus.ToString(),"Thanh toán");
+            }
+        }
+
+        
+
         public static void RemoveRoom(string id)
         {
             using (SqlCommand command = new SqlCommand(
@@ -796,6 +817,19 @@ namespace HotelManagement.ClassFolder
             return null;
         }
 
-        
+        public static RoomBooking FindRoomBookingById(int bookingID)
+        {
+            foreach (var r in RoomBookings)
+                if (r.Id == bookingID)
+                    return r;
+            return null;
+        }
+        public static Customer FindCustomerById(string customerId)
+        {
+            foreach(var customer in Customers)
+                if(customer.CustomerID == customerId.Trim())
+                    return customer;
+            return null;
+        }
     }
 }

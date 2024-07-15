@@ -73,6 +73,8 @@ namespace HotelManagement.Forms
             DataProvider.GetAllLogins();
             DataProvider.GetAllRooms();
             DataProvider.GetAllEmptyRooms();
+            DataProvider.GetAllRoomBooking();
+            DataProvider.GetAllInvoice();
 
             emp = emp.FindEmpById(DataProvider.Employees, empId);
         }
@@ -86,6 +88,7 @@ namespace HotelManagement.Forms
                         SetupManageRoomTab();
                         break;
                     }
+
                 case 1:
                     {
                         SetupBookingtab();
@@ -115,6 +118,12 @@ namespace HotelManagement.Forms
                         break;
                     }
 
+                case 4:
+                    {
+                        SetupInvoiceTab();
+                        break;
+                    }
+
                 case 6:
                     {
                         txtInfoEmpName.Text = emp.FullName.ToString();
@@ -132,10 +141,18 @@ namespace HotelManagement.Forms
             }
         }
 
+        //setup cho tab hóa đơn
+        private void SetupInvoiceTab()
+        {
+            dtgvInfoCustomer.Rows.Clear();
+            DataProvider.GetAllInvoice();
+            DataProvider.FillDataGridViewInvoice(dtgvInvoice);
+        }
+
         //set up cho tab quản lý phòng
         private void SetupManageRoomTab()
         {
-            DataProvider.GetAllRooms();
+            DataProvider.GetAllInvoice();
             DataProvider.FillDataGridView(dtgvRoom, "Rooms");
         }
 

@@ -144,18 +144,27 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.dtgvInfoCustomer = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.colCustomerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCustomerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCustomerBirthDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCustomerGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCustomerEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCustomerPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCustomerDateJoin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCustomerNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCustmerEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabCheckout = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.guna2ImageButton3 = new Guna.UI2.WinForms.Guna2ImageButton();
-            this.guna2TextBox7 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.btnInvoiceFind = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.txtInvoiceContentFind = new Guna.UI2.WinForms.Guna2TextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.guna2ComboBox3 = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.comboInvoiceCriteria = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label25 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.guna2RadioButton10 = new Guna.UI2.WinForms.Guna2RadioButton();
-            this.guna2RadioButton8 = new Guna.UI2.WinForms.Guna2RadioButton();
-            this.guna2RadioButton9 = new Guna.UI2.WinForms.Guna2RadioButton();
-            this.guna2DataGridView3 = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.radInvoiceAll = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.radInvoiceNotPaid = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.radInvoicePaid = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.dtgvInvoice = new Guna.UI2.WinForms.Guna2DataGridView();
             this.colBillId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colBillCustomerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colBillCustomerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -193,15 +202,6 @@
             this.guna2ControlBox2 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.roomsTableAdapter = new HotelManagement.HotelManagementDataSetTableAdapters.RoomsTableAdapter();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.colCustomerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCustomerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCustomerBirthDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCustomerGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCustomerEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCustomerPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCustomerDateJoin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCustomerNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCustmerEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.controlTabHome.SuspendLayout();
             this.tabRoom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numbericRoomCapacity)).BeginInit();
@@ -220,7 +220,7 @@
             this.tabCheckout.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvInvoice)).BeginInit();
             this.tabEmpInfo.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -1802,11 +1802,72 @@
             this.dtgvInfoCustomer.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
             this.dtgvInfoCustomer.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
             // 
+            // colCustomerId
+            // 
+            this.colCustomerId.FillWeight = 121.8274F;
+            this.colCustomerId.HeaderText = "CCCD/CMND/Hộ chiếu";
+            this.colCustomerId.Name = "colCustomerId";
+            // 
+            // colCustomerName
+            // 
+            this.colCustomerName.FillWeight = 96.8818F;
+            this.colCustomerName.HeaderText = "Họ tên KH";
+            this.colCustomerName.Name = "colCustomerName";
+            this.colCustomerName.ReadOnly = true;
+            // 
+            // colCustomerBirthDate
+            // 
+            this.colCustomerBirthDate.FillWeight = 96.8818F;
+            this.colCustomerBirthDate.HeaderText = "Ngày sinh ";
+            this.colCustomerBirthDate.Name = "colCustomerBirthDate";
+            this.colCustomerBirthDate.ReadOnly = true;
+            // 
+            // colCustomerGender
+            // 
+            this.colCustomerGender.FillWeight = 96.8818F;
+            this.colCustomerGender.HeaderText = "Giới tính";
+            this.colCustomerGender.Name = "colCustomerGender";
+            this.colCustomerGender.ReadOnly = true;
+            // 
+            // colCustomerEmail
+            // 
+            this.colCustomerEmail.FillWeight = 96.8818F;
+            this.colCustomerEmail.HeaderText = "Email";
+            this.colCustomerEmail.Name = "colCustomerEmail";
+            this.colCustomerEmail.ReadOnly = true;
+            // 
+            // colCustomerPhone
+            // 
+            this.colCustomerPhone.HeaderText = "SĐT";
+            this.colCustomerPhone.Name = "colCustomerPhone";
+            this.colCustomerPhone.ReadOnly = true;
+            // 
+            // colCustomerDateJoin
+            // 
+            this.colCustomerDateJoin.FillWeight = 96.8818F;
+            this.colCustomerDateJoin.HeaderText = "Ngày tham gia";
+            this.colCustomerDateJoin.Name = "colCustomerDateJoin";
+            this.colCustomerDateJoin.ReadOnly = true;
+            // 
+            // colCustomerNote
+            // 
+            this.colCustomerNote.FillWeight = 96.8818F;
+            this.colCustomerNote.HeaderText = "Ghi chú";
+            this.colCustomerNote.Name = "colCustomerNote";
+            this.colCustomerNote.ReadOnly = true;
+            // 
+            // colCustmerEdit
+            // 
+            this.colCustmerEdit.FillWeight = 96.8818F;
+            this.colCustmerEdit.HeaderText = "Sửa thông tin";
+            this.colCustmerEdit.Name = "colCustmerEdit";
+            this.colCustmerEdit.Text = "Sửa";
+            // 
             // tabCheckout
             // 
             this.tabCheckout.Controls.Add(this.groupBox4);
             this.tabCheckout.Controls.Add(this.groupBox3);
-            this.tabCheckout.Controls.Add(this.guna2DataGridView3);
+            this.tabCheckout.Controls.Add(this.dtgvInvoice);
             this.tabCheckout.Location = new System.Drawing.Point(184, 4);
             this.tabCheckout.Name = "tabCheckout";
             this.tabCheckout.Padding = new System.Windows.Forms.Padding(3);
@@ -1817,10 +1878,10 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.guna2ImageButton3);
-            this.groupBox4.Controls.Add(this.guna2TextBox7);
+            this.groupBox4.Controls.Add(this.btnInvoiceFind);
+            this.groupBox4.Controls.Add(this.txtInvoiceContentFind);
             this.groupBox4.Controls.Add(this.label26);
-            this.groupBox4.Controls.Add(this.guna2ComboBox3);
+            this.groupBox4.Controls.Add(this.comboInvoiceCriteria);
             this.groupBox4.Controls.Add(this.label25);
             this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(535, 52);
@@ -1830,40 +1891,40 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Tìm kiếm";
             // 
-            // guna2ImageButton3
+            // btnInvoiceFind
             // 
-            this.guna2ImageButton3.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton3.HoverState.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2ImageButton3.Image = global::HotelManagement.Properties.Resources.find;
-            this.guna2ImageButton3.ImageOffset = new System.Drawing.Point(0, 0);
-            this.guna2ImageButton3.ImageRotate = 0F;
-            this.guna2ImageButton3.ImageSize = new System.Drawing.Size(32, 32);
-            this.guna2ImageButton3.Location = new System.Drawing.Point(485, 94);
-            this.guna2ImageButton3.Name = "guna2ImageButton3";
-            this.guna2ImageButton3.PressedState.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2ImageButton3.Size = new System.Drawing.Size(52, 50);
-            this.guna2ImageButton3.TabIndex = 11;
+            this.btnInvoiceFind.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnInvoiceFind.HoverState.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnInvoiceFind.Image = global::HotelManagement.Properties.Resources.find;
+            this.btnInvoiceFind.ImageOffset = new System.Drawing.Point(0, 0);
+            this.btnInvoiceFind.ImageRotate = 0F;
+            this.btnInvoiceFind.ImageSize = new System.Drawing.Size(32, 32);
+            this.btnInvoiceFind.Location = new System.Drawing.Point(485, 94);
+            this.btnInvoiceFind.Name = "btnInvoiceFind";
+            this.btnInvoiceFind.PressedState.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnInvoiceFind.Size = new System.Drawing.Size(52, 50);
+            this.btnInvoiceFind.TabIndex = 11;
             // 
-            // guna2TextBox7
+            // txtInvoiceContentFind
             // 
-            this.guna2TextBox7.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox7.DefaultText = "";
-            this.guna2TextBox7.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox7.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox7.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox7.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox7.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2TextBox7.ForeColor = System.Drawing.Color.Black;
-            this.guna2TextBox7.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox7.Location = new System.Drawing.Point(130, 103);
-            this.guna2TextBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.guna2TextBox7.Name = "guna2TextBox7";
-            this.guna2TextBox7.PasswordChar = '\0';
-            this.guna2TextBox7.PlaceholderText = "";
-            this.guna2TextBox7.SelectedText = "";
-            this.guna2TextBox7.Size = new System.Drawing.Size(348, 36);
-            this.guna2TextBox7.TabIndex = 10;
+            this.txtInvoiceContentFind.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtInvoiceContentFind.DefaultText = "";
+            this.txtInvoiceContentFind.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtInvoiceContentFind.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtInvoiceContentFind.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtInvoiceContentFind.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtInvoiceContentFind.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtInvoiceContentFind.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtInvoiceContentFind.ForeColor = System.Drawing.Color.Black;
+            this.txtInvoiceContentFind.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtInvoiceContentFind.Location = new System.Drawing.Point(130, 103);
+            this.txtInvoiceContentFind.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtInvoiceContentFind.Name = "txtInvoiceContentFind";
+            this.txtInvoiceContentFind.PasswordChar = '\0';
+            this.txtInvoiceContentFind.PlaceholderText = "";
+            this.txtInvoiceContentFind.SelectedText = "";
+            this.txtInvoiceContentFind.Size = new System.Drawing.Size(348, 36);
+            this.txtInvoiceContentFind.TabIndex = 10;
             // 
             // label26
             // 
@@ -1875,25 +1936,25 @@
             this.label26.TabIndex = 2;
             this.label26.Text = "Nội dung:";
             // 
-            // guna2ComboBox3
+            // comboInvoiceCriteria
             // 
-            this.guna2ComboBox3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ComboBox3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.guna2ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.guna2ComboBox3.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox3.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.guna2ComboBox3.ForeColor = System.Drawing.Color.Black;
-            this.guna2ComboBox3.ItemHeight = 30;
-            this.guna2ComboBox3.Items.AddRange(new object[] {
+            this.comboInvoiceCriteria.BackColor = System.Drawing.Color.Transparent;
+            this.comboInvoiceCriteria.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboInvoiceCriteria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboInvoiceCriteria.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.comboInvoiceCriteria.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.comboInvoiceCriteria.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.comboInvoiceCriteria.ForeColor = System.Drawing.Color.Black;
+            this.comboInvoiceCriteria.ItemHeight = 30;
+            this.comboInvoiceCriteria.Items.AddRange(new object[] {
             "Mã HĐ",
             "Mã KH",
             "Tên KH",
             "Mã Phòng"});
-            this.guna2ComboBox3.Location = new System.Drawing.Point(132, 48);
-            this.guna2ComboBox3.Name = "guna2ComboBox3";
-            this.guna2ComboBox3.Size = new System.Drawing.Size(262, 36);
-            this.guna2ComboBox3.TabIndex = 1;
+            this.comboInvoiceCriteria.Location = new System.Drawing.Point(132, 48);
+            this.comboInvoiceCriteria.Name = "comboInvoiceCriteria";
+            this.comboInvoiceCriteria.Size = new System.Drawing.Size(262, 36);
+            this.comboInvoiceCriteria.TabIndex = 1;
             // 
             // label25
             // 
@@ -1907,9 +1968,9 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.guna2RadioButton10);
-            this.groupBox3.Controls.Add(this.guna2RadioButton8);
-            this.groupBox3.Controls.Add(this.guna2RadioButton9);
+            this.groupBox3.Controls.Add(this.radInvoiceAll);
+            this.groupBox3.Controls.Add(this.radInvoiceNotPaid);
+            this.groupBox3.Controls.Add(this.radInvoicePaid);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(16, 79);
             this.groupBox3.Name = "groupBox3";
@@ -1918,70 +1979,70 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tình trạng";
             // 
-            // guna2RadioButton10
+            // radInvoiceAll
             // 
-            this.guna2RadioButton10.AutoSize = true;
-            this.guna2RadioButton10.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2RadioButton10.CheckedState.BorderThickness = 0;
-            this.guna2RadioButton10.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2RadioButton10.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2RadioButton10.CheckedState.InnerOffset = -4;
-            this.guna2RadioButton10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2RadioButton10.Location = new System.Drawing.Point(380, 41);
-            this.guna2RadioButton10.Name = "guna2RadioButton10";
-            this.guna2RadioButton10.Size = new System.Drawing.Size(68, 25);
-            this.guna2RadioButton10.TabIndex = 2;
-            this.guna2RadioButton10.Text = "Tất cả";
-            this.guna2RadioButton10.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2RadioButton10.UncheckedState.BorderThickness = 2;
-            this.guna2RadioButton10.UncheckedState.FillColor = System.Drawing.Color.Transparent;
-            this.guna2RadioButton10.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.radInvoiceAll.AutoSize = true;
+            this.radInvoiceAll.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.radInvoiceAll.CheckedState.BorderThickness = 0;
+            this.radInvoiceAll.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.radInvoiceAll.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.radInvoiceAll.CheckedState.InnerOffset = -4;
+            this.radInvoiceAll.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radInvoiceAll.Location = new System.Drawing.Point(380, 41);
+            this.radInvoiceAll.Name = "radInvoiceAll";
+            this.radInvoiceAll.Size = new System.Drawing.Size(68, 25);
+            this.radInvoiceAll.TabIndex = 2;
+            this.radInvoiceAll.Text = "Tất cả";
+            this.radInvoiceAll.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.radInvoiceAll.UncheckedState.BorderThickness = 2;
+            this.radInvoiceAll.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.radInvoiceAll.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             // 
-            // guna2RadioButton8
+            // radInvoiceNotPaid
             // 
-            this.guna2RadioButton8.AutoSize = true;
-            this.guna2RadioButton8.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2RadioButton8.CheckedState.BorderThickness = 0;
-            this.guna2RadioButton8.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2RadioButton8.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2RadioButton8.CheckedState.InnerOffset = -4;
-            this.guna2RadioButton8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2RadioButton8.Location = new System.Drawing.Point(201, 41);
-            this.guna2RadioButton8.Name = "guna2RadioButton8";
-            this.guna2RadioButton8.Size = new System.Drawing.Size(143, 25);
-            this.guna2RadioButton8.TabIndex = 1;
-            this.guna2RadioButton8.Text = "Chưa thanh toán";
-            this.guna2RadioButton8.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2RadioButton8.UncheckedState.BorderThickness = 2;
-            this.guna2RadioButton8.UncheckedState.FillColor = System.Drawing.Color.Transparent;
-            this.guna2RadioButton8.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.radInvoiceNotPaid.AutoSize = true;
+            this.radInvoiceNotPaid.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.radInvoiceNotPaid.CheckedState.BorderThickness = 0;
+            this.radInvoiceNotPaid.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.radInvoiceNotPaid.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.radInvoiceNotPaid.CheckedState.InnerOffset = -4;
+            this.radInvoiceNotPaid.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radInvoiceNotPaid.Location = new System.Drawing.Point(201, 41);
+            this.radInvoiceNotPaid.Name = "radInvoiceNotPaid";
+            this.radInvoiceNotPaid.Size = new System.Drawing.Size(143, 25);
+            this.radInvoiceNotPaid.TabIndex = 1;
+            this.radInvoiceNotPaid.Text = "Chưa thanh toán";
+            this.radInvoiceNotPaid.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.radInvoiceNotPaid.UncheckedState.BorderThickness = 2;
+            this.radInvoiceNotPaid.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.radInvoiceNotPaid.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             // 
-            // guna2RadioButton9
+            // radInvoicePaid
             // 
-            this.guna2RadioButton9.AutoSize = true;
-            this.guna2RadioButton9.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2RadioButton9.CheckedState.BorderThickness = 0;
-            this.guna2RadioButton9.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2RadioButton9.CheckedState.InnerColor = System.Drawing.Color.White;
-            this.guna2RadioButton9.CheckedState.InnerOffset = -4;
-            this.guna2RadioButton9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2RadioButton9.Location = new System.Drawing.Point(39, 41);
-            this.guna2RadioButton9.Name = "guna2RadioButton9";
-            this.guna2RadioButton9.Size = new System.Drawing.Size(126, 25);
-            this.guna2RadioButton9.TabIndex = 0;
-            this.guna2RadioButton9.Text = "Đã thanh toán";
-            this.guna2RadioButton9.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
-            this.guna2RadioButton9.UncheckedState.BorderThickness = 2;
-            this.guna2RadioButton9.UncheckedState.FillColor = System.Drawing.Color.Transparent;
-            this.guna2RadioButton9.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.radInvoicePaid.AutoSize = true;
+            this.radInvoicePaid.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.radInvoicePaid.CheckedState.BorderThickness = 0;
+            this.radInvoicePaid.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.radInvoicePaid.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.radInvoicePaid.CheckedState.InnerOffset = -4;
+            this.radInvoicePaid.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radInvoicePaid.Location = new System.Drawing.Point(39, 41);
+            this.radInvoicePaid.Name = "radInvoicePaid";
+            this.radInvoicePaid.Size = new System.Drawing.Size(126, 25);
+            this.radInvoicePaid.TabIndex = 0;
+            this.radInvoicePaid.Text = "Đã thanh toán";
+            this.radInvoicePaid.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.radInvoicePaid.UncheckedState.BorderThickness = 2;
+            this.radInvoicePaid.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.radInvoicePaid.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             // 
-            // guna2DataGridView3
+            // dtgvInvoice
             // 
-            this.guna2DataGridView3.AllowUserToAddRows = false;
-            this.guna2DataGridView3.AllowUserToDeleteRows = false;
+            this.dtgvInvoice.AllowUserToAddRows = false;
+            this.dtgvInvoice.AllowUserToDeleteRows = false;
             dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(216)))), ((int)(((byte)(189)))));
-            this.guna2DataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
-            this.guna2DataGridView3.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dtgvInvoice.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            this.dtgvInvoice.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
             dataGridViewCellStyle17.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1989,10 +2050,10 @@
             dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
-            this.guna2DataGridView3.ColumnHeadersHeight = 44;
-            this.guna2DataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.guna2DataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dtgvInvoice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            this.dtgvInvoice.ColumnHeadersHeight = 44;
+            this.dtgvInvoice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dtgvInvoice.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colBillId,
             this.colBillCustomerId,
             this.colBillCustomerName,
@@ -2007,11 +2068,11 @@
             dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
             dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.guna2DataGridView3.DefaultCellStyle = dataGridViewCellStyle18;
-            this.guna2DataGridView3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.guna2DataGridView3.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(209)))), ((int)(((byte)(177)))));
-            this.guna2DataGridView3.Location = new System.Drawing.Point(3, 263);
-            this.guna2DataGridView3.Name = "guna2DataGridView3";
+            this.dtgvInvoice.DefaultCellStyle = dataGridViewCellStyle18;
+            this.dtgvInvoice.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dtgvInvoice.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(209)))), ((int)(((byte)(177)))));
+            this.dtgvInvoice.Location = new System.Drawing.Point(3, 263);
+            this.dtgvInvoice.Name = "dtgvInvoice";
             dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle19.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2019,32 +2080,32 @@
             dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView3.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
-            this.guna2DataGridView3.RowHeadersVisible = false;
-            this.guna2DataGridView3.Size = new System.Drawing.Size(1216, 518);
-            this.guna2DataGridView3.TabIndex = 1;
-            this.guna2DataGridView3.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.Carrot;
-            this.guna2DataGridView3.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(216)))), ((int)(((byte)(189)))));
-            this.guna2DataGridView3.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.guna2DataGridView3.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView3.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView3.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView3.ThemeStyle.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.guna2DataGridView3.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(209)))), ((int)(((byte)(177)))));
-            this.guna2DataGridView3.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
-            this.guna2DataGridView3.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.guna2DataGridView3.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2DataGridView3.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.guna2DataGridView3.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.guna2DataGridView3.ThemeStyle.HeaderStyle.Height = 44;
-            this.guna2DataGridView3.ThemeStyle.ReadOnly = false;
-            this.guna2DataGridView3.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(229)))), ((int)(((byte)(211)))));
-            this.guna2DataGridView3.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.guna2DataGridView3.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2DataGridView3.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Black;
-            this.guna2DataGridView3.ThemeStyle.RowsStyle.Height = 22;
-            this.guna2DataGridView3.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
-            this.guna2DataGridView3.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvInvoice.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            this.dtgvInvoice.RowHeadersVisible = false;
+            this.dtgvInvoice.Size = new System.Drawing.Size(1216, 518);
+            this.dtgvInvoice.TabIndex = 1;
+            this.dtgvInvoice.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.Carrot;
+            this.dtgvInvoice.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(216)))), ((int)(((byte)(189)))));
+            this.dtgvInvoice.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dtgvInvoice.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dtgvInvoice.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dtgvInvoice.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dtgvInvoice.ThemeStyle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dtgvInvoice.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(209)))), ((int)(((byte)(177)))));
+            this.dtgvInvoice.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
+            this.dtgvInvoice.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dtgvInvoice.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtgvInvoice.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dtgvInvoice.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dtgvInvoice.ThemeStyle.HeaderStyle.Height = 44;
+            this.dtgvInvoice.ThemeStyle.ReadOnly = false;
+            this.dtgvInvoice.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(229)))), ((int)(((byte)(211)))));
+            this.dtgvInvoice.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dtgvInvoice.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtgvInvoice.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Black;
+            this.dtgvInvoice.ThemeStyle.RowsStyle.Height = 22;
+            this.dtgvInvoice.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
+            this.dtgvInvoice.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
             // 
             // colBillId
             // 
@@ -2545,67 +2606,6 @@
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Width = 83;
             // 
-            // colCustomerId
-            // 
-            this.colCustomerId.FillWeight = 121.8274F;
-            this.colCustomerId.HeaderText = "CCCD/CMND/Hộ chiếu";
-            this.colCustomerId.Name = "colCustomerId";
-            // 
-            // colCustomerName
-            // 
-            this.colCustomerName.FillWeight = 96.8818F;
-            this.colCustomerName.HeaderText = "Họ tên KH";
-            this.colCustomerName.Name = "colCustomerName";
-            this.colCustomerName.ReadOnly = true;
-            // 
-            // colCustomerBirthDate
-            // 
-            this.colCustomerBirthDate.FillWeight = 96.8818F;
-            this.colCustomerBirthDate.HeaderText = "Ngày sinh ";
-            this.colCustomerBirthDate.Name = "colCustomerBirthDate";
-            this.colCustomerBirthDate.ReadOnly = true;
-            // 
-            // colCustomerGender
-            // 
-            this.colCustomerGender.FillWeight = 96.8818F;
-            this.colCustomerGender.HeaderText = "Giới tính";
-            this.colCustomerGender.Name = "colCustomerGender";
-            this.colCustomerGender.ReadOnly = true;
-            // 
-            // colCustomerEmail
-            // 
-            this.colCustomerEmail.FillWeight = 96.8818F;
-            this.colCustomerEmail.HeaderText = "Email";
-            this.colCustomerEmail.Name = "colCustomerEmail";
-            this.colCustomerEmail.ReadOnly = true;
-            // 
-            // colCustomerPhone
-            // 
-            this.colCustomerPhone.HeaderText = "SĐT";
-            this.colCustomerPhone.Name = "colCustomerPhone";
-            this.colCustomerPhone.ReadOnly = true;
-            // 
-            // colCustomerDateJoin
-            // 
-            this.colCustomerDateJoin.FillWeight = 96.8818F;
-            this.colCustomerDateJoin.HeaderText = "Ngày tham gia";
-            this.colCustomerDateJoin.Name = "colCustomerDateJoin";
-            this.colCustomerDateJoin.ReadOnly = true;
-            // 
-            // colCustomerNote
-            // 
-            this.colCustomerNote.FillWeight = 96.8818F;
-            this.colCustomerNote.HeaderText = "Ghi chú";
-            this.colCustomerNote.Name = "colCustomerNote";
-            this.colCustomerNote.ReadOnly = true;
-            // 
-            // colCustmerEdit
-            // 
-            this.colCustmerEdit.FillWeight = 96.8818F;
-            this.colCustmerEdit.HeaderText = "Sửa thông tin";
-            this.colCustmerEdit.Name = "colCustmerEdit";
-            this.colCustmerEdit.Text = "Sửa";
-            // 
             // HomeFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -2649,7 +2649,7 @@
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvInvoice)).EndInit();
             this.tabEmpInfo.ResumeLayout(false);
             this.tabEmpInfo.PerformLayout();
             this.ResumeLayout(false);
@@ -2734,7 +2734,7 @@
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private Guna.UI2.WinForms.Guna2DataGridView dtgvBookingSelectedRoom;
         private Guna.UI2.WinForms.Guna2Button btnBooking;
-        private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView3;
+        private Guna.UI2.WinForms.Guna2DataGridView dtgvInvoice;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBillId;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBillCustomerId;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBillCustomerName;
@@ -2743,15 +2743,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colBillStatus;
         private System.Windows.Forms.DataGridViewButtonColumn colBillPay;
         private System.Windows.Forms.GroupBox groupBox4;
-        private Guna.UI2.WinForms.Guna2ImageButton guna2ImageButton3;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox7;
+        private Guna.UI2.WinForms.Guna2ImageButton btnInvoiceFind;
+        private Guna.UI2.WinForms.Guna2TextBox txtInvoiceContentFind;
         private System.Windows.Forms.Label label26;
-        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox3;
+        private Guna.UI2.WinForms.Guna2ComboBox comboInvoiceCriteria;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.GroupBox groupBox3;
-        private Guna.UI2.WinForms.Guna2RadioButton guna2RadioButton10;
-        private Guna.UI2.WinForms.Guna2RadioButton guna2RadioButton8;
-        private Guna.UI2.WinForms.Guna2RadioButton guna2RadioButton9;
+        private Guna.UI2.WinForms.Guna2RadioButton radInvoiceAll;
+        private Guna.UI2.WinForms.Guna2RadioButton radInvoiceNotPaid;
+        private Guna.UI2.WinForms.Guna2RadioButton radInvoicePaid;
         private Guna.UI2.WinForms.Guna2ImageButton guna2ImageButton4;
         private Guna.UI2.WinForms.Guna2TextBox txtInfoEmpGender;
         private Guna.UI2.WinForms.Guna2ImageButton guna2ImageButton5;
