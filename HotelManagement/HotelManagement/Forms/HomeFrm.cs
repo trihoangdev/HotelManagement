@@ -159,6 +159,9 @@ namespace HotelManagement.Forms
 
             //set bộ lọc room
             DataProvider.RoomFilter = new List<Room>();
+
+            //reset selected room
+            selectedRoom.Clear();
         }
 
         //Sự kiện click vào dòng của bảng danh sách phòng -> fill data vào các control
@@ -423,21 +426,23 @@ namespace HotelManagement.Forms
                     string id = row.Cells[0].Value.ToString();
                     selectedRoom.Add(DataProvider.FindRoomById(id));
                 }
-
                 //Cho người nhận xác nhận thông tin 
-                string info = $"Người đặt phòng: {txtBookingCustomerNameInfo.Text}\n" +
-                    $"Ngày nhận phòng: {dtBookingStart.Value.ToString("dd/MM/yyyy")}\n" +
-                    $"Ngày trả phòng: {dtBookingEnd.Value.ToString("dd/MM/yyyy")}\n" +
-                    $"Tổng số ngày ở: {dtBookingEnd.Value.Day - dtBookingStart.Value.Day} ngày\n" +
+                string name = txtBookingCustomerNameInfo.Text;
+                string startDate = dtBookingStart.Value.ToString("dd/MM/yyyy");
+                string endDate = dtBookingEnd.Value.ToString("dd/MM/yyyy");
+                TimeSpan difference = dtBookingEnd.Value - dtBookingStart.Value;
+                int numOfDays = difference.Days + 1;
+                string info = $"Người đặt phòng: {name}\n" +
+                    $"Ngày nhận phòng: {startDate}\n" +
+                    $"Ngày trả phòng: {endDate}\n" +
+                    $"Tổng số ngày ở: {numOfDays} ngày\n" +
                     $"\n=> DANH SÁCH PHÒNG <==\n";
-                int index = 0;
-                foreach (var room in selectedRoom)
-                {
-                    index++;
-                    info += $"- Phòng số {index}\n" +
-                        $"\tSố phòng: {room.Id}\n" +
-                        $"\tGiá phòng: {ConvertToCurrencyString(room.Price)}VNĐ\n\n";
-                }
+
+                string roomId = selectedRoom[0].Id.ToString();
+                string price = ConvertToCurrencyString(selectedRoom[0].Price);
+                info += $"\tSố phòng: {roomId}\n" +
+                    $"\tGiá phòng: {price}VNĐ\n\n";
+
                 info += $"\n==> TỔNG TIỀN: {ConvertToCurrencyString(CalculateTotalPrice(selectedRoom))}VNĐ\n\n" +
                     $"BẠN CÓ MUỐN THANH TOÁN? \nCHỌN YES ĐỂ THANH TOÁN, NO ĐỂ QUAY LẠI";
                 var res = MessageBox.Show(info, "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
@@ -445,25 +450,32 @@ namespace HotelManagement.Forms
                 {
                     //Lưu đối tượng vào lớp
                     string cusId = txtBookingCustomerIdInfo.Text;
-                    string roomId = selectedRoom[0].Id.ToString();
                     DateTime checkin = dtBookingStart.Value;
                     DateTime checkout = dtBookingEnd.Value;
                     int numOfGuest = (radBookingSingleRoom.Checked) ? 2 : 4;
-                    double totalPrice = selectedRoom[0].Price;
+                    double totalPrice = CalculateTotalPrice(selectedRoom);
                     string bookingStatus = "Đã đặt";
                     string notes = "";
 
                     RoomBooking roomBooking =
                         new RoomBooking(cusId, roomId, checkin, checkout, numOfGuest, totalPrice, bookingStatus, notes);
 
+                    //Lưu phòng đã đặt vào CSDL
+                    DataProvider.InsertBookingRoomToDB(roomBooking);
+
+                    //Tạo đối tượng phiếu hóa đơn
+                    Invoice invoice = new Invoice(roomBooking.Id, checkin,totalPrice,0,"Chưa thanh toán", notes);
+
                     //Tiến hành thanh toán
-                    DataProvider.SaveBookingRoom(roomBooking);
+                    DataProvider.InsertInvoicesToDB(invoice);
+
                     //reset tab
                     SetupBookingtab();
                 }
                 else
                 {
-                    //Do nothing
+                    //clear selected room
+                    selectedRoom.Clear();
                 }
 
             }
@@ -472,13 +484,9 @@ namespace HotelManagement.Forms
         //Phương thức tính tổng tiền phòng
         public double CalculateTotalPrice(List<Room> rooms)
         {
-            int numOfDate = dtBookingEnd.Value.Day - dtBookingStart.Value.Day;
-            double totalPrice = 0;
-            foreach (var room in rooms)
-            {
-                totalPrice += room.Price;
-            }
-            return totalPrice * numOfDate;
+            TimeSpan difference = dtBookingEnd.Value - dtBookingStart.Value;
+            int numOfDays = difference.Days + 1;
+            return rooms[0].Price * numOfDays;
         }
 
         //Hàm show info
@@ -606,7 +614,7 @@ namespace HotelManagement.Forms
         private void btnInfoCustomerRefresh_Click(object sender, EventArgs e)
         {
             DataProvider.GetAllCustomer();
-            DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer,DataProvider.Customers);
+            DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, DataProvider.Customers);
         }
     }
 }

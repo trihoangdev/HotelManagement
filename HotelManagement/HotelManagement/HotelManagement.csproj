@@ -57,6 +57,7 @@
     <Compile Include="ClassFolder\DatabaseConnection.cs" />
     <Compile Include="ClassFolder\DataProvider.cs" />
     <Compile Include="ClassFolder\Employee.cs" />
+    <Compile Include="ClassFolder\Invoice.cs" />
     <Compile Include="ClassFolder\Login.cs" />
     <Compile Include="ClassFolder\Person.cs" />
     <Compile Include="ClassFolder\Room.cs" />
