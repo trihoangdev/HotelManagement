@@ -684,5 +684,46 @@ namespace HotelManagement.Forms
                 }
             }
         }
+
+        private void btnInvoiceFind_Click(object sender, EventArgs e)
+        {
+            if (comboInvoiceCriteria.SelectedIndex < 0)
+                ShowMessageInfo("Vui lòng chọn tiêu chí tìm kiếm");
+            else if (txtInvoiceContentFind.Text == string.Empty)
+                ShowMessageInfo("Vui lòng điển nội dung tìm kiếm");
+            else
+            {
+                //Tìm kiếm
+                switch (comboInvoiceCriteria.SelectedIndex)
+                {
+                    case 0:
+                        {
+                            //Tìm bằng mã HĐ
+                            DataProvider.FindInvoiceById(txtInvoiceContentFind.Text);
+                            DataProvider.FillDataGridViewInvoice(dtgvInvoice, DataProvider.InvoiceFilter);
+                            break;
+                        }
+                    case 1:
+                        {
+                            //Tìm bằng mã KH
+                            DataProvider.FindInvoiceByCustomerId(txtInvoiceContentFind.Text);
+                            DataProvider.FillDataGridViewInvoice(dtgvInvoice, DataProvider.InvoiceFilter);
+                            break;
+                        }
+                    case 2:
+                        {
+                            //Tìm theo tên KH
+                            DataProvider.FindInvoiceByCustomerName(dtgvInvoice, txtInvoiceContentFind.Text);
+                            break;
+                        }
+                    case 3:
+                        {
+                            //Tìm theo mã phòng
+                            DataProvider.FindInvoiceByRoomId(dtgvInvoice, txtInvoiceContentFind.Text);
+                            break;
+                        }
+                }
+            }
+        }
     }
 }

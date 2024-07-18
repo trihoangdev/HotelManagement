@@ -1904,6 +1904,7 @@
             this.btnInvoiceFind.PressedState.ImageSize = new System.Drawing.Size(48, 48);
             this.btnInvoiceFind.Size = new System.Drawing.Size(52, 50);
             this.btnInvoiceFind.TabIndex = 11;
+            this.btnInvoiceFind.Click += new System.EventHandler(this.btnInvoiceFind_Click);
             // 
             // txtInvoiceContentFind
             // 

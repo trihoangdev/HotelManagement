@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.Security.Cryptography;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 namespace HotelManagement.ClassFolder
@@ -964,6 +965,118 @@ namespace HotelManagement.ClassFolder
             return null;
         }
 
-        
+        //Tìm HĐ bằng mã HĐ
+        internal static void FindInvoiceById(string id)
+        {
+            InvoiceFilter.Clear(); //xóa ds cũ
+            foreach (var i in Invoices)
+                if (i.InvoiceID.ToString() == id)
+                    InvoiceFilter.Add(i);
+        }
+
+        //Tìm HĐ bằng mã KH
+        internal static void FindInvoiceByCustomerId(string content)
+        {
+            InvoiceFilter.Clear(); //xóa ds cũ
+            foreach (var i in Invoices)
+            {
+                var r = FindRoomBookingById(i.BookingID);
+                if (r.CustomerId == content)
+                    InvoiceFilter.Add(i);
+            }
+        }
+
+        //tìm HĐ bằng tên KH
+        public static void FindInvoiceByCustomerName(Guna2DataGridView dtgv, string content)
+        {
+            string query = @"SELECT 
+                            i.InvoiceID, c.CustomerID, c.FullName, r.RoomID, i.InvoiceDate, i.PaymentStatus
+                            FROM Invoices i
+                            JOIN RoomBookings r ON i.BookingID = r.BookingID
+                            JOIN Customers c ON r.CustomerID = c.CustomerID
+                            WHERE 
+	                            c.FullName LIKE @content";
+
+            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Instance.Connection))
+            {
+                command.Parameters.AddWithValue("@content", "%" + content + "%");
+
+                try
+                {
+                    DatabaseConnection.Instance.Connection.Open();
+                    dtgv.Rows.Clear();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int invoiceId = reader.GetInt32(0);
+                            string customerId = reader.GetString(1);
+                            string customerName = reader.GetString(2);
+                            string roomId = reader.GetString(3);
+                            DateTime invoiceDate = reader.GetDateTime(4);
+                            string paymentStatus = reader.GetString(5);
+
+                            dtgv.Rows.Add(invoiceId, customerId, customerName, roomId, invoiceDate.ToString("dd/MM/yyyy"), paymentStatus, "Thanh toán");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle exceptions
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    DatabaseConnection.Instance.Connection.Close();
+                }
+            }
+        }
+
+        //Tìm hóa đơn theo mã phòng
+        internal static void FindInvoiceByRoomId(Guna2DataGridView dtgv, string content)
+        {
+
+            string query = @"SELECT 
+                            i.InvoiceID, c.CustomerID, c.FullName, r.RoomID, i.InvoiceDate, i.PaymentStatus
+                            FROM Invoices i
+                            JOIN RoomBookings r ON i.BookingID = r.BookingID
+                            JOIN Customers c ON r.CustomerID = c.CustomerID     
+                            WHERE 
+	                            r.RoomID LIKE @content";
+
+            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Instance.Connection))
+            {
+                command.Parameters.AddWithValue("@content", "%" + content + "%");
+
+                try
+                {
+                    DatabaseConnection.Instance.Connection.Open();
+                    dtgv.Rows.Clear();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int invoiceId = reader.GetInt32(0);
+                            string customerId = reader.GetString(1);
+                            string customerName = reader.GetString(2);
+                            string roomId = reader.GetString(3);
+                            DateTime invoiceDate = reader.GetDateTime(4);
+                            string paymentStatus = reader.GetString(5);
+
+                            dtgv.Rows.Add(invoiceId, customerId, customerName, roomId, invoiceDate.ToString("dd/MM/yyyy"), paymentStatus, "Thanh toán");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle exceptions
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    DatabaseConnection.Instance.Connection.Close();
+                }
+            }
+        }
     }
 }
