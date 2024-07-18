@@ -178,7 +178,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.dtInfoEmpDateHired = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.label31 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.txtChangePassword = new System.Windows.Forms.LinkLabel();
             this.txtInfoEmpPos = new Guna.UI2.WinForms.Guna2TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.txtInfoEmpPassword = new Guna.UI2.WinForms.Guna2TextBox();
@@ -2170,7 +2170,7 @@
             this.tabEmpInfo.Controls.Add(this.label32);
             this.tabEmpInfo.Controls.Add(this.dtInfoEmpDateHired);
             this.tabEmpInfo.Controls.Add(this.label31);
-            this.tabEmpInfo.Controls.Add(this.linkLabel1);
+            this.tabEmpInfo.Controls.Add(this.txtChangePassword);
             this.tabEmpInfo.Controls.Add(this.txtInfoEmpPos);
             this.tabEmpInfo.Controls.Add(this.label28);
             this.tabEmpInfo.Controls.Add(this.txtInfoEmpPassword);
@@ -2257,16 +2257,17 @@
             this.label31.TabIndex = 50;
             this.label31.Text = "Ngày bắt đầu làm:";
             // 
-            // linkLabel1
+            // txtChangePassword
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.linkLabel1.Location = new System.Drawing.Point(1090, 256);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(103, 21);
-            this.linkLabel1.TabIndex = 49;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Đổi mật khẩu";
+            this.txtChangePassword.AutoSize = true;
+            this.txtChangePassword.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.txtChangePassword.Location = new System.Drawing.Point(1090, 256);
+            this.txtChangePassword.Name = "txtChangePassword";
+            this.txtChangePassword.Size = new System.Drawing.Size(103, 21);
+            this.txtChangePassword.TabIndex = 49;
+            this.txtChangePassword.TabStop = true;
+            this.txtChangePassword.Text = "Đổi mật khẩu";
+            this.txtChangePassword.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.txtChangePassword_LinkClicked);
             // 
             // txtInfoEmpPos
             // 
@@ -2774,7 +2775,7 @@
         private System.Windows.Forms.Label label32;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtInfoEmpDateHired;
         private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel txtChangePassword;
         private Guna.UI2.WinForms.Guna2TextBox txtInfoEmpPos;
         private System.Windows.Forms.Label label28;
         private Guna.UI2.WinForms.Guna2TextBox txtInfoEmpPassword;

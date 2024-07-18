@@ -16,7 +16,7 @@ namespace HotelManagement.Forms
     public partial class HomeFrm : Form
     {
         private string empId;
-        private Employee emp = new Employee();
+        private Employee emp = new Employee(); //đối tượng nhân viên hiện tại trong form
         private List<Room> selectedRoom = new List<Room>();
         public HomeFrm(string empId)
         {
@@ -724,6 +724,12 @@ namespace HotelManagement.Forms
                         }
                 }
             }
+        }
+
+        private void txtChangePassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ChangePasswordFrm f = new ChangePasswordFrm(emp);
+            f.ShowDialog();
         }
     }
 }
