@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Drawing;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace HotelManagement.ClassFolder
@@ -19,6 +22,7 @@ namespace HotelManagement.ClassFolder
         public static List<Room> RoomFilter = new List<Room>();
         public static List<RoomBooking> RoomBookings = new List<RoomBooking>();
         public static List<Invoice> Invoices = new List<Invoice>();
+        public static List<Invoice> InvoiceFilter = new List<Invoice>();
         static DataProvider()
         {
             dbConnection = DatabaseConnection.Instance;
@@ -286,7 +290,7 @@ namespace HotelManagement.ClassFolder
                             string bookingStatus = reader["BookingStatus"].ToString();
                             string notes = reader["Notes"].ToString();
 
-                            RoomBooking roomBooking = new RoomBooking(id,customerID,roomId,checkInDate,checkOutDate,numberOfGuests,totalPrice,bookingStatus,notes);
+                            RoomBooking roomBooking = new RoomBooking(id, customerID, roomId, checkInDate, checkOutDate, numberOfGuests, totalPrice, bookingStatus, notes);
 
                             RoomBookings.Add(roomBooking);
                         }
@@ -333,7 +337,7 @@ namespace HotelManagement.ClassFolder
                             string paymentStatus = reader["PaymentStatus"].ToString();
                             string notes = reader["Notes"].ToString();
 
-                            Invoice invoice = new Invoice(invoiceID,bookingID,invoiceDate,totalAmount,paidAmount,paymentStatus,notes);
+                            Invoice invoice = new Invoice(invoiceID, bookingID, invoiceDate, totalAmount, paidAmount, paymentStatus, notes);
 
                             Invoices.Add(invoice);
                         }
@@ -351,6 +355,85 @@ namespace HotelManagement.ClassFolder
                     {
                         DatabaseConnection.Instance.Connection.Close();
                     }
+                }
+            }
+        }
+
+        //lấy thông tin các hóa đơn đã thanh toán
+        public static void GetAllPaidInvoice()
+        {
+            string query = @"SELECT * FROM Invoices WHERE PaymentStatus = N'Đã thanh toán'";
+            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Instance.Connection))
+            {
+                try
+                {
+                    // Kiểm tra trạng thái kết nối trước khi mở
+                    if (DatabaseConnection.Instance.Connection.State == ConnectionState.Closed)
+                    {
+                        DatabaseConnection.Instance.Connection.Open();
+                    }
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Xóa danh sách cũ trước khi tải được thanh toán
+                        InvoiceFilter.Clear();
+                        while (reader.Read())
+                        {
+                            int invoiceID = (int)reader["InvoiceID"];
+                            int bookingID = (int)reader["BookingID"];
+                            DateTime invoiceDate = (DateTime)reader["InvoiceDate"];
+                            double totalAmount = Convert.ToDouble(reader["TotalAmount"]);
+                            double paidAmount = Convert.ToDouble(reader["PaidAmount"]);
+                            string paymentStatus = reader["PaymentStatus"].ToString();
+                            string notes = reader["Notes"].ToString();
+
+                            Invoice invoice = new Invoice(invoiceID, bookingID, invoiceDate, totalAmount, paidAmount, paymentStatus, notes);
+                            InvoiceFilter.Add(invoice);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Xử lý các lỗi nếu có
+                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+                }
+            }
+        }
+        //lấy thông tin các hóa đơn chưa thanh toán
+        public static void GetAllNotPaidInvoice()
+        {
+            string query = @"SELECT * FROM Invoices WHERE PaymentStatus = N'Chưa thanh toán'";
+            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Instance.Connection))
+            {
+                try
+                {
+                    // Kiểm tra trạng thái kết nối trước khi mở
+                    if (DatabaseConnection.Instance.Connection.State == ConnectionState.Closed)
+                    {
+                        DatabaseConnection.Instance.Connection.Open();
+                    }
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Xóa danh sách cũ trước khi tải được thanh toán
+                        InvoiceFilter.Clear();
+                        while (reader.Read())
+                        {
+                            int invoiceID = (int)reader["InvoiceID"];
+                            int bookingID = (int)reader["BookingID"];
+                            DateTime invoiceDate = (DateTime)reader["InvoiceDate"];
+                            double totalAmount = Convert.ToDouble(reader["TotalAmount"]);
+                            double paidAmount = Convert.ToDouble(reader["PaidAmount"]);
+                            string paymentStatus = reader["PaymentStatus"].ToString();
+                            string notes = reader["Notes"].ToString();
+
+                            Invoice invoice = new Invoice(invoiceID, bookingID, invoiceDate, totalAmount, paidAmount, paymentStatus, notes);
+                            InvoiceFilter.Add(invoice);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Xử lý các lỗi nếu có
+                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
                 }
             }
         }
@@ -543,6 +626,34 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        //Cập nhật lại hóa đơn sau khi thanh toán
+        internal static void UpdateInvoice(object id)
+        {
+            using (SqlCommand command = new SqlCommand(
+                "UPDATE Invoices " +
+                   "SET PaymentStatus = N'Đã thanh toán' " +
+                   "WHERE InvoiceID = @InvoiceID",
+                DatabaseConnection.Instance.Connection))
+            {
+                command.Parameters.AddWithValue("@InvoiceID", id);
+
+                try
+                {
+                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    int rowsAffected = command.ExecuteNonQuery();
+                    MessageBox.Show("Cập nhật hóa đơn thành công!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+                finally
+                {
+                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                }
+            }
+        }
+
         public static void FillDataGridView(Guna2DataGridView dtgv, string tableName)
         {
             try
@@ -591,24 +702,44 @@ namespace HotelManagement.ClassFolder
             }
         }
 
-        public static void FillDataGridViewInvoice(Guna2DataGridView dtgv)
+        public static void FillDataGridViewInvoice(Guna2DataGridView dtgv, List<Invoice> invoices)
         {
-            //xóa các dòng trong bảng
+            // Xóa các dòng trong bảng
             dtgv.Rows.Clear();
-            //load lại dữ liệu của hóa đơn và đặt phòng
+            // Load lại dữ liệu của hóa đơn và đặt phòng
             GetAllInvoice();
             GetAllRoomBooking();
 
-            //điền dữ liệu vào bảng
-            foreach (Invoice invoice in Invoices)
+            // Điền dữ liệu vào bảng
+            foreach (Invoice invoice in invoices)
             {
-                RoomBooking b = FindRoomBookingById(invoice.BookingID); //tìm phòng có mã hợp
+                RoomBooking b = FindRoomBookingById(invoice.BookingID); // Tìm phòng có mã hợp
                 Customer customer = FindCustomerById(b.CustomerId);
-                dtgv.Rows.Add(invoice.InvoiceID, customer.CustomerID, customer.FullName,b.RoomId, b.CheckInDate.ToString("dd/MM/yyyy"),invoice.PaymentStatus.ToString(),"Thanh toán");
+
+                // Add a new row to the DataGridView
+                int rowIndex = dtgv.Rows.Add(invoice.InvoiceID, customer.CustomerID, customer.FullName, b.RoomId, b.CheckInDate.ToString("dd/MM/yyyy"), invoice.PaymentStatus.ToString(), "Thanh toán");
+
+                // Get the newly added row
+                DataGridViewRow row = dtgv.Rows[rowIndex];
+
+                // Enable or disable the last cell based on PaymentStatus
+                DataGridViewCell paymentCell = row.Cells[row.Cells.Count - 1];
+
+                if (invoice.PaymentStatus.ToString() == "Đã thanh toán")
+                {
+                    paymentCell.ReadOnly = true;
+                    paymentCell.Style.ForeColor = Color.Gray;
+                    paymentCell.Style.SelectionForeColor = Color.Gray;
+                }
+                else
+                {
+                    paymentCell.ReadOnly = false;
+                    paymentCell.Style.ForeColor = Color.Black;
+                    paymentCell.Style.SelectionForeColor = Color.Black;
+                }
             }
         }
 
-        
 
         public static void RemoveRoom(string id)
         {
@@ -824,12 +955,15 @@ namespace HotelManagement.ClassFolder
                     return r;
             return null;
         }
+
         public static Customer FindCustomerById(string customerId)
         {
-            foreach(var customer in Customers)
-                if(customer.CustomerID == customerId.Trim())
+            foreach (var customer in Customers)
+                if (customer.CustomerID == customerId.Trim())
                     return customer;
             return null;
         }
+
+        
     }
 }

@@ -1997,6 +1997,7 @@
             this.radInvoiceAll.UncheckedState.BorderThickness = 2;
             this.radInvoiceAll.UncheckedState.FillColor = System.Drawing.Color.Transparent;
             this.radInvoiceAll.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.radInvoiceAll.CheckedChanged += new System.EventHandler(this.radInvoice_CheckedChanged);
             // 
             // radInvoiceNotPaid
             // 
@@ -2016,6 +2017,7 @@
             this.radInvoiceNotPaid.UncheckedState.BorderThickness = 2;
             this.radInvoiceNotPaid.UncheckedState.FillColor = System.Drawing.Color.Transparent;
             this.radInvoiceNotPaid.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.radInvoiceNotPaid.CheckedChanged += new System.EventHandler(this.radInvoice_CheckedChanged);
             // 
             // radInvoicePaid
             // 
@@ -2035,6 +2037,7 @@
             this.radInvoicePaid.UncheckedState.BorderThickness = 2;
             this.radInvoicePaid.UncheckedState.FillColor = System.Drawing.Color.Transparent;
             this.radInvoicePaid.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.radInvoicePaid.CheckedChanged += new System.EventHandler(this.radInvoice_CheckedChanged);
             // 
             // dtgvInvoice
             // 
@@ -2106,6 +2109,7 @@
             this.dtgvInvoice.ThemeStyle.RowsStyle.Height = 22;
             this.dtgvInvoice.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
             this.dtgvInvoice.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvInvoice.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvInvoice_CellContentClick);
             // 
             // colBillId
             // 

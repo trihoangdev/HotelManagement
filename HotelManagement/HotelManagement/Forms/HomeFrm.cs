@@ -146,7 +146,7 @@ namespace HotelManagement.Forms
         {
             dtgvInfoCustomer.Rows.Clear();
             DataProvider.GetAllInvoice();
-            DataProvider.FillDataGridViewInvoice(dtgvInvoice);
+            DataProvider.FillDataGridViewInvoice(dtgvInvoice, DataProvider.Invoices);
         }
 
         //set up cho tab quản lý phòng
@@ -481,7 +481,7 @@ namespace HotelManagement.Forms
                     DataProvider.InsertBookingRoomToDB(roomBooking);
 
                     //Tạo đối tượng phiếu hóa đơn
-                    Invoice invoice = new Invoice(roomBooking.Id, checkin,totalPrice,0,"Chưa thanh toán", notes);
+                    Invoice invoice = new Invoice(roomBooking.Id, checkin, totalPrice, 0, "Chưa thanh toán", notes);
 
                     //Tiến hành thanh toán
                     DataProvider.InsertInvoicesToDB(invoice);
@@ -632,6 +632,57 @@ namespace HotelManagement.Forms
         {
             DataProvider.GetAllCustomer();
             DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, DataProvider.Customers);
+        }
+
+        private void radInvoice_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radInvoiceAll.Checked)
+            {
+                //show tất cả
+                DataProvider.GetAllInvoice();
+                DataProvider.FillDataGridViewInvoice(dtgvInvoice, DataProvider.Invoices);
+            }
+            else if (radInvoicePaid.Checked)
+            {
+                //Show hóa đơn đã trả
+                DataProvider.GetAllPaidInvoice();
+                DataProvider.FillDataGridViewInvoice(dtgvInvoice, DataProvider.InvoiceFilter);
+            }
+            else
+            {
+                //Show hóa đơn chưa trả
+                DataProvider.GetAllNotPaidInvoice();
+                DataProvider.FillDataGridViewInvoice(dtgvInvoice, DataProvider.InvoiceFilter);
+            }
+        }
+
+        private void dtgvInvoice_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dtgvInvoice.Columns[e.ColumnIndex].Name == "colBillPay")
+            {
+                // Lấy payment status
+                string paymentStatus = dtgvInvoice.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString();
+
+                if (paymentStatus == "Đã thanh toán")
+                {
+                    MessageBox.Show("Hóa đơn này đã được thanh toán.");
+                }
+                else
+                {
+                    var res = MessageBox.Show("Bạn có muốn thanh toán hóa đơn này?", "Thông báo", MessageBoxButtons.YesNo);
+                    if (res == DialogResult.Yes)
+                    {
+                        //lấy dòng đang xét
+                        DataGridViewRow row = dtgvInvoice.Rows[e.RowIndex];
+                        //Cập nhật lại danh sách hóa đơn và lưu vào CSDL
+                        var id = row.Cells["colBillId"].Value;
+                        DataProvider.UpdateInvoice(id);
+                        //Load lại bảng
+                        DataProvider.GetAllInvoice();
+                        DataProvider.FillDataGridViewInvoice(dtgvInvoice, DataProvider.Invoices);
+                    }
+                }
+            }
         }
     }
 }
