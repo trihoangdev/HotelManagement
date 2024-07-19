@@ -2392,6 +2392,7 @@
             this.btnInfoUpdateEmpInfo.Size = new System.Drawing.Size(232, 52);
             this.btnInfoUpdateEmpInfo.TabIndex = 40;
             this.btnInfoUpdateEmpInfo.Text = "Sửa thông tin cá nhân";
+            this.btnInfoUpdateEmpInfo.Click += new System.EventHandler(this.btnInfoUpdateEmpInfo_Click);
             // 
             // txtInfoEmpGender
             // 

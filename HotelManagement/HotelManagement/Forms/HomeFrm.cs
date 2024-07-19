@@ -731,5 +731,32 @@ namespace HotelManagement.Forms
             ChangePasswordFrm f = new ChangePasswordFrm(emp);
             f.ShowDialog();
         }
+
+        //Sửa thông tin cá nhân
+        private void btnInfoUpdateEmpInfo_Click(object sender, EventArgs e)
+        {
+            if (ControlHelper.IsAnyControlEmpty(new List<Control> { txtInfoEmpName, txtInfoEmpAddress, txtInfoEmpGender, txtInfoEmpPhone }))
+            {
+                ShowMessageInfo("Không được để trống bất kì thông tin nào!");
+            }
+            else if (!ControlHelper.IsAllTextIsNumber(new List<Control> { txtInfoEmpPhone })) 
+            {
+                ShowMessageInfo("SĐT phải là số có 10 chữ số");
+            }
+            else
+            {
+                //Lưu vào CSDL
+                var id = txtInfoEmpId.Text;
+                var name = txtInfoEmpName.Text;
+                var phone = txtInfoEmpPhone.Text;
+                var gender = txtInfoEmpGender.Text;
+                var address = txtInfoEmpAddress.Text;
+                DataProvider.UpdateEmployee(id, name, phone, address);
+
+                DataProvider.GettAllEmployee();//Load lại ds EMP
+                emp = emp.FindEmpById(DataProvider.Employees, empId);//cập nhật lại đối tượng emp của form này
+            } 
+                
+        }
     }
 }

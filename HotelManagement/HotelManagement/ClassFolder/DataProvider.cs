@@ -680,6 +680,35 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        public static void UpdateEmployee(string id, string name, string phone, string address)
+        {
+            using (SqlCommand command = new SqlCommand(
+                "UPDATE Employees " +
+                   "SET FullName = @FullName, PhoneNumber = @PhoneNumber, Address = @Address " +
+                   "WHERE EmployeeID = @EmployeeID",
+                DatabaseConnection.Instance.Connection))
+            {
+                command.Parameters.AddWithValue("@EmployeeID", id);
+                command.Parameters.AddWithValue("@FullName", name);
+                command.Parameters.AddWithValue("@PhoneNumber", phone);
+                command.Parameters.AddWithValue("@Address", address);
+                try
+                {
+                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    int rowsAffected = command.ExecuteNonQuery();
+                    MessageBox.Show("Cập nhật nhân viên thành công!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+                finally
+                {
+                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn chỉnh
+                }
+            }
+        }
+
         //check mật khẩu hiện tại có đúng không
         public static bool IsCurrentPassCorrect(string id,string pass)
         {
