@@ -19,7 +19,22 @@ namespace HotelManagement.Forms
             var newPass = txtNewPass.Text;
             var reNewPass = txtNewPassAgain.Text;
 
-            
+            if (!DataProvider.IsCurrentPassCorrect(_emp.EmployeeID, curPass))
+            {
+                MessageBox.Show("Mật khẩu hiện tại không chính xác!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCurPass.Focus();
+            }
+            else if(newPass != reNewPass)
+            {
+                MessageBox.Show("Mật khẩu không trùng khớp!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNewPassAgain.Focus();
+            }
+            else
+            {
+                //Lưu vào CSDL
+                DataProvider.UpdatePassword(_emp.EmployeeID, newPass);
+                Close();
+            }
         }
     }
 }

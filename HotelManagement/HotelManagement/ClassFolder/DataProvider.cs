@@ -625,7 +625,7 @@ namespace HotelManagement.ClassFolder
         }
 
         //Cập nhật lại hóa đơn sau khi thanh toán
-        internal static void UpdateInvoice(object id)
+        public static void UpdateInvoice(object id)
         {
             using (SqlCommand command = new SqlCommand(
                 "UPDATE Invoices " +
@@ -652,6 +652,44 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        //cập nhật mật khẩu
+        public static void UpdatePassword(string id, string pass)
+        {
+            using (SqlCommand command = new SqlCommand(
+                "UPDATE Login " +
+                   "SET Password = @Password " +
+                   "WHERE Username = @Username",
+                DatabaseConnection.Instance.Connection))
+            {
+                command.Parameters.AddWithValue("@Username", id);
+                command.Parameters.AddWithValue("@Password", pass);
+                try
+                {
+                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    int rowsAffected = command.ExecuteNonQuery();
+                    MessageBox.Show("Cập nhật mật khẩu thành công!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+                finally
+                {
+                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                }
+            }
+        }
+
+        //check mật khẩu hiện tại có đúng không
+        public static bool IsCurrentPassCorrect(string id,string pass)
+        {
+            foreach(Login login in Logins)
+            {
+                if(login.Username == id && login.Password == pass)
+                    return true;
+            }
+            return false;
+        }
         public static void FillDataGridView(Guna2DataGridView dtgv, string tableName)
         {
             try
