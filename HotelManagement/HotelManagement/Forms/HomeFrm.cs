@@ -630,6 +630,8 @@ namespace HotelManagement.Forms
         //Refresh lại bảng customer
         private void btnInfoCustomerRefresh_Click(object sender, EventArgs e)
         {
+            txtInfoContentFind.Text = "";
+            comboInfoCriteria.SelectedIndex = -1;
             DataProvider.GetAllCustomer();
             DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, DataProvider.Customers);
         }
