@@ -2,13 +2,7 @@
 using HotelManagement.ClassFolder;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HotelManagement.Forms
@@ -58,9 +52,6 @@ namespace HotelManagement.Forms
             btnUpdateRoom.Enabled = false;
             btnDeleteRoom.Enabled = false;
             btnAddNewRoom.Enabled = true;
-
-
-
         }
 
         private void HomeFrm_Load(object sender, EventArgs e)
@@ -83,18 +74,21 @@ namespace HotelManagement.Forms
         {
             switch (controlTabHome.SelectedIndex)
             {
+                //Quản Lý Phòng
                 case 0:
                     {
                         SetupManageRoomTab();
                         break;
                     }
-
+                 //Đặt Phòng
                 case 1:
                     {
                         SetupBookingtab();
                         break;
                     }
+                //Đăng Ký Khách Hàng
 
+                //Quản Lý Khách Hàng
                 case 3:
                     {
                         DataProvider.GetAllCustomer();
@@ -117,14 +111,20 @@ namespace HotelManagement.Forms
                         }
                         break;
                     }
+                //Quản Lý Nhân Viên
 
-                case 4:
+                //Đăng Ký Nhân Viên
+
+                //Thanh Toán
+                case 6:
                     {
                         SetupInvoiceTab();
                         break;
                     }
+                //Thống kê
 
-                case 6:
+                //Trang Cá Nhân
+                case 8:
                     {
                         txtInfoEmpName.Text = emp.FullName.ToString();
                         txtInfoEmpId.Text = emp.EmployeeID.ToString();
