@@ -170,7 +170,7 @@
             this.comboRole.Location = new System.Drawing.Point(636, 265);
             this.comboRole.Name = "comboRole";
             this.comboRole.Size = new System.Drawing.Size(388, 36);
-            this.comboRole.StartIndex = 1;
+            this.comboRole.StartIndex = 0;
             this.comboRole.TabIndex = 9;
             // 
             // label4

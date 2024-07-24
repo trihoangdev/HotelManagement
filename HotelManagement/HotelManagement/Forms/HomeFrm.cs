@@ -578,19 +578,19 @@ namespace HotelManagement.Forms
         //Chức năng tìm kiếm thông tin khách hàng
         private void btnInfoFindCustomer_Click(object sender, EventArgs e)
         {
-            if (comboInfoCriteria.SelectedIndex < 0)
+            if (comboInfoCusCriteria.SelectedIndex < 0)
             {
                 ShowMessageInfo("Vui lòng chọn tiêu chí");
             }
-            else if (txtInfoContentFind.Text == "")
+            else if (txtInfoContentCusFind.Text == "")
             {
                 ShowMessageInfo("Vui lòng điền nội dung tìm kiếm");
             }
             else
             {
-                var content = txtInfoContentFind.Text;
+                var content = txtInfoContentCusFind.Text;
                 string columnSearch = "";
-                switch (comboInfoCriteria.SelectedIndex)
+                switch (comboInfoCusCriteria.SelectedIndex)
                 {
 
                     case 0:
@@ -644,8 +644,8 @@ namespace HotelManagement.Forms
         //Refresh lại bảng customer
         private void btnInfoCustomerRefresh_Click(object sender, EventArgs e)
         {
-            txtInfoContentFind.Text = "";
-            comboInfoCriteria.SelectedIndex = -1;
+            txtInfoContentCusFind.Text = "";
+            comboInfoCusCriteria.SelectedIndex = -1;
             DataProvider.GetAllCustomer();
             DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, DataProvider.Customers);
 
