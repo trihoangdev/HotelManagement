@@ -79,7 +79,6 @@ namespace HotelManagement.Forms
 
         private void controlTabHome_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //MessageBox.Show(controlTabHome.SelectedTab.Text.ToString());
             switch (controlTabHome.SelectedTab.Text.ToString())
             {
                 //Quản Lý Phòng
@@ -114,8 +113,7 @@ namespace HotelManagement.Forms
                                 customer.Email,
                                 customer.PhoneNumber,
                                 customer.DateJoined.ToString("dd/MM/yyyy"),
-                                customer.Notes,
-                                "Sửa");
+                                customer.Notes);
                         }
                         break;
                     }
