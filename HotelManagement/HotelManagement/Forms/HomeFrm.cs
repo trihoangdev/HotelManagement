@@ -56,8 +56,6 @@ namespace HotelManagement.Forms
 
         private void HomeFrm_Load(object sender, EventArgs e)
         {
-            this.roomsTableAdapter.Fill(this.hotelManagementDataSet.Rooms);
-
             //Load các danh sách lên
             DataProvider.GettAllEmployee();
             DataProvider.GetAllCustomer();
@@ -67,21 +65,30 @@ namespace HotelManagement.Forms
             DataProvider.GetAllRoomBooking();
             DataProvider.GetAllInvoice();
 
+            //Tìm đối tượng nhân viên của form
             emp = emp.FindEmpById(DataProvider.Employees, empId);
+
+            //setup các tab control tùy theo chức năng
+            if (emp.Role != "Admin")
+            {
+                controlTabHome.Controls.Remove(tabEmployeeDetail);
+                controlTabHome.Controls.Remove(tabRegisterEmp);
+            }
+            roomsTableAdapter.Fill(this.hotelManagementDataSet.Rooms);
         }
 
         private void controlTabHome_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (controlTabHome.SelectedIndex)
+            switch (controlTabHome.SelectedTab.ToString())
             {
                 //Quản Lý Phòng
-                case 0:
+                case "Quản Lý Phòng":
                     {
                         SetupManageRoomTab();
                         break;
                     }
                  //Đặt Phòng
-                case 1:
+                case "Đặt Phòng":
                     {
                         SetupBookingtab();
                         break;
@@ -89,7 +96,7 @@ namespace HotelManagement.Forms
                 //Đăng Ký Khách Hàng
 
                 //Quản Lý Khách Hàng
-                case 3:
+                case "Quản Lý Khách Hàng":
                     {
                         DataProvider.GetAllCustomer();
                         //Xóa dữ liệu trong bảng hiện tại
@@ -112,11 +119,14 @@ namespace HotelManagement.Forms
                         break;
                     }
                 //Quản Lý Nhân Viên
-
+                case "Quản Lý Nhân Viên":
+                    {
+                        break;
+                    }
                 //Đăng Ký Nhân Viên
 
                 //Thanh Toán
-                case 6:
+                case "Thanh Toán":
                     {
                         SetupInvoiceTab();
                         break;
@@ -124,7 +134,7 @@ namespace HotelManagement.Forms
                 //Thống kê
 
                 //Trang Cá Nhân
-                case 8:
+                case "Trang Cá Nhân":
                     {
                         txtInfoEmpName.Text = emp.FullName.ToString();
                         txtInfoEmpId.Text = emp.EmployeeID.ToString();
