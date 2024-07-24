@@ -104,6 +104,7 @@ namespace HotelManagement.Forms
                 //Quản Lý Nhân Viên
                 case "Quản Lý Nhân Viên":
                     {
+                        SetupManageEmployeTab();
                         break;
                     }
                 //Đăng Ký Nhân Viên
@@ -132,6 +133,15 @@ namespace HotelManagement.Forms
                         break;
                     }
             }
+        }
+
+        private void SetupManageEmployeTab()
+        {
+            //Xóa dữ liệu trong bảng hiện tại
+            dtgvInfoEmp.Rows.Clear();
+
+            //Truyền dữ liệu từ danh sách vào DataGridView
+            DataProvider.FillDataGridViewEmployee(dtgvInfoEmp, DataProvider.Employees);
         }
 
         //setup cho tab quản lý khách hàng

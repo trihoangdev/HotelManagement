@@ -799,6 +799,28 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        internal static void FillDataGridViewEmployee(Guna2DataGridView dtgv, List<Employee> employees)
+        {
+            // Xóa các dòng trong bảng
+            dtgv.Rows.Clear();
+            // Load lại dữ liệu của hóa đơn và đặt phòng
+            GetAllInvoice();
+            GetAllRoomBooking();
+
+            // Điền dữ liệu vào bảng
+            foreach (Employee emp in employees)
+            {
+
+                // Add a new row to the DataGridView
+                int rowIndex = dtgv.Rows.Add(emp.EmployeeID, emp.FullName, emp.Position,emp.Status,"Xem chi tiết");
+
+                // Get the newly added row
+                DataGridViewRow row = dtgv.Rows[rowIndex];
+
+                // Enable or disable the last cell based on PaymentStatus
+                DataGridViewCell paymentCell = row.Cells[row.Cells.Count - 1];
+            }
+        }
 
         public static void RemoveRoom(string id)
         {
@@ -1171,5 +1193,6 @@ namespace HotelManagement.ClassFolder
             return kq;
         }
 
+        
     }
 }

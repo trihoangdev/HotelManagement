@@ -153,10 +153,10 @@
             this.guna2ImageButton3 = new Guna.UI2.WinForms.Guna2ImageButton();
             this.label34 = new System.Windows.Forms.Label();
             this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2ComboBox1 = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.combo = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label35 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
-            this.guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.dtgvInfoEmp = new Guna.UI2.WinForms.Guna2DataGridView();
             this.colEmpId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEmpName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEmpPos = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -281,7 +281,7 @@
             this.tabCustomerDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvInfoCustomer)).BeginInit();
             this.tabEmployeeDetail.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvInfoEmp)).BeginInit();
             this.tabRegisterEmp.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1896,10 +1896,10 @@
             this.tabEmployeeDetail.Controls.Add(this.guna2ImageButton3);
             this.tabEmployeeDetail.Controls.Add(this.label34);
             this.tabEmployeeDetail.Controls.Add(this.guna2TextBox1);
-            this.tabEmployeeDetail.Controls.Add(this.guna2ComboBox1);
+            this.tabEmployeeDetail.Controls.Add(this.combo);
             this.tabEmployeeDetail.Controls.Add(this.label35);
             this.tabEmployeeDetail.Controls.Add(this.label36);
-            this.tabEmployeeDetail.Controls.Add(this.guna2DataGridView1);
+            this.tabEmployeeDetail.Controls.Add(this.dtgvInfoEmp);
             this.tabEmployeeDetail.Location = new System.Drawing.Point(184, 4);
             this.tabEmployeeDetail.Name = "tabEmployeeDetail";
             this.tabEmployeeDetail.Size = new System.Drawing.Size(1222, 784);
@@ -1966,17 +1966,17 @@
             this.guna2TextBox1.Size = new System.Drawing.Size(348, 36);
             this.guna2TextBox1.TabIndex = 15;
             // 
-            // guna2ComboBox1
+            // combo
             // 
-            this.guna2ComboBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.guna2ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.guna2ComboBox1.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.guna2ComboBox1.ForeColor = System.Drawing.Color.Black;
-            this.guna2ComboBox1.ItemHeight = 30;
-            this.guna2ComboBox1.Items.AddRange(new object[] {
+            this.combo.BackColor = System.Drawing.Color.Transparent;
+            this.combo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combo.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.combo.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.combo.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.combo.ForeColor = System.Drawing.Color.Black;
+            this.combo.ItemHeight = 30;
+            this.combo.Items.AddRange(new object[] {
             "Tìm theo CCCD",
             "Tìm theo tên KH",
             "Tìm theo ngày sinh",
@@ -1984,10 +1984,10 @@
             "Tìm theo SĐT",
             "Tìm theo Email",
             "Tìm theo ngày tham gia"});
-            this.guna2ComboBox1.Location = new System.Drawing.Point(194, 83);
-            this.guna2ComboBox1.Name = "guna2ComboBox1";
-            this.guna2ComboBox1.Size = new System.Drawing.Size(350, 36);
-            this.guna2ComboBox1.TabIndex = 14;
+            this.combo.Location = new System.Drawing.Point(194, 83);
+            this.combo.Name = "combo";
+            this.combo.Size = new System.Drawing.Size(350, 36);
+            this.combo.TabIndex = 14;
             // 
             // label35
             // 
@@ -2009,14 +2009,14 @@
             this.label36.TabIndex = 12;
             this.label36.Text = "Quản Lý Nhân Viên";
             // 
-            // guna2DataGridView1
+            // dtgvInfoEmp
             // 
-            this.guna2DataGridView1.AllowUserToAddRows = false;
-            this.guna2DataGridView1.AllowUserToDeleteRows = false;
-            this.guna2DataGridView1.AllowUserToResizeRows = false;
+            this.dtgvInfoEmp.AllowUserToAddRows = false;
+            this.dtgvInfoEmp.AllowUserToDeleteRows = false;
+            this.dtgvInfoEmp.AllowUserToResizeRows = false;
             dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(216)))), ((int)(((byte)(189)))));
-            this.guna2DataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
-            this.guna2DataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dtgvInfoEmp.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            this.dtgvInfoEmp.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
             dataGridViewCellStyle17.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2024,10 +2024,10 @@
             dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
-            this.guna2DataGridView1.ColumnHeadersHeight = 44;
-            this.guna2DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.guna2DataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dtgvInfoEmp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            this.dtgvInfoEmp.ColumnHeadersHeight = 44;
+            this.dtgvInfoEmp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dtgvInfoEmp.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colEmpId,
             this.colEmpName,
             this.colEmpPos,
@@ -2040,11 +2040,11 @@
             dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
             dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.guna2DataGridView1.DefaultCellStyle = dataGridViewCellStyle18;
-            this.guna2DataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.guna2DataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(209)))), ((int)(((byte)(177)))));
-            this.guna2DataGridView1.Location = new System.Drawing.Point(0, 164);
-            this.guna2DataGridView1.Name = "guna2DataGridView1";
+            this.dtgvInfoEmp.DefaultCellStyle = dataGridViewCellStyle18;
+            this.dtgvInfoEmp.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dtgvInfoEmp.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(209)))), ((int)(((byte)(177)))));
+            this.dtgvInfoEmp.Location = new System.Drawing.Point(0, 164);
+            this.dtgvInfoEmp.Name = "dtgvInfoEmp";
             dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle19.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2052,32 +2052,32 @@
             dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.guna2DataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
-            this.guna2DataGridView1.RowHeadersVisible = false;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(1222, 620);
-            this.guna2DataGridView1.TabIndex = 11;
-            this.guna2DataGridView1.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.Carrot;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(216)))), ((int)(((byte)(189)))));
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.guna2DataGridView1.ThemeStyle.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.guna2DataGridView1.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(209)))), ((int)(((byte)(177)))));
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.guna2DataGridView1.ThemeStyle.HeaderStyle.Height = 44;
-            this.guna2DataGridView1.ThemeStyle.ReadOnly = false;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(229)))), ((int)(((byte)(211)))));
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Black;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.Height = 22;
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
-            this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvInfoEmp.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            this.dtgvInfoEmp.RowHeadersVisible = false;
+            this.dtgvInfoEmp.Size = new System.Drawing.Size(1222, 620);
+            this.dtgvInfoEmp.TabIndex = 11;
+            this.dtgvInfoEmp.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.Carrot;
+            this.dtgvInfoEmp.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(216)))), ((int)(((byte)(189)))));
+            this.dtgvInfoEmp.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dtgvInfoEmp.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dtgvInfoEmp.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dtgvInfoEmp.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dtgvInfoEmp.ThemeStyle.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dtgvInfoEmp.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(209)))), ((int)(((byte)(177)))));
+            this.dtgvInfoEmp.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
+            this.dtgvInfoEmp.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dtgvInfoEmp.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtgvInfoEmp.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dtgvInfoEmp.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dtgvInfoEmp.ThemeStyle.HeaderStyle.Height = 44;
+            this.dtgvInfoEmp.ThemeStyle.ReadOnly = false;
+            this.dtgvInfoEmp.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(229)))), ((int)(((byte)(211)))));
+            this.dtgvInfoEmp.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dtgvInfoEmp.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtgvInfoEmp.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Black;
+            this.dtgvInfoEmp.ThemeStyle.RowsStyle.Height = 22;
+            this.dtgvInfoEmp.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
+            this.dtgvInfoEmp.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
             // 
             // colEmpId
             // 
@@ -3673,7 +3673,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgvInfoCustomer)).EndInit();
             this.tabEmployeeDetail.ResumeLayout(false);
             this.tabEmployeeDetail.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvInfoEmp)).EndInit();
             this.tabRegisterEmp.ResumeLayout(false);
             this.tabRegisterEmp.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -3845,10 +3845,10 @@
         private Guna.UI2.WinForms.Guna2ImageButton guna2ImageButton3;
         private System.Windows.Forms.Label label34;
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
-        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox1;
+        private Guna.UI2.WinForms.Guna2ComboBox combo;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label36;
-        private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView1;
+        private Guna.UI2.WinForms.Guna2DataGridView dtgvInfoEmp;
         private System.Windows.Forms.TabPage tabRegisterEmp;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEmpId;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEmpName;
