@@ -3,34 +3,41 @@ using System.Data.SqlClient;
 
 namespace HotelManagement.ClassFolder
 {
-    public sealed class DatabaseConnection
+    public static class DatabaseConnection
     {
-        private static readonly Lazy<DatabaseConnection> lazyInstance =
-            new Lazy<DatabaseConnection>(() => new DatabaseConnection());
+        private static SqlConnection connection;
+        private static readonly string connString = "Data Source=HOANGMINHTRI\\SQLEXPRESS;Initial Catalog=HotelManagement;Integrated Security=True;TrustServerCertificate=true";
 
-        private SqlConnection connection;
-
-        private DatabaseConnection()
-        {
-            // Chuỗi kết nối đến SQL Server
-            string connectionString = "Data Source=HOANGMINHTRI\\SQLEXPRESS;Initial Catalog=HotelManagement;Integrated Security=True;TrustServerCertificate=true";
-            connection = new SqlConnection(connectionString);
-            connection.Open();
-        }
-
-        public static DatabaseConnection Instance
+        public static SqlConnection Connection
         {
             get
             {
-                return lazyInstance.Value;
+                if (connection == null)
+                {
+                    connection = new SqlConnection(connString);
+                }
+                return connection;
             }
         }
 
-        public SqlConnection Connection
+        public static void OpenConnection()
         {
-            get
+            if (connection == null)
             {
-                return connection;
+                connection = new SqlConnection(connString); // Khởi tạo db nếu chưa có
+            }
+
+            if (connection.State == System.Data.ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+        }
+
+        public static void CloseConnection()
+        {
+            if (connection != null && connection.State == System.Data.ConnectionState.Open)
+            {
+                connection.Close();
             }
         }
     }

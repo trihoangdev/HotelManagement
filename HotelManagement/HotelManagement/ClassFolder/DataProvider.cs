@@ -11,7 +11,6 @@ namespace HotelManagement.ClassFolder
 {
     public static class DataProvider
     {
-        private static readonly DatabaseConnection dbConnection;
         public static List<Login> Logins = new List<Login>();
         public static List<Employee> Employees = new List<Employee>();
         public static List<Customer> Customers = new List<Customer>();
@@ -21,306 +20,293 @@ namespace HotelManagement.ClassFolder
         public static List<RoomBooking> RoomBookings = new List<RoomBooking>();
         public static List<Invoice> Invoices = new List<Invoice>();
         public static List<Invoice> InvoiceFilter = new List<Invoice>();
-        static DataProvider()
-        {
-            dbConnection = DatabaseConnection.Instance;
-        }
 
         public static void GetAllLogins()
         {
-            using (SqlCommand command = new SqlCommand("SELECT * from login", DatabaseConnection.Instance.Connection))
+            try
             {
-                try
+                DatabaseConnection.OpenConnection();
+                using (SqlCommand command = new SqlCommand("SELECT * from login", DatabaseConnection.Connection))
                 {
-                    // Kiểm tra trạng thái kết nối trước khi mở
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Closed)
+                    try
                     {
-                        DatabaseConnection.Instance.Connection.Open();
-                    }
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        // Xóa danh sách cũ trước khi tải mới
-                        Logins.Clear();
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            string username = reader["Username"].ToString();
-                            string password = reader["Password"].ToString();
-                            string role = reader["Role"].ToString();
+                            // Xóa danh sách cũ trước khi tải mới
+                            Logins.Clear();
+                            while (reader.Read())
+                            {
+                                string username = reader["Username"].ToString();
+                                string password = reader["Password"].ToString();
+                                string role = reader["Role"].ToString();
 
-                            Login login = new Login(username, password, role);
-                            Logins.Add(login);
+                                Login login = new Login(username, password, role);
+                                Logins.Add(login);
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Xử lý các lỗi nếu có
-                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
-                }
-                finally
-                {
-                    // Đảm bảo rằng kết nối được đóng
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Open)
+                    catch (Exception ex)
                     {
-                        DatabaseConnection.Instance.Connection.Close();
+                        // Xử lý các lỗi nếu có
+                        MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
                     }
+
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                DatabaseConnection.CloseConnection();
             }
         }
 
         public static void GettAllEmployee()
         {
-            using (SqlCommand command = new SqlCommand("SELECT * from employees", DatabaseConnection.Instance.Connection))
+            try
             {
-                try
+                DatabaseConnection.OpenConnection();
+
+                using (SqlCommand command = new SqlCommand("SELECT * from employees", DatabaseConnection.Connection))
                 {
-                    // Kiểm tra trạng thái kết nối trước khi mở
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Closed)
+                    try
                     {
-                        DatabaseConnection.Instance.Connection.Open();
-                    }
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        // Xóa danh sách cũ trước khi tải mới
-                        Employees.Clear();
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            string id = reader["EmployeeID"].ToString();
-                            string fullname = reader["FullName"].ToString();
-                            DateTime birthDate = (DateTime)reader["DateOfBirth"];
-                            string gender = reader["Gender"].ToString();
-                            string address = reader["Address"].ToString();
-                            string phone = reader["PhoneNumber"].ToString();
-                            string email = reader["Email"].ToString();
-                            string role = reader["Role"].ToString();
-                            string pos = reader["Position"].ToString();
-                            DateTime dateHired = (DateTime)reader["DateHired"];
-                            string status = reader["Status"].ToString();
-                            string notes = reader["Notes"].ToString();
+                            // Xóa danh sách cũ trước khi tải mới
+                            Employees.Clear();
+                            while (reader.Read())
+                            {
+                                string id = reader["EmployeeID"].ToString();
+                                string fullname = reader["FullName"].ToString();
+                                DateTime birthDate = (DateTime)reader["DateOfBirth"];
+                                string gender = reader["Gender"].ToString();
+                                string address = reader["Address"].ToString();
+                                string phone = reader["PhoneNumber"].ToString();
+                                string email = reader["Email"].ToString();
+                                string role = reader["Role"].ToString();
+                                string pos = reader["Position"].ToString();
+                                DateTime dateHired = (DateTime)reader["DateHired"];
+                                string status = reader["Status"].ToString();
+                                string notes = reader["Notes"].ToString();
 
-                            Employee employee = new Employee(fullname, birthDate, gender, address, phone, email, id, role, pos, dateHired, status, notes);
+                                Employee employee = new Employee(fullname, birthDate, gender, address, phone, email, id, role, pos, dateHired, status, notes);
 
-                            Employees.Add(employee);
+                                Employees.Add(employee);
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Xử lý các lỗi nếu có
-                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
-                }
-                finally
-                {
-                    // Đảm bảo rằng kết nối được đóng
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Open)
+                    catch (Exception ex)
                     {
-                        DatabaseConnection.Instance.Connection.Close();
+                        // Xử lý các lỗi nếu có
+                        MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
                     }
+
                 }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DatabaseConnection.CloseConnection();
+            }
+
         }
 
         public static void GetAllCustomer()
         {
-            using (SqlCommand command = new SqlCommand("SELECT * from customers", DatabaseConnection.Instance.Connection))
+            try
             {
-                try
+                DatabaseConnection.OpenConnection();
+                using (SqlCommand command = new SqlCommand("SELECT * from customers", DatabaseConnection.Connection))
                 {
-                    // Kiểm tra trạng thái kết nối trước khi mở
-                    if (DatabaseConnection.Instance.Connection.State == ConnectionState.Closed)
+                    try
                     {
-                        DatabaseConnection.Instance.Connection.Open();
-                    }
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        // Xóa danh sách cũ trước khi tải mới
-                        Customers.Clear();
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            string id = reader["CustomerID"].ToString();
-                            string fullname = reader["FullName"].ToString();
-                            DateTime birthDate = (DateTime)reader["DateOfBirth"];
-                            string gender = reader["Gender"].ToString();
-                            string address = reader["Address"].ToString();
-                            string phone = reader["PhoneNumber"].ToString();
-                            string email = reader["Email"].ToString();
-                            DateTime dateJoined = (DateTime)reader["DateJoined"];
-                            string notes = reader["Notes"].ToString();
+                            // Xóa danh sách cũ trước khi tải mới
+                            Customers.Clear();
+                            while (reader.Read())
+                            {
+                                string id = reader["CustomerID"].ToString();
+                                string fullname = reader["FullName"].ToString();
+                                DateTime birthDate = (DateTime)reader["DateOfBirth"];
+                                string gender = reader["Gender"].ToString();
+                                string address = reader["Address"].ToString();
+                                string phone = reader["PhoneNumber"].ToString();
+                                string email = reader["Email"].ToString();
+                                DateTime dateJoined = (DateTime)reader["DateJoined"];
+                                string notes = reader["Notes"].ToString();
 
-                            Customer customer = new Customer(fullname, birthDate, gender, address, phone, email, id, dateJoined, notes);
+                                Customer customer = new Customer(fullname, birthDate, gender, address, phone, email, id, dateJoined, notes);
 
-                            Customers.Add(customer);
+                                Customers.Add(customer);
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Xử lý các lỗi nếu có
-                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
-                }
-                finally
-                {
-                    // Đảm bảo rằng kết nối được đóng
-                    if (DatabaseConnection.Instance.Connection.State == ConnectionState.Open)
+                    catch (Exception ex)
                     {
-                        DatabaseConnection.Instance.Connection.Close();
+                        // Xử lý các lỗi nếu có
+                        MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
                     }
+
                 }
             }
+            finally
+            {
+                DatabaseConnection.CloseConnection();
+            }
+
         }
 
         public static void GetAllRooms()
         {
-            using (SqlCommand command = new SqlCommand("SELECT * from Rooms", DatabaseConnection.Instance.Connection))
+            try
             {
-                try
+                DatabaseConnection.OpenConnection();
+                using (SqlCommand command = new SqlCommand("SELECT * from Rooms", DatabaseConnection.Connection))
                 {
-                    // Kiểm tra trạng thái kết nối trước khi mở
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Closed)
+                    try
                     {
-                        DatabaseConnection.Instance.Connection.Open();
-                    }
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        // Xóa danh sách cũ trước khi tải mới
-                        Rooms.Clear();
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            string id = reader["RoomID"].ToString();
-                            string type = reader["RoomType"].ToString();
-                            int capacity = (int)reader["Capacity"];
-                            double price = Convert.ToDouble(reader["Price"]);
-                            string status = reader["Status"].ToString();
-                            string des = reader["Description"].ToString();
+                            // Xóa danh sách cũ trước khi tải mới
+                            Rooms.Clear();
+                            while (reader.Read())
+                            {
+                                string id = reader["RoomID"].ToString();
+                                string type = reader["RoomType"].ToString();
+                                int capacity = (int)reader["Capacity"];
+                                double price = Convert.ToDouble(reader["Price"]);
+                                string status = reader["Status"].ToString();
+                                string des = reader["Description"].ToString();
 
-                            Room r = new Room(id, type, capacity, price, status, des);
+                                Room r = new Room(id, type, capacity, price, status, des);
 
-                            Rooms.Add(r);
+                                Rooms.Add(r);
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Xử lý các lỗi nếu có
-                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
-                }
-                finally
-                {
-                    // Đảm bảo rằng kết nối được đóng
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Open)
+                    catch (Exception ex)
                     {
-                        DatabaseConnection.Instance.Connection.Close();
+                        // Xử lý các lỗi nếu có
+                        MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
                     }
+
                 }
+            }
+            finally
+            {
+                DatabaseConnection.CloseConnection();
             }
         }
 
         public static void GetAllEmptyRooms()
         {
-            using (SqlCommand command = new SqlCommand("SELECT * from Rooms WHERE Status = N'Trống'", DatabaseConnection.Instance.Connection))
+            try
             {
-                try
+                DatabaseConnection.OpenConnection();
+                using (SqlCommand command = new SqlCommand("SELECT * from Rooms WHERE Status = N'Trống'", DatabaseConnection.Connection))
                 {
-                    // Kiểm tra trạng thái kết nối trước khi mở
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Closed)
+                    try
                     {
-                        DatabaseConnection.Instance.Connection.Open();
-                    }
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        // Xóa danh sách cũ trước khi tải mới
-                        Rooms.Clear();
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            string id = reader["RoomID"].ToString();
-                            string type = reader["RoomType"].ToString();
-                            int capacity = (int)reader["Capacity"];
-                            double price = Convert.ToDouble(reader["Price"]);
-                            string status = reader["Status"].ToString();
-                            string des = reader["Description"].ToString();
+                            // Xóa danh sách cũ trước khi tải mới
+                            Rooms.Clear();
+                            while (reader.Read())
+                            {
+                                string id = reader["RoomID"].ToString();
+                                string type = reader["RoomType"].ToString();
+                                int capacity = (int)reader["Capacity"];
+                                double price = Convert.ToDouble(reader["Price"]);
+                                string status = reader["Status"].ToString();
+                                string des = reader["Description"].ToString();
 
-                            Room r = new Room(id, type, capacity, price, status, des);
+                                Room r = new Room(id, type, capacity, price, status, des);
 
-                            EmptyRooms.Add(r);
+                                EmptyRooms.Add(r);
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Xử lý các lỗi nếu có
-                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
-                }
-                finally
-                {
-                    // Đảm bảo rằng kết nối được đóng
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Open)
+                    catch (Exception ex)
                     {
-                        DatabaseConnection.Instance.Connection.Close();
+                        // Xử lý các lỗi nếu có
+                        MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                DatabaseConnection.CloseConnection();
             }
         }
 
         public static void GetAllRoomBooking()
         {
-            using (SqlCommand command = new SqlCommand("SELECT * from RoomBookings", DatabaseConnection.Instance.Connection))
+            try
             {
-                try
+                DatabaseConnection.OpenConnection();
+                using (SqlCommand command = new SqlCommand("SELECT * from RoomBookings", DatabaseConnection.Connection))
                 {
-                    // Kiểm tra trạng thái kết nối trước khi mở
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Closed)
+                    try
                     {
-                        DatabaseConnection.Instance.Connection.Open();
-                    }
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        // Xóa danh sách cũ trước khi tải mới
-                        Rooms.Clear();
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            int id = (int)reader["BookingID"];
-                            string customerID = reader["CustomerID"].ToString();
-                            string roomId = reader["RoomId"].ToString();
-                            DateTime checkInDate = (DateTime)reader["CheckInDate"];
-                            DateTime checkOutDate = (DateTime)reader["CheckOutDate"];
-                            int numberOfGuests = (int)reader["NumberOfGuests"];
-                            double totalPrice = Convert.ToDouble(reader["TotalPrice"]);
-                            string bookingStatus = reader["BookingStatus"].ToString();
-                            string notes = reader["Notes"].ToString();
+                            // Xóa danh sách cũ trước khi tải mới
+                            Rooms.Clear();
+                            while (reader.Read())
+                            {
+                                int id = (int)reader["BookingID"];
+                                string customerID = reader["CustomerID"].ToString();
+                                string roomId = reader["RoomId"].ToString();
+                                DateTime checkInDate = (DateTime)reader["CheckInDate"];
+                                DateTime checkOutDate = (DateTime)reader["CheckOutDate"];
+                                int numberOfGuests = (int)reader["NumberOfGuests"];
+                                double totalPrice = Convert.ToDouble(reader["TotalPrice"]);
+                                string bookingStatus = reader["BookingStatus"].ToString();
+                                string notes = reader["Notes"].ToString();
 
-                            RoomBooking roomBooking = new RoomBooking(id, customerID, roomId, checkInDate, checkOutDate, numberOfGuests, totalPrice, bookingStatus, notes);
+                                RoomBooking roomBooking = new RoomBooking(id, customerID, roomId, checkInDate, checkOutDate, numberOfGuests, totalPrice, bookingStatus, notes);
 
-                            RoomBookings.Add(roomBooking);
+                                RoomBookings.Add(roomBooking);
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Xử lý các lỗi nếu có
-                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
-                }
-                finally
-                {
-                    // Đảm bảo rằng kết nối được đóng
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Open)
+                    catch (Exception ex)
                     {
-                        DatabaseConnection.Instance.Connection.Close();
+                        // Xử lý các lỗi nếu có
+                        MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                DatabaseConnection.CloseConnection();
             }
         }
 
         public static void GetAllInvoice()
         {
-            using (SqlCommand command = new SqlCommand("SELECT * from Invoices", DatabaseConnection.Instance.Connection))
+            try
             {
-                try
+                // Mở kết nối
+                DatabaseConnection.OpenConnection();
+
+                using (SqlCommand command = new SqlCommand("SELECT * FROM Invoices", DatabaseConnection.Connection))
                 {
-                    // Kiểm tra trạng thái kết nối trước khi mở
-                    if (DatabaseConnection.Instance.Connection.State == ConnectionState.Closed)
-                    {
-                        DatabaseConnection.Instance.Connection.Open();
-                    }
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         // Xóa danh sách cũ trước khi tải mới
@@ -336,103 +322,119 @@ namespace HotelManagement.ClassFolder
                             string notes = reader["Notes"].ToString();
 
                             Invoice invoice = new Invoice(invoiceID, bookingID, invoiceDate, totalAmount, paidAmount, paymentStatus, notes);
-
                             Invoices.Add(invoice);
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    // Xử lý các lỗi nếu có
-                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
-                }
-                finally
-                {
-                    // Đảm bảo rằng kết nối được đóng
-                    if (DatabaseConnection.Instance.Connection.State == System.Data.ConnectionState.Open)
-                    {
-                        DatabaseConnection.Instance.Connection.Close();
-                    }
-                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý các lỗi nếu có
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+            }
+            finally
+            {
+                // Đảm bảo rằng kết nối được đóng
+                DatabaseConnection.CloseConnection();
             }
         }
+
 
         //lấy thông tin các hóa đơn đã thanh toán
         public static void GetAllPaidInvoice()
         {
             string query = @"SELECT * FROM Invoices WHERE PaymentStatus = N'Đã thanh toán'";
-            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Instance.Connection))
+            try
             {
-                try
+                // Mở kết nối
+                DatabaseConnection.OpenConnection();
+                using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Connection))
                 {
-                    // Kiểm tra trạng thái kết nối trước khi mở
-                    if (DatabaseConnection.Instance.Connection.State == ConnectionState.Closed)
+                    try
                     {
-                        DatabaseConnection.Instance.Connection.Open();
-                    }
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        // Xóa danh sách cũ trước khi tải được thanh toán
-                        InvoiceFilter.Clear();
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            int invoiceID = (int)reader["InvoiceID"];
-                            int bookingID = (int)reader["BookingID"];
-                            DateTime invoiceDate = (DateTime)reader["InvoiceDate"];
-                            double totalAmount = Convert.ToDouble(reader["TotalAmount"]);
-                            double paidAmount = Convert.ToDouble(reader["PaidAmount"]);
-                            string paymentStatus = reader["PaymentStatus"].ToString();
-                            string notes = reader["Notes"].ToString();
+                            // Xóa danh sách cũ trước khi tải được thanh toán
+                            InvoiceFilter.Clear();
+                            while (reader.Read())
+                            {
+                                int invoiceID = (int)reader["InvoiceID"];
+                                int bookingID = (int)reader["BookingID"];
+                                DateTime invoiceDate = (DateTime)reader["InvoiceDate"];
+                                double totalAmount = Convert.ToDouble(reader["TotalAmount"]);
+                                double paidAmount = Convert.ToDouble(reader["PaidAmount"]);
+                                string paymentStatus = reader["PaymentStatus"].ToString();
+                                string notes = reader["Notes"].ToString();
 
-                            Invoice invoice = new Invoice(invoiceID, bookingID, invoiceDate, totalAmount, paidAmount, paymentStatus, notes);
-                            InvoiceFilter.Add(invoice);
+                                Invoice invoice = new Invoice(invoiceID, bookingID, invoiceDate, totalAmount, paidAmount, paymentStatus, notes);
+                                InvoiceFilter.Add(invoice);
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        // Xử lý các lỗi nếu có
+                        MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    // Xử lý các lỗi nếu có
-                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
-                }
+            }
+
+            catch (Exception ex)
+            {
+                // Xử lý các lỗi nếu có
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+            }
+            finally
+            {
+                // Đảm bảo rằng kết nối là đóng
+                DatabaseConnection.CloseConnection();
             }
         }
         //lấy thông tin các hóa đơn chưa thanh toán
         public static void GetAllNotPaidInvoice()
         {
             string query = @"SELECT * FROM Invoices WHERE PaymentStatus = N'Chưa thanh toán'";
-            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Instance.Connection))
+            try
             {
-                try
+                DatabaseConnection.OpenConnection();
+                using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Connection))
                 {
-                    // Kiểm tra trạng thái kết nối trước khi mở
-                    if (DatabaseConnection.Instance.Connection.State == ConnectionState.Closed)
+                    try
                     {
-                        DatabaseConnection.Instance.Connection.Open();
-                    }
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        // Xóa danh sách cũ trước khi tải được thanh toán
-                        InvoiceFilter.Clear();
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            int invoiceID = (int)reader["InvoiceID"];
-                            int bookingID = (int)reader["BookingID"];
-                            DateTime invoiceDate = (DateTime)reader["InvoiceDate"];
-                            double totalAmount = Convert.ToDouble(reader["TotalAmount"]);
-                            double paidAmount = Convert.ToDouble(reader["PaidAmount"]);
-                            string paymentStatus = reader["PaymentStatus"].ToString();
-                            string notes = reader["Notes"].ToString();
+                            // Xóa danh sách cũ trước khi tải được thanh toán
+                            InvoiceFilter.Clear();
+                            while (reader.Read())
+                            {
+                                int invoiceID = (int)reader["InvoiceID"];
+                                int bookingID = (int)reader["BookingID"];
+                                DateTime invoiceDate = (DateTime)reader["InvoiceDate"];
+                                double totalAmount = Convert.ToDouble(reader["TotalAmount"]);
+                                double paidAmount = Convert.ToDouble(reader["PaidAmount"]);
+                                string paymentStatus = reader["PaymentStatus"].ToString();
+                                string notes = reader["Notes"].ToString();
 
-                            Invoice invoice = new Invoice(invoiceID, bookingID, invoiceDate, totalAmount, paidAmount, paymentStatus, notes);
-                            InvoiceFilter.Add(invoice);
+                                Invoice invoice = new Invoice(invoiceID, bookingID, invoiceDate, totalAmount, paidAmount, paymentStatus, notes);
+                                InvoiceFilter.Add(invoice);
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        // Xử lý các lỗi nếu có
+                        MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    // Xử lý các lỗi nếu có
-                    MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý các lỗi nếu có
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                DatabaseConnection.CloseConnection();
             }
         }
 
@@ -440,8 +442,8 @@ namespace HotelManagement.ClassFolder
         public static void InsertRoomToDB(string id, string cap, string type, double price, string des)
         {
             using (SqlCommand command = new SqlCommand(
-                "INSERT INTO Rooms (RoomID, Capacity, RoomType, Price, Description, Status) VALUES (@RoomID, @Capacity, @RoomType, @Price, @Description, @Status)",
-                DatabaseConnection.Instance.Connection))
+                "INSERT INTO Rooms (RoomID, Capacity, RoomType, Price, Description, Status) VALUES (@RoomID, @Capacity, @RoomType, @Price, @Description, @Status)"
+                , DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@RoomID", id);
                 command.Parameters.AddWithValue("@Capacity", cap);
@@ -449,10 +451,9 @@ namespace HotelManagement.ClassFolder
                 command.Parameters.AddWithValue("@Price", price);
                 command.Parameters.AddWithValue("@Status", "Trống");
                 command.Parameters.AddWithValue("@Description", des);
-
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    DatabaseConnection.OpenConnection();
                     int rowsAffected = command.ExecuteNonQuery();
                     MessageBox.Show("Thêm phòng thành công!");
                 }
@@ -462,7 +463,7 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                    DatabaseConnection.CloseConnection();
                 }
             }
         }
@@ -472,8 +473,8 @@ namespace HotelManagement.ClassFolder
         {
             using (SqlCommand command = new SqlCommand(
                 "INSERT INTO Customers (CustomerID, FullName, DateOfBirth, Gender, Address, PhoneNumber, Email, DateJoined, Notes) " +
-                "VALUES (@CustomerID, @FullName, @DateOfBirth, @Gender, @Address, @PhoneNumber, @Email, @DateJoined, @Notes)",
-                DatabaseConnection.Instance.Connection))
+                "VALUES (@CustomerID, @FullName, @DateOfBirth, @Gender, @Address, @PhoneNumber, @Email, @DateJoined, @Notes)"
+                , DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@CustomerID", id);
                 command.Parameters.AddWithValue("@FullName", name);
@@ -487,7 +488,7 @@ namespace HotelManagement.ClassFolder
 
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    DatabaseConnection.OpenConnection(); // Mở kết nối đến cơ sở dữ liệu
                     int rowsAffected = command.ExecuteNonQuery();
                     MessageBox.Show("Thêm khách hàng thành công!");
                 }
@@ -497,7 +498,7 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                    DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn thành
                 }
             }
         }
@@ -508,8 +509,7 @@ namespace HotelManagement.ClassFolder
             //Lưu thông tin vào CSDL
             using (SqlCommand command = new SqlCommand(
               "INSERT INTO RoomBookings (BookingID, CustomerID, RoomID, CheckInDate, CheckOutDate, NumberOfGuests,TotalPrice,BookingStatus,Notes)" +
-              " VALUES (@BookingID, @CustomerID, @RoomID, @CheckInDate, @CheckOutDate, @NumberOfGuests, @TotalPrice, @BookingStatus, @Notes)",
-              DatabaseConnection.Instance.Connection))
+              " VALUES (@BookingID, @CustomerID, @RoomID, @CheckInDate, @CheckOutDate, @NumberOfGuests, @TotalPrice, @BookingStatus, @Notes)", DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@BookingID", roomBooking.Id);
                 command.Parameters.AddWithValue("@RoomID", roomBooking.RoomId);
@@ -522,7 +522,7 @@ namespace HotelManagement.ClassFolder
                 command.Parameters.AddWithValue("@Notes", roomBooking.Notes);
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    DatabaseConnection.OpenConnection(); // Mở kết nối đến cơ sở dữ liệu
                     int rowsAffected = command.ExecuteNonQuery();
                     MessageBox.Show("Thêm dữ liệu đặt phòng thành công!");
                 }
@@ -532,19 +532,18 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                    DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn thành
                 }
             }
 
             //Cập nhật trạng thái phòng
             using (SqlCommand command = new SqlCommand("" +
-                "Update Rooms Set Status = N'Đã đặt' Where RoomID = @RoomID",
-                DatabaseConnection.Instance.Connection))
+                "Update Rooms Set Status = N'Đã đặt' Where RoomID = @RoomID", DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@RoomID", roomBooking.RoomId);
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    DatabaseConnection.OpenConnection(); // Mở kết nối đến cơ sở dữ liệu
                     int rowsAffected = command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
@@ -553,7 +552,7 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                    DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn thành
                 }
             }
 
@@ -565,8 +564,7 @@ namespace HotelManagement.ClassFolder
         {
             using (SqlCommand command = new SqlCommand(
                  "INSERT INTO Invoices (InvoiceID ,BookingID, InvoiceDate, TotalAmount, PaidAmount, PaymentStatus, Notes) " +
-                 "VALUES (@InvoiceID, @BookingID, @InvoiceDate, @TotalAmount, @PaidAmount, @PaymentStatus, @Notes)",
-                 DatabaseConnection.Instance.Connection))
+                 "VALUES (@InvoiceID, @BookingID, @InvoiceDate, @TotalAmount, @PaidAmount, @PaymentStatus, @Notes)", DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@InvoiceID", invoice.InvoiceID);
                 command.Parameters.AddWithValue("@BookingID", invoice.BookingID);
@@ -578,7 +576,7 @@ namespace HotelManagement.ClassFolder
 
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    DatabaseConnection.OpenConnection(); // Mở kết nối đến cơ sở dữ liệu
                     int rowsAffected = command.ExecuteNonQuery();
                     MessageBox.Show("Thêm hóa đơn thành công!");
                 }
@@ -588,7 +586,7 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                    DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn thành
                 }
             }
         }
@@ -598,8 +596,7 @@ namespace HotelManagement.ClassFolder
             using (SqlCommand command = new SqlCommand(
                 "UPDATE Rooms " +
                    "SET Capacity = @Capacity, RoomType = @RoomType, Price = @Price, Description = @Description " +
-                   "WHERE RoomId = @RoomId",
-                DatabaseConnection.Instance.Connection))
+                   "WHERE RoomId = @RoomId", DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@RoomID", id);
                 command.Parameters.AddWithValue("@Capacity", cap);
@@ -609,7 +606,7 @@ namespace HotelManagement.ClassFolder
 
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    DatabaseConnection.OpenConnection(); // Mở kết nối đến cơ sở dữ liệu
                     int rowsAffected = command.ExecuteNonQuery();
                     MessageBox.Show("Cập nhật phòng thành công!");
                 }
@@ -619,7 +616,7 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                    DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn thành
                 }
             }
         }
@@ -630,14 +627,13 @@ namespace HotelManagement.ClassFolder
             using (SqlCommand command = new SqlCommand(
                 "UPDATE Invoices " +
                    "SET PaymentStatus = N'Đã thanh toán' " +
-                   "WHERE InvoiceID = @InvoiceID",
-                DatabaseConnection.Instance.Connection))
+                   "WHERE InvoiceID = @InvoiceID", DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@InvoiceID", id);
 
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    DatabaseConnection.OpenConnection(); // Mở kết nối đến cơ sở dữ liệu
                     int rowsAffected = command.ExecuteNonQuery();
                     MessageBox.Show("Cập nhật hóa đơn thành công!");
                 }
@@ -647,7 +643,7 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                    DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn thành
                 }
             }
         }
@@ -658,14 +654,13 @@ namespace HotelManagement.ClassFolder
             using (SqlCommand command = new SqlCommand(
                 "UPDATE Login " +
                    "SET Password = @Password " +
-                   "WHERE Username = @Username",
-                DatabaseConnection.Instance.Connection))
+                   "WHERE Username = @Username", DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@Username", id);
                 command.Parameters.AddWithValue("@Password", pass);
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    DatabaseConnection.OpenConnection(); // Mở kết nối đến cơ sở dữ liệu
                     int rowsAffected = command.ExecuteNonQuery();
                     MessageBox.Show("Cập nhật mật khẩu thành công!");
                 }
@@ -675,7 +670,7 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                    DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn thành
                 }
             }
         }
@@ -685,8 +680,7 @@ namespace HotelManagement.ClassFolder
             using (SqlCommand command = new SqlCommand(
                 "UPDATE Employees " +
                    "SET FullName = @FullName, PhoneNumber = @PhoneNumber, Address = @Address " +
-                   "WHERE EmployeeID = @EmployeeID",
-                DatabaseConnection.Instance.Connection))
+                   "WHERE EmployeeID = @EmployeeID", DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@EmployeeID", id);
                 command.Parameters.AddWithValue("@FullName", name);
@@ -694,7 +688,7 @@ namespace HotelManagement.ClassFolder
                 command.Parameters.AddWithValue("@Address", address);
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    DatabaseConnection.OpenConnection(); // Mở kết nối đến cơ sở dữ liệu
                     int rowsAffected = command.ExecuteNonQuery();
                     MessageBox.Show("Cập nhật nhân viên thành công!");
                 }
@@ -704,17 +698,17 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn chỉnh
+                    DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn chỉnh
                 }
             }
         }
 
         //check mật khẩu hiện tại có đúng không
-        public static bool IsCurrentPassCorrect(string id,string pass)
+        public static bool IsCurrentPassCorrect(string id, string pass)
         {
-            foreach(Login login in Logins)
+            foreach (Login login in Logins)
             {
-                if(login.Username == id && login.Password == pass)
+                if (login.Username == id && login.Password == pass)
                     return true;
             }
             return false;
@@ -809,13 +803,12 @@ namespace HotelManagement.ClassFolder
         public static void RemoveRoom(string id)
         {
             using (SqlCommand command = new SqlCommand(
-               "DELETE Rooms WHERE RoomId = @RoomId",
-               DatabaseConnection.Instance.Connection))
+               "DELETE Rooms WHERE RoomId = @RoomId"))
             {
                 command.Parameters.AddWithValue("@RoomID", id);
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open(); // Mở kết nối đến cơ sở dữ liệu
+                    DatabaseConnection.OpenConnection(); // Mở kết nối đến cơ sở dữ liệu
                     int rowsAffected = command.ExecuteNonQuery();
                     MessageBox.Show("Xóa phòng thành công!");
                 }
@@ -825,7 +818,7 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close(); // Đóng kết nối sau khi hoàn thành
+                    DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn thành
                 }
             }
         }
@@ -958,13 +951,13 @@ namespace HotelManagement.ClassFolder
 
             string query = $"SELECT * FROM Customers WHERE {columnName} LIKE @content";
 
-            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Instance.Connection))
+            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@content", "%" + content + "%");
 
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open();
+                    DatabaseConnection.OpenConnection();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -992,7 +985,7 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close();
+                    DatabaseConnection.CloseConnection();
                 }
             }
 
@@ -1061,13 +1054,13 @@ namespace HotelManagement.ClassFolder
                             WHERE 
 	                            c.FullName LIKE @content";
 
-            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Instance.Connection))
+            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@content", "%" + content + "%");
 
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open();
+                    DatabaseConnection.OpenConnection();
                     dtgv.Rows.Clear();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -1091,7 +1084,7 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close();
+                    DatabaseConnection.CloseConnection() ;
                 }
             }
         }
@@ -1108,13 +1101,13 @@ namespace HotelManagement.ClassFolder
                             WHERE 
 	                            r.RoomID LIKE @content";
 
-            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Instance.Connection))
+            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@content", "%" + content + "%");
 
                 try
                 {
-                    DatabaseConnection.Instance.Connection.Open();
+                    DatabaseConnection.OpenConnection();
                     dtgv.Rows.Clear();
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -1138,9 +1131,45 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.Instance.Connection.Close();
+                    DatabaseConnection.CloseConnection();
                 }
             }
         }
+
+        //Cập nhật khách hàng
+        internal static int UpdateCustomer(string id, string name, string phone, string email, DateTime birthDate, string gender, string address, string note)
+        {
+            string query = "UPDATE customers SET FullName = @Name, DateOfBirth = @BirthDate, Gender = @Gender, " +
+                           "Address = @Address, PhoneNumber = @Phone, Email = @Email, Notes = @Note WHERE CustomerId = @Id";
+            int kq = 0;
+
+            try
+            {
+                DatabaseConnection.OpenConnection();
+                using (SqlCommand cmd = new SqlCommand(query, DatabaseConnection.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@Name", name);
+                    cmd.Parameters.AddWithValue("@BirthDate", birthDate);
+                    cmd.Parameters.AddWithValue("@Gender", gender);
+                    cmd.Parameters.AddWithValue("@Address", address);
+                    cmd.Parameters.AddWithValue("@Phone", phone);
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@Note", note);
+                    cmd.Parameters.AddWithValue("@Id", id);
+
+                    kq = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            finally
+            {
+                DatabaseConnection.CloseConnection();
+            }
+            return kq;
+        }
+
     }
 }

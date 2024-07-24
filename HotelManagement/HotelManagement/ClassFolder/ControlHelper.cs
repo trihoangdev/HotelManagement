@@ -51,5 +51,17 @@ namespace HotelManagement.ClassFolder
                 dt.Value = DateTime.Now;
             }
         }
+
+        //Ẩn các control
+        internal static void UnEnableControl(List<Control> controls)
+        {
+            foreach (Control control in controls)
+                control.Enabled = false;
+        }
+
+        internal static bool IsDateTimeValid(Guna2DateTimePicker dateTimeInfoCustomerBirthDate)
+        {
+            return DateTime.Now.Year - dateTimeInfoCustomerBirthDate.Value.Year < 18;
+        }
     }
 }

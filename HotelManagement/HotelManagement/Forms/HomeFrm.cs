@@ -87,7 +87,7 @@ namespace HotelManagement.Forms
                         SetupManageRoomTab();
                         break;
                     }
-                 //Đặt Phòng
+                //Đặt Phòng
                 case "Đặt Phòng":
                     {
                         SetupBookingtab();
@@ -98,23 +98,7 @@ namespace HotelManagement.Forms
                 //Quản Lý Khách Hàng
                 case "Quản Lý Khách Hàng":
                     {
-                        DataProvider.GetAllCustomer();
-                        //Xóa dữ liệu trong bảng hiện tại
-                        dtgvInfoCustomer.Rows.Clear();
-
-                        //Truyền dữ liệu từ danh sách vào DataGridView
-                        foreach (var customer in DataProvider.Customers)
-                        {
-                            dtgvInfoCustomer.Rows.Add(
-                                customer.CustomerID,
-                                customer.FullName,
-                                customer.DateOfBirth.ToString("dd/MM/yyyy"),
-                                customer.Gender,
-                                customer.Email,
-                                customer.PhoneNumber,
-                                customer.DateJoined.ToString("dd/MM/yyyy"),
-                                customer.Notes);
-                        }
+                        SetupManageCustomerTab();
                         break;
                     }
                 //Quản Lý Nhân Viên
@@ -150,18 +134,29 @@ namespace HotelManagement.Forms
             }
         }
 
+        //setup cho tab quản lý khách hàng
+        private void SetupManageCustomerTab()
+        {
+            //Xóa dữ liệu trong bảng hiện tại
+            dtgvInfoCustomer.Rows.Clear();
+
+            //Truyền dữ liệu từ danh sách vào DataGridView
+            DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, DataProvider.Customers);
+
+            //Xóa các textbox 
+            ControlHelper.ClearDataInControls(new List<Control> { txtInfoCustomerId, txtInfoCustomerName, txtInfoCustomerEmail, txtInfoCustomerPhone, txtInfoCustomerAddress, txtInfoCustomerNote });
+        }
+
         //setup cho tab hóa đơn
         private void SetupInvoiceTab()
         {
             dtgvInfoCustomer.Rows.Clear();
-            DataProvider.GetAllInvoice();
             DataProvider.FillDataGridViewInvoice(dtgvInvoice, DataProvider.Invoices);
         }
 
         //set up cho tab quản lý phòng
         private void SetupManageRoomTab()
         {
-            DataProvider.GetAllInvoice();
             DataProvider.FillDataGridView(dtgvRoom, "Rooms");
         }
 
@@ -541,7 +536,7 @@ namespace HotelManagement.Forms
             {
                 ShowMessageInfo("Phải điền tất cả thông tin ngoại trừ Ghi chú có thể điền hoặc không");
             }
-            else if (DateTime.Now.Year - dtRegisCustomerBirthDate.Value.Year < 18)
+            else if (ControlHelper.IsDateTimeValid(dtRegisCustomerBirthDate))
             {
                 ShowMessageInfo("Chỉ đăng ký cho khách hàng trên 18 tuổi");
             }
@@ -643,6 +638,9 @@ namespace HotelManagement.Forms
             comboInfoCriteria.SelectedIndex = -1;
             DataProvider.GetAllCustomer();
             DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, DataProvider.Customers);
+
+            //reset các button unenable
+            ControlHelper.UnEnableControl(new List<Control> { btnInfoCustomerUpdate, btnInfoCustomerDelete });
         }
 
         private void radInvoice_CheckedChanged(object sender, EventArgs e)
@@ -750,7 +748,7 @@ namespace HotelManagement.Forms
             {
                 ShowMessageInfo("Không được để trống bất kì thông tin nào!");
             }
-            else if (!ControlHelper.IsAllTextIsNumber(new List<Control> { txtInfoEmpPhone })) 
+            else if (!ControlHelper.IsAllTextIsNumber(new List<Control> { txtInfoEmpPhone }))
             {
                 ShowMessageInfo("SĐT phải là số có 10 chữ số");
             }
@@ -766,8 +764,65 @@ namespace HotelManagement.Forms
 
                 DataProvider.GettAllEmployee();//Load lại ds EMP
                 emp = emp.FindEmpById(DataProvider.Employees, empId);//cập nhật lại đối tượng emp của form này
-            } 
-                
+            }
+
+        }
+
+        //Phương thức chọn dòng của bảng customer
+        //Đẩy data lên các textbox tương ứng
+        private void dtgvInfoCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //Lấy dòng cần chọn
+            var row = dtgvInfoCustomer.SelectedRows[0];
+            if (row != null)
+            {
+                //Tìm KH tương ứng với id của dòng
+                var colId = row.Cells[0].Value.ToString();
+                var customer = DataProvider.FindCustomerById(colId);
+
+                //Đẩy data tương ứng lên các control tương ứng
+                txtInfoCustomerId.Text = customer.CustomerID;
+                txtInfoCustomerName.Text = customer.FullName;
+                txtInfoCustomerPhone.Text = customer.PhoneNumber;
+                txtInfoCustomerEmail.Text = customer.Email;
+                dateTimeInfoCustomerBirthDate.Value = customer.DateOfBirth;
+                if (customer.Gender == "Nam") radioInfoCustomerGenderMale.Checked = true;
+                else radioInfoCustomerGenderFemale.Checked = true;
+                txtInfoCustomerAddress.Text = customer.Address;
+                txtInfoCustomerNote.Text = customer.Notes;
+
+                //Hiện các button sửa/xóa
+                btnInfoCustomerDelete.Enabled = true;
+                btnInfoCustomerUpdate.Enabled = true;
+            }
+        }
+
+        //Chức năng sửa thông tin khách hàng
+        private void btnInfoCustomerUpdate_Click(object sender, EventArgs e)
+        {
+            //Check có thông tin nào trống không
+            if (ControlHelper.IsAnyControlEmpty(new List<Control> { txtInfoCustomerId, txtInfoCustomerName, txtInfoCustomerEmail, txtInfoCustomerPhone, txtInfoCustomerAddress }))
+                ShowMessageInfo("Các thông tin phải được điền đầy đủ");
+            else if (ControlHelper.IsDateTimeValid(dateTimeInfoCustomerBirthDate))
+                ShowMessageInfo("Ngày sinh không hợp lệ");
+            else
+            {
+                string id = txtInfoCustomerId.Text;
+                string name = txtInfoCustomerName.Text;
+                string phone = txtInfoCustomerPhone.Text;
+                string email = txtInfoCustomerEmail.Text;
+                DateTime birthDate = dateTimeInfoCustomerBirthDate.Value;
+                string gender = (radioInfoCustomerGenderMale.Checked == true) ? "Nam" : "Nữ";
+                string address = txtInfoCustomerAddress.Text;
+                string note = txtInfoCustomerNote.Text;
+                if (DataProvider.UpdateCustomer(id, name, phone, email, birthDate, gender, address, note) > 0)
+                    ShowMessageInfo("Sửa thông tin khách hàng thành công!");
+                else
+                {
+                    ShowMessageInfo("Không thể sửa thông tin khách hàng. Vui lòng xem lại!");
+                }
+            }
+            DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, DataProvider.Customers);
         }
     }
 }
