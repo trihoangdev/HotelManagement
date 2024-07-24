@@ -79,7 +79,8 @@ namespace HotelManagement.Forms
 
         private void controlTabHome_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (controlTabHome.SelectedTab.ToString())
+            //MessageBox.Show(controlTabHome.SelectedTab.Text.ToString());
+            switch (controlTabHome.SelectedTab.Text.ToString())
             {
                 //Quản Lý Phòng
                 case "Quản Lý Phòng":
