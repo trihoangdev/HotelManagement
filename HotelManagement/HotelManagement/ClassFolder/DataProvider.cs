@@ -103,7 +103,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
-        public static void GettAllEmployee()
+        public static void GetAllEmployee()
         {
             try
             {

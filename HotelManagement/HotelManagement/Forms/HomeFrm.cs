@@ -57,7 +57,7 @@ namespace HotelManagement.Forms
         private void HomeFrm_Load(object sender, EventArgs e)
         {
             //Load các danh sách lên
-            DataProvider.GettAllEmployee();
+            DataProvider.GetAllEmployee();
             DataProvider.GetAllCustomer();
             DataProvider.GetAllLogins();
             DataProvider.GetAllRooms();
@@ -135,8 +135,10 @@ namespace HotelManagement.Forms
             }
         }
 
-        private void SetupManageEmployeTab()
+        public void SetupManageEmployeTab()
         {
+            DataProvider.GetAllEmployee();
+
             //Xóa dữ liệu trong bảng hiện tại
             dtgvInfoEmp.Rows.Clear();
 
@@ -775,7 +777,7 @@ namespace HotelManagement.Forms
                 var address = txtInfoEmpAddress.Text;
                 DataProvider.UpdateEmployee(id, name, phone, address);
 
-                DataProvider.GettAllEmployee();//Load lại ds EMP
+                DataProvider.GetAllEmployee();//Load lại ds EMP
                 emp = emp.FindEmpById(DataProvider.Employees, empId);//cập nhật lại đối tượng emp của form này
             }
 
@@ -871,7 +873,7 @@ namespace HotelManagement.Forms
                 string id = selectedRow.Cells[0].Value.ToString();
 
                 //truyền id của nhân viên đó vào form mới
-                EmployeeInfoFrm empInfoFrm = new EmployeeInfoFrm(id);
+                EmployeeInfoFrm empInfoFrm = new EmployeeInfoFrm(id, this);
                 empInfoFrm.ShowDialog();
             }
         }

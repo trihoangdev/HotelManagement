@@ -43,7 +43,9 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnBooking = new Guna.UI2.WinForms.Guna2Button();
+            this.radioFemale = new System.Windows.Forms.RadioButton();
+            this.radioMale = new System.Windows.Forms.RadioButton();
+            this.btnUpdateEmp = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.txtId = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPassword = new Guna.UI2.WinForms.Guna2TextBox();
@@ -56,8 +58,6 @@
             this.comboStatus = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txtRole = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtNote = new Guna.UI2.WinForms.Guna2TextBox();
-            this.radioMale = new System.Windows.Forms.RadioButton();
-            this.radioFemale = new System.Windows.Forms.RadioButton();
             this.txtAddress = new Guna.UI2.WinForms.Guna2TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -216,21 +216,46 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Giới tính";
             // 
-            // btnBooking
+            // radioFemale
             // 
-            this.btnBooking.BorderRadius = 10;
-            this.btnBooking.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnBooking.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnBooking.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnBooking.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnBooking.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnBooking.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBooking.ForeColor = System.Drawing.Color.Black;
-            this.btnBooking.Location = new System.Drawing.Point(211, 700);
-            this.btnBooking.Name = "btnBooking";
-            this.btnBooking.Size = new System.Drawing.Size(232, 52);
-            this.btnBooking.TabIndex = 35;
-            this.btnBooking.Text = "Sửa thông tin";
+            this.radioFemale.AutoSize = true;
+            this.radioFemale.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioFemale.Location = new System.Drawing.Point(274, 34);
+            this.radioFemale.Name = "radioFemale";
+            this.radioFemale.Size = new System.Drawing.Size(49, 25);
+            this.radioFemale.TabIndex = 1;
+            this.radioFemale.TabStop = true;
+            this.radioFemale.Text = "Nữ";
+            this.radioFemale.UseVisualStyleBackColor = true;
+            // 
+            // radioMale
+            // 
+            this.radioMale.AutoSize = true;
+            this.radioMale.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioMale.Location = new System.Drawing.Point(83, 34);
+            this.radioMale.Name = "radioMale";
+            this.radioMale.Size = new System.Drawing.Size(62, 25);
+            this.radioMale.TabIndex = 0;
+            this.radioMale.TabStop = true;
+            this.radioMale.Text = "Nam";
+            this.radioMale.UseVisualStyleBackColor = true;
+            // 
+            // btnUpdateEmp
+            // 
+            this.btnUpdateEmp.BorderRadius = 10;
+            this.btnUpdateEmp.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnUpdateEmp.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnUpdateEmp.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnUpdateEmp.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnUpdateEmp.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnUpdateEmp.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateEmp.ForeColor = System.Drawing.Color.Black;
+            this.btnUpdateEmp.Location = new System.Drawing.Point(211, 700);
+            this.btnUpdateEmp.Name = "btnUpdateEmp";
+            this.btnUpdateEmp.Size = new System.Drawing.Size(232, 52);
+            this.btnUpdateEmp.TabIndex = 35;
+            this.btnUpdateEmp.Text = "Sửa thông tin";
+            this.btnUpdateEmp.Click += new System.EventHandler(this.btnUpdateEmp_Click);
             // 
             // guna2Button1
             // 
@@ -247,6 +272,7 @@
             this.guna2Button1.Size = new System.Drawing.Size(232, 52);
             this.guna2Button1.TabIndex = 36;
             this.guna2Button1.Text = "Xóa nhân viên";
+            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
             // txtId
             // 
@@ -466,30 +492,6 @@
             this.txtNote.Size = new System.Drawing.Size(836, 100);
             this.txtNote.TabIndex = 47;
             // 
-            // radioMale
-            // 
-            this.radioMale.AutoSize = true;
-            this.radioMale.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioMale.Location = new System.Drawing.Point(83, 34);
-            this.radioMale.Name = "radioMale";
-            this.radioMale.Size = new System.Drawing.Size(62, 25);
-            this.radioMale.TabIndex = 0;
-            this.radioMale.TabStop = true;
-            this.radioMale.Text = "Nam";
-            this.radioMale.UseVisualStyleBackColor = true;
-            // 
-            // radioFemale
-            // 
-            this.radioFemale.AutoSize = true;
-            this.radioFemale.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioFemale.Location = new System.Drawing.Point(274, 34);
-            this.radioFemale.Name = "radioFemale";
-            this.radioFemale.Size = new System.Drawing.Size(49, 25);
-            this.radioFemale.TabIndex = 1;
-            this.radioFemale.TabStop = true;
-            this.radioFemale.Text = "Nữ";
-            this.radioFemale.UseVisualStyleBackColor = true;
-            // 
             // txtAddress
             // 
             this.txtAddress.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -540,7 +542,7 @@
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtId);
             this.Controls.Add(this.guna2Button1);
-            this.Controls.Add(this.btnBooking);
+            this.Controls.Add(this.btnUpdateEmp);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -587,7 +589,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.GroupBox groupBox1;
-        private Guna.UI2.WinForms.Guna2Button btnBooking;
+        private Guna.UI2.WinForms.Guna2Button btnUpdateEmp;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Guna.UI2.WinForms.Guna2TextBox txtId;
         private Guna.UI2.WinForms.Guna2TextBox txtPassword;
