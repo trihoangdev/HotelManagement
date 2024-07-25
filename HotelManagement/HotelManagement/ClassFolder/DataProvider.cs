@@ -21,6 +21,46 @@ namespace HotelManagement.ClassFolder
         public static List<Invoice> Invoices = new List<Invoice>();
         public static List<Invoice> InvoiceFilter = new List<Invoice>();
 
+        public static DataTable LoadDB(string sql)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                DatabaseConnection.OpenConnection();//mở kết nối
+                SqlCommand cmd = new SqlCommand(sql, DatabaseConnection.Connection); //Tạo các lệnh
+                SqlDataAdapter da = new SqlDataAdapter(cmd);//thực thi những lệnh
+                da.Fill(dt); //đổ dữ liệu vào datatable
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            finally
+            {
+                DatabaseConnection.CloseConnection();
+            }
+            return dt;
+        }
+        public static int ModifyDB(string sql)
+        {
+            int kq = 0;
+            try
+            {
+                DatabaseConnection.OpenConnection();
+                SqlCommand cmd = new SqlCommand(sql, DatabaseConnection.Connection);
+                kq = cmd.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            finally
+            {
+                DatabaseConnection.CloseConnection();
+            }
+            return kq;
+        }
+
         public static void GetAllLogins()
         {
             try
@@ -812,7 +852,7 @@ namespace HotelManagement.ClassFolder
             {
 
                 // Add a new row to the DataGridView
-                int rowIndex = dtgv.Rows.Add(emp.EmployeeID, emp.FullName, emp.Position,emp.Status,"Xem chi tiết");
+                int rowIndex = dtgv.Rows.Add(emp.EmployeeID, emp.FullName, emp.Position, emp.Status, "Xem chi tiết");
 
                 // Get the newly added row
                 DataGridViewRow row = dtgv.Rows[rowIndex];
@@ -1106,7 +1146,7 @@ namespace HotelManagement.ClassFolder
                 }
                 finally
                 {
-                    DatabaseConnection.CloseConnection() ;
+                    DatabaseConnection.CloseConnection();
                 }
             }
         }
@@ -1193,6 +1233,6 @@ namespace HotelManagement.ClassFolder
             return kq;
         }
 
-        
+
     }
 }

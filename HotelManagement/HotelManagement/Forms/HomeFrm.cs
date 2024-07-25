@@ -147,6 +147,9 @@ namespace HotelManagement.Forms
         //setup cho tab quản lý khách hàng
         private void SetupManageCustomerTab()
         {
+            //Lấy dữ liệu khách hàng
+            DataProvider.GetAllCustomer();
+
             //Xóa dữ liệu trong bảng hiện tại
             dtgvInfoCustomer.Rows.Clear();
 
@@ -833,6 +836,23 @@ namespace HotelManagement.Forms
                 }
             }
             DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, DataProvider.Customers);
+        }
+
+        private void btnInfoCustomerDelete_Click(object sender, EventArgs e)
+        {
+            var res = MessageBox.Show("Bạn có chắc chắn muốn xóa?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (res == DialogResult.Yes)
+            {
+                string sql = $"DELETE Customers where CustomerId = {txtInfoCustomerId.Text}";
+                if (DataProvider.ModifyDB(sql) > 0)
+                {
+                    MessageBox.Show("Xóa khách hàng thành công!");
+                    SetupManageCustomerTab();
+                }
+                else
+                    ShowMessageInfo("Xóa khách hàng thất bại");
+            }
+
         }
     }
 }
