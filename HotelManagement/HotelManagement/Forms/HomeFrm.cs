@@ -877,5 +877,12 @@ namespace HotelManagement.Forms
                 empInfoFrm.ShowDialog();
             }
         }
+
+        private void btnInfoEmpRefresh_Click(object sender, EventArgs e)
+        {
+            SetupManageEmployeTab();
+            ControlHelper.ClearDataInControls(new List<Control> { txtInfoContentEmpFind });
+            comboInfoEmpCriteria.SelectedIndex = -1;
+        }
     }
 }
