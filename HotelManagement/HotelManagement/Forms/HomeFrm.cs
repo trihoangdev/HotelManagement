@@ -838,6 +838,7 @@ namespace HotelManagement.Forms
             DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, DataProvider.Customers);
         }
 
+        //Chức năng xóa khách hàng
         private void btnInfoCustomerDelete_Click(object sender, EventArgs e)
         {
             var res = MessageBox.Show("Bạn có chắc chắn muốn xóa?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -853,6 +854,26 @@ namespace HotelManagement.Forms
                     ShowMessageInfo("Xóa khách hàng thất bại");
             }
 
+        }
+
+        //Click vào nút Xem chi tiết hiện form thông tin nhân viên
+        private void dtgvInfoEmp_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int lastColumnIndex = dtgvInfoEmp.Columns.Count - 1; // Chỉ số của cột cuối cùng
+
+            // Kiểm tra nếu người dùng click vào cell cuối cùng của hàng được chọn
+            if (e.ColumnIndex == lastColumnIndex && e.RowIndex != -1) // e.RowIndex != -1 để loại trừ trường hợp người dùng click vào header
+            {
+                // Lấy dữ liệu từ row được chọn
+                DataGridViewRow selectedRow = dtgvInfoEmp.Rows[e.RowIndex];
+
+                // Lấy dữ liệu từ các cells của row được chọn
+                string id = selectedRow.Cells[0].Value.ToString();
+
+                //truyền id của nhân viên đó vào form mới
+                EmployeeInfoFrm empInfoFrm = new EmployeeInfoFrm(id);
+                empInfoFrm.ShowDialog();
+            }
         }
     }
 }

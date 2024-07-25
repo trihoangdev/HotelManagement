@@ -68,6 +68,12 @@
     <Compile Include="Forms\ChangePasswordFrm.Designer.cs">
       <DependentUpon>ChangePasswordFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EmployeeInfoFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EmployeeInfoFrm.Designer.cs">
+      <DependentUpon>EmployeeInfoFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\HomeFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +95,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\ChangePasswordFrm.resx">
       <DependentUpon>ChangePasswordFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EmployeeInfoFrm.resx">
+      <DependentUpon>EmployeeInfoFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HomeFrm.resx">
       <DependentUpon>HomeFrm.cs</DependentUpon>

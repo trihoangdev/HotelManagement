@@ -80,7 +80,6 @@
             this.roomsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.hotelManagementDataSet = new HotelManagement.HotelManagementDataSet();
             this.tabRoomBooking = new System.Windows.Forms.TabPage();
-            this.imgBookingFindCustomer = new Guna.UI2.WinForms.Guna2ImageButton();
             this.btnBooking = new Guna.UI2.WinForms.Guna2Button();
             this.dtgvBookingSelectedRoom = new Guna.UI2.WinForms.Guna2DataGridView();
             this.colBookRoomIdInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -112,11 +111,6 @@
             this.txtBookingCustomerNameInfo = new Guna.UI2.WinForms.Guna2TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.guna2ImageButton9 = new Guna.UI2.WinForms.Guna2ImageButton();
-            this.guna2ImageButton8 = new Guna.UI2.WinForms.Guna2ImageButton();
-            this.guna2ImageButton7 = new Guna.UI2.WinForms.Guna2ImageButton();
-            this.guna2ImageButton6 = new Guna.UI2.WinForms.Guna2ImageButton();
-            this.guna2ImageButton2 = new Guna.UI2.WinForms.Guna2ImageButton();
             this.tabRegisterCustomer = new System.Windows.Forms.TabPage();
             this.txtRegisCustomerAddress = new Guna.UI2.WinForms.Guna2TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -159,8 +153,6 @@
             this.label49 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
             this.label47 = new System.Windows.Forms.Label();
-            this.btnInfoCustomerRefresh = new Guna.UI2.WinForms.Guna2ImageButton();
-            this.btnInfoFindCustomer = new Guna.UI2.WinForms.Guna2ImageButton();
             this.label17 = new System.Windows.Forms.Label();
             this.txtInfoContentCusFind = new Guna.UI2.WinForms.Guna2TextBox();
             this.comboInfoCusCriteria = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -176,8 +168,6 @@
             this.colCustomerDateJoin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCustomerNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabEmployeeDetail = new System.Windows.Forms.TabPage();
-            this.guna2ImageButton1 = new Guna.UI2.WinForms.Guna2ImageButton();
-            this.guna2ImageButton3 = new Guna.UI2.WinForms.Guna2ImageButton();
             this.label34 = new System.Windows.Forms.Label();
             this.txtInfoContentEmpFind = new Guna.UI2.WinForms.Guna2TextBox();
             this.comboInfoEmpCriteria = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -218,7 +208,6 @@
             this.label45 = new System.Windows.Forms.Label();
             this.tabCheckout = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnInvoiceFind = new Guna.UI2.WinForms.Guna2ImageButton();
             this.txtInvoiceContentFind = new Guna.UI2.WinForms.Guna2TextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.comboInvoiceCriteria = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -256,14 +245,25 @@
             this.txtInfoEmpId = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtInfoEmpName = new Guna.UI2.WinForms.Guna2TextBox();
             this.label27 = new System.Windows.Forms.Label();
+            this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.guna2ControlBox2 = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.roomsTableAdapter = new HotelManagement.HotelManagementDataSetTableAdapters.RoomsTableAdapter();
+            this.imgBookingFindCustomer = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.guna2ImageButton9 = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.guna2ImageButton8 = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.guna2ImageButton7 = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.guna2ImageButton6 = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.guna2ImageButton2 = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.btnInfoCustomerRefresh = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.btnInfoFindCustomer = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.guna2ImageButton1 = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.guna2ImageButton3 = new Guna.UI2.WinForms.Guna2ImageButton();
+            this.btnInvoiceFind = new Guna.UI2.WinForms.Guna2ImageButton();
             this.guna2ImageButton4 = new Guna.UI2.WinForms.Guna2ImageButton();
             this.guna2ImageButton5 = new Guna.UI2.WinForms.Guna2ImageButton();
             this.guna2ImageButton10 = new Guna.UI2.WinForms.Guna2ImageButton();
             this.guna2ImageButton11 = new Guna.UI2.WinForms.Guna2ImageButton();
             this.guna2ImageButton12 = new Guna.UI2.WinForms.Guna2ImageButton();
-            this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
-            this.guna2ControlBox2 = new Guna.UI2.WinForms.Guna2ControlBox();
-            this.roomsTableAdapter = new HotelManagement.HotelManagementDataSetTableAdapters.RoomsTableAdapter();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.controlTabHome.SuspendLayout();
             this.tabRoom.SuspendLayout();
@@ -762,21 +762,6 @@
             this.tabRoomBooking.Text = "Đặt Phòng";
             this.tabRoomBooking.UseVisualStyleBackColor = true;
             // 
-            // imgBookingFindCustomer
-            // 
-            this.imgBookingFindCustomer.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.imgBookingFindCustomer.HoverState.ImageSize = new System.Drawing.Size(48, 48);
-            this.imgBookingFindCustomer.Image = global::HotelManagement.Properties.Resources.find;
-            this.imgBookingFindCustomer.ImageOffset = new System.Drawing.Point(0, 0);
-            this.imgBookingFindCustomer.ImageRotate = 0F;
-            this.imgBookingFindCustomer.ImageSize = new System.Drawing.Size(32, 32);
-            this.imgBookingFindCustomer.Location = new System.Drawing.Point(421, 111);
-            this.imgBookingFindCustomer.Name = "imgBookingFindCustomer";
-            this.imgBookingFindCustomer.PressedState.ImageSize = new System.Drawing.Size(48, 48);
-            this.imgBookingFindCustomer.Size = new System.Drawing.Size(63, 61);
-            this.imgBookingFindCustomer.TabIndex = 36;
-            this.imgBookingFindCustomer.Click += new System.EventHandler(this.imgBookingFindCustomer_Click);
-            // 
             // btnBooking
             // 
             this.btnBooking.BorderRadius = 10;
@@ -1263,76 +1248,6 @@
             this.label18.TabIndex = 4;
             this.label18.Text = "Thông Tin Khách Hàng";
             // 
-            // guna2ImageButton9
-            // 
-            this.guna2ImageButton9.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton9.HoverState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton9.Image = global::HotelManagement.Properties.Resources.gender;
-            this.guna2ImageButton9.ImageOffset = new System.Drawing.Point(0, 0);
-            this.guna2ImageButton9.ImageRotate = 0F;
-            this.guna2ImageButton9.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2ImageButton9.Location = new System.Drawing.Point(59, 500);
-            this.guna2ImageButton9.Name = "guna2ImageButton9";
-            this.guna2ImageButton9.PressedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton9.Size = new System.Drawing.Size(64, 54);
-            this.guna2ImageButton9.TabIndex = 27;
-            // 
-            // guna2ImageButton8
-            // 
-            this.guna2ImageButton8.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton8.HoverState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton8.Image = global::HotelManagement.Properties.Resources.phone_call;
-            this.guna2ImageButton8.ImageOffset = new System.Drawing.Point(0, 0);
-            this.guna2ImageButton8.ImageRotate = 0F;
-            this.guna2ImageButton8.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2ImageButton8.Location = new System.Drawing.Point(59, 408);
-            this.guna2ImageButton8.Name = "guna2ImageButton8";
-            this.guna2ImageButton8.PressedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton8.Size = new System.Drawing.Size(64, 54);
-            this.guna2ImageButton8.TabIndex = 25;
-            // 
-            // guna2ImageButton7
-            // 
-            this.guna2ImageButton7.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton7.HoverState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton7.Image = global::HotelManagement.Properties.Resources.address;
-            this.guna2ImageButton7.ImageOffset = new System.Drawing.Point(0, 0);
-            this.guna2ImageButton7.ImageRotate = 0F;
-            this.guna2ImageButton7.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2ImageButton7.Location = new System.Drawing.Point(59, 316);
-            this.guna2ImageButton7.Name = "guna2ImageButton7";
-            this.guna2ImageButton7.PressedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton7.Size = new System.Drawing.Size(64, 54);
-            this.guna2ImageButton7.TabIndex = 24;
-            // 
-            // guna2ImageButton6
-            // 
-            this.guna2ImageButton6.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton6.HoverState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton6.Image = global::HotelManagement.Properties.Resources.id_card;
-            this.guna2ImageButton6.ImageOffset = new System.Drawing.Point(0, 0);
-            this.guna2ImageButton6.ImageRotate = 0F;
-            this.guna2ImageButton6.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2ImageButton6.Location = new System.Drawing.Point(59, 122);
-            this.guna2ImageButton6.Name = "guna2ImageButton6";
-            this.guna2ImageButton6.PressedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton6.Size = new System.Drawing.Size(64, 54);
-            this.guna2ImageButton6.TabIndex = 23;
-            // 
-            // guna2ImageButton2
-            // 
-            this.guna2ImageButton2.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton2.HoverState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton2.Image = global::HotelManagement.Properties.Resources.user;
-            this.guna2ImageButton2.ImageOffset = new System.Drawing.Point(0, 0);
-            this.guna2ImageButton2.ImageRotate = 0F;
-            this.guna2ImageButton2.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2ImageButton2.Location = new System.Drawing.Point(59, 213);
-            this.guna2ImageButton2.Name = "guna2ImageButton2";
-            this.guna2ImageButton2.PressedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton2.Size = new System.Drawing.Size(64, 54);
-            this.guna2ImageButton2.TabIndex = 6;
-            // 
             // tabRegisterCustomer
             // 
             this.tabRegisterCustomer.Controls.Add(this.txtRegisCustomerAddress);
@@ -1695,14 +1610,14 @@
             this.tabCustomerDetail.Controls.Add(this.label49);
             this.tabCustomerDetail.Controls.Add(this.label48);
             this.tabCustomerDetail.Controls.Add(this.label47);
-            this.tabCustomerDetail.Controls.Add(this.btnInfoCustomerRefresh);
-            this.tabCustomerDetail.Controls.Add(this.btnInfoFindCustomer);
             this.tabCustomerDetail.Controls.Add(this.label17);
             this.tabCustomerDetail.Controls.Add(this.txtInfoContentCusFind);
             this.tabCustomerDetail.Controls.Add(this.comboInfoCusCriteria);
             this.tabCustomerDetail.Controls.Add(this.label16);
             this.tabCustomerDetail.Controls.Add(this.label15);
             this.tabCustomerDetail.Controls.Add(this.dtgvInfoCustomer);
+            this.tabCustomerDetail.Controls.Add(this.btnInfoCustomerRefresh);
+            this.tabCustomerDetail.Controls.Add(this.btnInfoFindCustomer);
             this.tabCustomerDetail.ForeColor = System.Drawing.Color.Black;
             this.tabCustomerDetail.Location = new System.Drawing.Point(184, 4);
             this.tabCustomerDetail.Name = "tabCustomerDetail";
@@ -2009,36 +1924,6 @@
             this.label47.TabIndex = 11;
             this.label47.Text = "CMND/CCCD/Hộ chiếu:";
             // 
-            // btnInfoCustomerRefresh
-            // 
-            this.btnInfoCustomerRefresh.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.btnInfoCustomerRefresh.HoverState.ImageSize = new System.Drawing.Size(48, 48);
-            this.btnInfoCustomerRefresh.Image = global::HotelManagement.Properties.Resources.loading_arrow;
-            this.btnInfoCustomerRefresh.ImageOffset = new System.Drawing.Point(0, 0);
-            this.btnInfoCustomerRefresh.ImageRotate = 0F;
-            this.btnInfoCustomerRefresh.ImageSize = new System.Drawing.Size(32, 32);
-            this.btnInfoCustomerRefresh.Location = new System.Drawing.Point(1155, 64);
-            this.btnInfoCustomerRefresh.Name = "btnInfoCustomerRefresh";
-            this.btnInfoCustomerRefresh.PressedState.ImageSize = new System.Drawing.Size(48, 48);
-            this.btnInfoCustomerRefresh.Size = new System.Drawing.Size(52, 50);
-            this.btnInfoCustomerRefresh.TabIndex = 10;
-            this.btnInfoCustomerRefresh.Click += new System.EventHandler(this.btnInfoCustomerRefresh_Click);
-            // 
-            // btnInfoFindCustomer
-            // 
-            this.btnInfoFindCustomer.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.btnInfoFindCustomer.HoverState.ImageSize = new System.Drawing.Size(48, 48);
-            this.btnInfoFindCustomer.Image = global::HotelManagement.Properties.Resources.find;
-            this.btnInfoFindCustomer.ImageOffset = new System.Drawing.Point(0, 0);
-            this.btnInfoFindCustomer.ImageRotate = 0F;
-            this.btnInfoFindCustomer.ImageSize = new System.Drawing.Size(32, 32);
-            this.btnInfoFindCustomer.Location = new System.Drawing.Point(1085, 64);
-            this.btnInfoFindCustomer.Name = "btnInfoFindCustomer";
-            this.btnInfoFindCustomer.PressedState.ImageSize = new System.Drawing.Size(48, 48);
-            this.btnInfoFindCustomer.Size = new System.Drawing.Size(52, 50);
-            this.btnInfoFindCustomer.TabIndex = 9;
-            this.btnInfoFindCustomer.Click += new System.EventHandler(this.btnInfoFindCustomer_Click);
-            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -2258,34 +2143,6 @@
             this.tabEmployeeDetail.Text = "Quản Lý Nhân Viên";
             this.tabEmployeeDetail.UseVisualStyleBackColor = true;
             // 
-            // guna2ImageButton1
-            // 
-            this.guna2ImageButton1.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton1.HoverState.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2ImageButton1.Image = global::HotelManagement.Properties.Resources.loading_arrow;
-            this.guna2ImageButton1.ImageOffset = new System.Drawing.Point(0, 0);
-            this.guna2ImageButton1.ImageRotate = 0F;
-            this.guna2ImageButton1.ImageSize = new System.Drawing.Size(32, 32);
-            this.guna2ImageButton1.Location = new System.Drawing.Point(1164, 69);
-            this.guna2ImageButton1.Name = "guna2ImageButton1";
-            this.guna2ImageButton1.PressedState.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2ImageButton1.Size = new System.Drawing.Size(52, 50);
-            this.guna2ImageButton1.TabIndex = 18;
-            // 
-            // guna2ImageButton3
-            // 
-            this.guna2ImageButton3.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.guna2ImageButton3.HoverState.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2ImageButton3.Image = global::HotelManagement.Properties.Resources.find;
-            this.guna2ImageButton3.ImageOffset = new System.Drawing.Point(0, 0);
-            this.guna2ImageButton3.ImageRotate = 0F;
-            this.guna2ImageButton3.ImageSize = new System.Drawing.Size(32, 32);
-            this.guna2ImageButton3.Location = new System.Drawing.Point(1109, 69);
-            this.guna2ImageButton3.Name = "guna2ImageButton3";
-            this.guna2ImageButton3.PressedState.ImageSize = new System.Drawing.Size(48, 48);
-            this.guna2ImageButton3.Size = new System.Drawing.Size(52, 50);
-            this.guna2ImageButton3.TabIndex = 17;
-            // 
             // label34
             // 
             this.label34.AutoSize = true;
@@ -2429,6 +2286,7 @@
             this.dtgvInfoEmp.ThemeStyle.RowsStyle.Height = 22;
             this.dtgvInfoEmp.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
             this.dtgvInfoEmp.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvInfoEmp.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvInfoEmp_CellContentClick);
             // 
             // colEmpId
             // 
@@ -2911,21 +2769,6 @@
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Tìm kiếm";
-            // 
-            // btnInvoiceFind
-            // 
-            this.btnInvoiceFind.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.btnInvoiceFind.HoverState.ImageSize = new System.Drawing.Size(48, 48);
-            this.btnInvoiceFind.Image = global::HotelManagement.Properties.Resources.find;
-            this.btnInvoiceFind.ImageOffset = new System.Drawing.Point(0, 0);
-            this.btnInvoiceFind.ImageRotate = 0F;
-            this.btnInvoiceFind.ImageSize = new System.Drawing.Size(32, 32);
-            this.btnInvoiceFind.Location = new System.Drawing.Point(485, 94);
-            this.btnInvoiceFind.Name = "btnInvoiceFind";
-            this.btnInvoiceFind.PressedState.ImageSize = new System.Drawing.Size(48, 48);
-            this.btnInvoiceFind.Size = new System.Drawing.Size(52, 50);
-            this.btnInvoiceFind.TabIndex = 11;
-            this.btnInvoiceFind.Click += new System.EventHandler(this.btnInvoiceFind_Click);
             // 
             // txtInvoiceContentFind
             // 
@@ -3529,6 +3372,189 @@
             this.label27.TabIndex = 4;
             this.label27.Text = "Trang Cá Nhân";
             // 
+            // guna2ControlBox1
+            // 
+            this.guna2ControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(166)))));
+            this.guna2ControlBox1.IconColor = System.Drawing.Color.White;
+            this.guna2ControlBox1.Location = new System.Drawing.Point(1362, 0);
+            this.guna2ControlBox1.Name = "guna2ControlBox1";
+            this.guna2ControlBox1.Size = new System.Drawing.Size(45, 29);
+            this.guna2ControlBox1.TabIndex = 0;
+            // 
+            // guna2ControlBox2
+            // 
+            this.guna2ControlBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2ControlBox2.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
+            this.guna2ControlBox2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(166)))));
+            this.guna2ControlBox2.IconColor = System.Drawing.Color.White;
+            this.guna2ControlBox2.Location = new System.Drawing.Point(1317, 0);
+            this.guna2ControlBox2.Name = "guna2ControlBox2";
+            this.guna2ControlBox2.Size = new System.Drawing.Size(45, 29);
+            this.guna2ControlBox2.TabIndex = 1;
+            // 
+            // roomsTableAdapter
+            // 
+            this.roomsTableAdapter.ClearBeforeFill = true;
+            // 
+            // imgBookingFindCustomer
+            // 
+            this.imgBookingFindCustomer.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.imgBookingFindCustomer.HoverState.ImageSize = new System.Drawing.Size(48, 48);
+            this.imgBookingFindCustomer.Image = global::HotelManagement.Properties.Resources.find;
+            this.imgBookingFindCustomer.ImageOffset = new System.Drawing.Point(0, 0);
+            this.imgBookingFindCustomer.ImageRotate = 0F;
+            this.imgBookingFindCustomer.ImageSize = new System.Drawing.Size(32, 32);
+            this.imgBookingFindCustomer.Location = new System.Drawing.Point(421, 111);
+            this.imgBookingFindCustomer.Name = "imgBookingFindCustomer";
+            this.imgBookingFindCustomer.PressedState.ImageSize = new System.Drawing.Size(48, 48);
+            this.imgBookingFindCustomer.Size = new System.Drawing.Size(63, 61);
+            this.imgBookingFindCustomer.TabIndex = 36;
+            this.imgBookingFindCustomer.Click += new System.EventHandler(this.imgBookingFindCustomer_Click);
+            // 
+            // guna2ImageButton9
+            // 
+            this.guna2ImageButton9.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton9.HoverState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton9.Image = global::HotelManagement.Properties.Resources.gender;
+            this.guna2ImageButton9.ImageOffset = new System.Drawing.Point(0, 0);
+            this.guna2ImageButton9.ImageRotate = 0F;
+            this.guna2ImageButton9.ImageSize = new System.Drawing.Size(48, 48);
+            this.guna2ImageButton9.Location = new System.Drawing.Point(59, 500);
+            this.guna2ImageButton9.Name = "guna2ImageButton9";
+            this.guna2ImageButton9.PressedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton9.Size = new System.Drawing.Size(64, 54);
+            this.guna2ImageButton9.TabIndex = 27;
+            // 
+            // guna2ImageButton8
+            // 
+            this.guna2ImageButton8.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton8.HoverState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton8.Image = global::HotelManagement.Properties.Resources.phone_call;
+            this.guna2ImageButton8.ImageOffset = new System.Drawing.Point(0, 0);
+            this.guna2ImageButton8.ImageRotate = 0F;
+            this.guna2ImageButton8.ImageSize = new System.Drawing.Size(48, 48);
+            this.guna2ImageButton8.Location = new System.Drawing.Point(59, 408);
+            this.guna2ImageButton8.Name = "guna2ImageButton8";
+            this.guna2ImageButton8.PressedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton8.Size = new System.Drawing.Size(64, 54);
+            this.guna2ImageButton8.TabIndex = 25;
+            // 
+            // guna2ImageButton7
+            // 
+            this.guna2ImageButton7.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton7.HoverState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton7.Image = global::HotelManagement.Properties.Resources.address;
+            this.guna2ImageButton7.ImageOffset = new System.Drawing.Point(0, 0);
+            this.guna2ImageButton7.ImageRotate = 0F;
+            this.guna2ImageButton7.ImageSize = new System.Drawing.Size(48, 48);
+            this.guna2ImageButton7.Location = new System.Drawing.Point(59, 316);
+            this.guna2ImageButton7.Name = "guna2ImageButton7";
+            this.guna2ImageButton7.PressedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton7.Size = new System.Drawing.Size(64, 54);
+            this.guna2ImageButton7.TabIndex = 24;
+            // 
+            // guna2ImageButton6
+            // 
+            this.guna2ImageButton6.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton6.HoverState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton6.Image = global::HotelManagement.Properties.Resources.id_card;
+            this.guna2ImageButton6.ImageOffset = new System.Drawing.Point(0, 0);
+            this.guna2ImageButton6.ImageRotate = 0F;
+            this.guna2ImageButton6.ImageSize = new System.Drawing.Size(48, 48);
+            this.guna2ImageButton6.Location = new System.Drawing.Point(59, 122);
+            this.guna2ImageButton6.Name = "guna2ImageButton6";
+            this.guna2ImageButton6.PressedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton6.Size = new System.Drawing.Size(64, 54);
+            this.guna2ImageButton6.TabIndex = 23;
+            // 
+            // guna2ImageButton2
+            // 
+            this.guna2ImageButton2.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton2.HoverState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton2.Image = global::HotelManagement.Properties.Resources.user;
+            this.guna2ImageButton2.ImageOffset = new System.Drawing.Point(0, 0);
+            this.guna2ImageButton2.ImageRotate = 0F;
+            this.guna2ImageButton2.ImageSize = new System.Drawing.Size(48, 48);
+            this.guna2ImageButton2.Location = new System.Drawing.Point(59, 213);
+            this.guna2ImageButton2.Name = "guna2ImageButton2";
+            this.guna2ImageButton2.PressedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton2.Size = new System.Drawing.Size(64, 54);
+            this.guna2ImageButton2.TabIndex = 6;
+            // 
+            // btnInfoCustomerRefresh
+            // 
+            this.btnInfoCustomerRefresh.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnInfoCustomerRefresh.HoverState.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnInfoCustomerRefresh.Image = global::HotelManagement.Properties.Resources.loading_arrow;
+            this.btnInfoCustomerRefresh.ImageOffset = new System.Drawing.Point(0, 0);
+            this.btnInfoCustomerRefresh.ImageRotate = 0F;
+            this.btnInfoCustomerRefresh.ImageSize = new System.Drawing.Size(32, 32);
+            this.btnInfoCustomerRefresh.Location = new System.Drawing.Point(1155, 64);
+            this.btnInfoCustomerRefresh.Name = "btnInfoCustomerRefresh";
+            this.btnInfoCustomerRefresh.PressedState.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnInfoCustomerRefresh.Size = new System.Drawing.Size(52, 50);
+            this.btnInfoCustomerRefresh.TabIndex = 10;
+            this.btnInfoCustomerRefresh.Click += new System.EventHandler(this.btnInfoCustomerRefresh_Click);
+            // 
+            // btnInfoFindCustomer
+            // 
+            this.btnInfoFindCustomer.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnInfoFindCustomer.HoverState.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnInfoFindCustomer.Image = global::HotelManagement.Properties.Resources.find;
+            this.btnInfoFindCustomer.ImageOffset = new System.Drawing.Point(0, 0);
+            this.btnInfoFindCustomer.ImageRotate = 0F;
+            this.btnInfoFindCustomer.ImageSize = new System.Drawing.Size(32, 32);
+            this.btnInfoFindCustomer.Location = new System.Drawing.Point(1085, 64);
+            this.btnInfoFindCustomer.Name = "btnInfoFindCustomer";
+            this.btnInfoFindCustomer.PressedState.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnInfoFindCustomer.Size = new System.Drawing.Size(52, 50);
+            this.btnInfoFindCustomer.TabIndex = 9;
+            this.btnInfoFindCustomer.Click += new System.EventHandler(this.btnInfoFindCustomer_Click);
+            // 
+            // guna2ImageButton1
+            // 
+            this.guna2ImageButton1.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton1.HoverState.ImageSize = new System.Drawing.Size(48, 48);
+            this.guna2ImageButton1.Image = global::HotelManagement.Properties.Resources.loading_arrow;
+            this.guna2ImageButton1.ImageOffset = new System.Drawing.Point(0, 0);
+            this.guna2ImageButton1.ImageRotate = 0F;
+            this.guna2ImageButton1.ImageSize = new System.Drawing.Size(32, 32);
+            this.guna2ImageButton1.Location = new System.Drawing.Point(1164, 69);
+            this.guna2ImageButton1.Name = "guna2ImageButton1";
+            this.guna2ImageButton1.PressedState.ImageSize = new System.Drawing.Size(48, 48);
+            this.guna2ImageButton1.Size = new System.Drawing.Size(52, 50);
+            this.guna2ImageButton1.TabIndex = 18;
+            // 
+            // guna2ImageButton3
+            // 
+            this.guna2ImageButton3.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.guna2ImageButton3.HoverState.ImageSize = new System.Drawing.Size(48, 48);
+            this.guna2ImageButton3.Image = global::HotelManagement.Properties.Resources.find;
+            this.guna2ImageButton3.ImageOffset = new System.Drawing.Point(0, 0);
+            this.guna2ImageButton3.ImageRotate = 0F;
+            this.guna2ImageButton3.ImageSize = new System.Drawing.Size(32, 32);
+            this.guna2ImageButton3.Location = new System.Drawing.Point(1109, 69);
+            this.guna2ImageButton3.Name = "guna2ImageButton3";
+            this.guna2ImageButton3.PressedState.ImageSize = new System.Drawing.Size(48, 48);
+            this.guna2ImageButton3.Size = new System.Drawing.Size(52, 50);
+            this.guna2ImageButton3.TabIndex = 17;
+            // 
+            // btnInvoiceFind
+            // 
+            this.btnInvoiceFind.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnInvoiceFind.HoverState.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnInvoiceFind.Image = global::HotelManagement.Properties.Resources.find;
+            this.btnInvoiceFind.ImageOffset = new System.Drawing.Point(0, 0);
+            this.btnInvoiceFind.ImageRotate = 0F;
+            this.btnInvoiceFind.ImageSize = new System.Drawing.Size(32, 32);
+            this.btnInvoiceFind.Location = new System.Drawing.Point(485, 94);
+            this.btnInvoiceFind.Name = "btnInvoiceFind";
+            this.btnInvoiceFind.PressedState.ImageSize = new System.Drawing.Size(48, 48);
+            this.btnInvoiceFind.Size = new System.Drawing.Size(52, 50);
+            this.btnInvoiceFind.TabIndex = 11;
+            this.btnInvoiceFind.Click += new System.EventHandler(this.btnInvoiceFind_Click);
+            // 
             // guna2ImageButton4
             // 
             this.guna2ImageButton4.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
@@ -3598,31 +3624,6 @@
             this.guna2ImageButton12.PressedState.ImageSize = new System.Drawing.Size(64, 64);
             this.guna2ImageButton12.Size = new System.Drawing.Size(64, 54);
             this.guna2ImageButton12.TabIndex = 28;
-            // 
-            // guna2ControlBox1
-            // 
-            this.guna2ControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(166)))));
-            this.guna2ControlBox1.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox1.Location = new System.Drawing.Point(1362, 0);
-            this.guna2ControlBox1.Name = "guna2ControlBox1";
-            this.guna2ControlBox1.Size = new System.Drawing.Size(45, 29);
-            this.guna2ControlBox1.TabIndex = 0;
-            // 
-            // guna2ControlBox2
-            // 
-            this.guna2ControlBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2ControlBox2.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
-            this.guna2ControlBox2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(166)))));
-            this.guna2ControlBox2.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox2.Location = new System.Drawing.Point(1317, 0);
-            this.guna2ControlBox2.Name = "guna2ControlBox2";
-            this.guna2ControlBox2.Size = new System.Drawing.Size(45, 29);
-            this.guna2ControlBox2.TabIndex = 1;
-            // 
-            // roomsTableAdapter
-            // 
-            this.roomsTableAdapter.ClearBeforeFill = true;
             // 
             // dataGridViewImageColumn1
             // 
