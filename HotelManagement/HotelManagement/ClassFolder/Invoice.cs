@@ -38,7 +38,8 @@ namespace HotelManagement.ClassFolder
 
         private int GetInvoiceId()
         {
-            DataProvider.GetAllInvoice();
+            string sqlInvoice = "SELECT * from Invoices";
+            DataProvider.GetAllInvoice(sqlInvoice);
             int currId = DataProvider.Invoices.Count;
             return currId + 1;
         }

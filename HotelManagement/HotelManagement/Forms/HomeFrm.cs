@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace HotelManagement.Forms
 {
@@ -12,6 +13,15 @@ namespace HotelManagement.Forms
         private string empId;
         private Employee emp = new Employee(); //đối tượng nhân viên hiện tại trong form
         private List<Room> selectedRoom = new List<Room>();
+        //Các câu lênh SQL
+        const string sqlLogins = "SELECT * from login"; //Lấy danh sách các tài khoản trong hệ thống
+        const string sqlEmp = "SELECT * from employees"; //Lấy danh sách các nhân viên trong hệ thống
+        const string sqlCustomer = "SELECT * from customers";//Lấy danh sách các khách hàng
+        const string sqlRoom = "SELECT * FROM Rooms";//lấy danh sách các phòng
+        const string sqlEmptyRoom = "SELECT * from Rooms WHERE Status = N'Trống'";//lấy danh sách các phòng trống
+        const string sqlRoomBooking = "SELECT * FROM RoomBookings";//lấy danh sách các booking phong
+        const string sqlInvoice = "SELECT * from Invoices";
+
         public HomeFrm(string empId)
         {
             this.empId = empId;
@@ -36,7 +46,7 @@ namespace HotelManagement.Forms
         private void btnCreateNewRoom_Click(object sender, EventArgs e)
         {
             //Khởi tạo mã phòng tự động tăng
-            DataProvider.GetAllRooms(); //Load lại danh sách
+            DataProvider.GetAllRooms(sqlRoom); //Load lại danh sách
             var idInt = DataProvider.Rooms.Count;//Lấy mã phòng hiện tại
             idInt = idInt + 1;//Tăng mã phòng lên 1
 
@@ -56,14 +66,15 @@ namespace HotelManagement.Forms
 
         private void HomeFrm_Load(object sender, EventArgs e)
         {
+            
             //Load các danh sách lên
-            DataProvider.GettAllEmployee();
-            DataProvider.GetAllCustomer();
-            DataProvider.GetAllLogins();
-            DataProvider.GetAllRooms();
-            DataProvider.GetAllEmptyRooms();
-            DataProvider.GetAllRoomBooking();
-            DataProvider.GetAllInvoice();
+            DataProvider.GetAllLogins(sqlLogins);
+            DataProvider.GetAllEmployee(sqlEmp);
+            DataProvider.GetAllCustomer(sqlCustomer);
+            DataProvider.GetAllRooms(sqlRoom);
+            DataProvider.GetAllEmptyRooms(sqlEmptyRoom);
+            DataProvider.GetAllRoomBooking(sqlRoomBooking);
+            DataProvider.GetAllInvoice(sqlInvoice);
 
             //Tìm đối tượng nhân viên của form
             emp = emp.FindEmpById(DataProvider.Employees, empId);
@@ -646,7 +657,7 @@ namespace HotelManagement.Forms
         {
             txtInfoContentCusFind.Text = "";
             comboInfoCusCriteria.SelectedIndex = -1;
-            DataProvider.GetAllCustomer();
+            DataProvider.GetAllCustomer(sqlCustomer);
             DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, DataProvider.Customers);
 
             //reset các button unenable
@@ -658,7 +669,7 @@ namespace HotelManagement.Forms
             if (radInvoiceAll.Checked)
             {
                 //show tất cả
-                DataProvider.GetAllInvoice();
+                DataProvider.GetAllInvoice(sqlInvoice);
                 DataProvider.FillDataGridViewInvoice(dtgvInvoice, DataProvider.Invoices);
             }
             else if (radInvoicePaid.Checked)
@@ -697,7 +708,7 @@ namespace HotelManagement.Forms
                         var id = row.Cells["colBillId"].Value;
                         DataProvider.UpdateInvoice(id);
                         //Load lại bảng
-                        DataProvider.GetAllInvoice();
+                        DataProvider.GetAllInvoice(sqlInvoice);
                         DataProvider.FillDataGridViewInvoice(dtgvInvoice, DataProvider.Invoices);
                     }
                 }
@@ -772,7 +783,7 @@ namespace HotelManagement.Forms
                 var address = txtInfoEmpAddress.Text;
                 DataProvider.UpdateEmployee(id, name, phone, address);
 
-                DataProvider.GettAllEmployee();//Load lại ds EMP
+                DataProvider.GetAllEmployee(sqlEmp);//Load lại ds EMP
                 emp = emp.FindEmpById(DataProvider.Employees, empId);//cập nhật lại đối tượng emp của form này
             }
 

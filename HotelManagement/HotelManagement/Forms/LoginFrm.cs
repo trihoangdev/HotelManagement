@@ -27,7 +27,8 @@ namespace HotelManagement
 
         private bool CheckLogin(string username, string password, string role)
         {
-            DataProvider.GetAllLogins();
+            string sql = "SELECT * from login";
+            DataProvider.GetAllLogins(sql);
             foreach (var login in DataProvider.Logins)
             {
                 if (login.Username == username && login.Password == password && login.Role == role)

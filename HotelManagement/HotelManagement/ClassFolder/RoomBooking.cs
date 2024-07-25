@@ -42,7 +42,8 @@ namespace HotelManagement.ClassFolder
 
         private int GetCurentId()
         {
-            DataProvider.GetAllRoomBooking();
+            string sqlRoomBooking = "SELECT * FROM RoomBookings";//lấy danh sách các booking phong
+            DataProvider.GetAllRoomBooking(sqlRoomBooking);
             int numOfId = DataProvider.RoomBookings.Count;
             return ++numOfId;
         }
