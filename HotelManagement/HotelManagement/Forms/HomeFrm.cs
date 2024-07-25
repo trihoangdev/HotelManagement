@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Globalization;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace HotelManagement.Forms
@@ -918,6 +919,65 @@ namespace HotelManagement.Forms
                 }
                 var dt = DataProvider.LoadDB(sql);
                 DataProvider.FillDataGridViewEmployee(dtgvInfoEmp, dt);
+            }
+        }
+
+        private void btnRegisEmp_Click(object sender, EventArgs e)
+        {
+            if (ControlHelper.IsAnyControlEmpty(new List<Control> { txtRegisEmpId, txtRegisEmpName,
+                txtRegisEmpAddress, txtRegisEmpPhone,
+                txtRegisEmpEmail,txtRegisEmpPos ,txtRegisEmpNote}))
+            {
+                ShowMessageInfo("Không được để trống thông tin!");
+            }
+            else if (!ControlHelper.IsDateTimeValid(dtRegisCustomerBirthDate))
+            {
+                ShowMessageInfo("Nhân viên phải trên 18 tuổi!");
+            }
+            else if (Employee.IsEmpIdExist(DataProvider.Employees, txtRegisEmpPhone.Text))
+            {
+                ShowMessageInfo("SĐT nhân viên đã tồn tại!");
+                txtRegisEmpPhone.Focus();
+            }
+            else if (Employee.IsEmpIdExist(DataProvider.Employees, txtRegisEmpEmail.Text))
+            {
+                ShowMessageInfo("Email nhân viên đã tồn tại!");
+                txtRegisEmpEmail.Focus();
+            }
+            else if (Employee.IsEmpIdExist(DataProvider.Employees, txtRegisEmpId.Text))
+            {
+                ShowMessageInfo("Mã nhân viên đã tồn tại!");
+                txtRegisEmpId.Focus();
+            }
+            else
+            {
+                string id = txtRegisEmpId.Text;
+                string name = txtRegisEmpName.Text;
+                string address = txtRegisEmpAddress.Text;
+                string phone = txtRegisEmpPhone.Text;
+                string email = txtRegisEmpEmail.Text;
+                string pos = txtRegisEmpPos.Text;
+                string note = txtRegisEmpNote.Text;
+                string gender = (radRegisEmpMale.Checked) ? "Nam" : "Nữ";
+                string role = (radRegisEmpAdmin.Checked) ? "Admin" : "Nhân viên";
+                var birthDate = dtRegisCustomerBirthDate.Value;
+                var hiredDate = dtRegisEmpHiredDate.Value;
+                string status = "Đang làm việc";
+                string pass = id + "@123";
+                //Thêm mới nhân viên
+                string sql1 = $@"INSERT INTO Employees VALUES
+                            ('{id}', N'{name}','{birthDate}',N'{gender}',N'{address}','{phone}',
+                            '{email}',N'{role}',N'{pos}','{hiredDate}',N'{status}',N'{note}');";
+                string sql2 = $@"INSERT INTO Login Values
+                            ('{id}', '{pass}',N'{role}')";
+                if (DataProvider.ModifyDB(sql1) > 0 && DataProvider.ModifyDB(sql2) > 0)
+                {
+                    ShowMessageInfo($"Đăng ký tài khoản nhân viên thành công!\nTHÔNG TIN TÀI KHOẢN:\nTài khoản: {id}\nMật khẩu: {pass}");
+                    //Load lại DS nhân viên
+                    DataProvider.GetAllEmployee();
+                }
+                else
+                    ShowMessageInfo("Đăng ký không thành công!");
             }
         }
     }

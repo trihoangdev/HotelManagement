@@ -39,5 +39,26 @@ namespace HotelManagement.ClassFolder
                     return login;
             return null;
         }
+        public static bool IsEmpIdExist(List<Employee> emps, string id)
+        {
+            foreach (Employee emp in emps)
+                if (emp.EmployeeID == id)
+                    return true;
+            return false;
+        }
+        public static bool IsEmpEmailExsit(List<Employee> emps, string email)
+        {
+            foreach (Employee emp in emps)
+                if (emp.Email == email)
+                    return true;
+            return false;
+        }
+        public static bool IsEmpPhoneExsit(List<Employee> emps, string phone)
+        {
+            foreach (Employee emp in emps)
+                if (emp.PhoneNumber == phone)
+                    return true;
+            return false;
+        }
     }
 }
