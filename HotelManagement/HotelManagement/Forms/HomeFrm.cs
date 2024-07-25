@@ -2,6 +2,8 @@
 using HotelManagement.ClassFolder;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlTypes;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -883,6 +885,40 @@ namespace HotelManagement.Forms
             SetupManageEmployeTab();
             ControlHelper.ClearDataInControls(new List<Control> { txtInfoContentEmpFind });
             comboInfoEmpCriteria.SelectedIndex = -1;
+        }
+
+        private void btnInfoEmpFind_Click(object sender, EventArgs e)
+        {
+            if (comboInfoEmpCriteria.SelectedIndex < 0)
+            {
+                ShowMessageInfo("Vui lòng chọn tiêu chí");
+            }
+            else if (txtInfoContentEmpFind.Text == "")
+            {
+                ShowMessageInfo("Vui lòng điền nội dung tìm kiếm");
+            }
+            else
+            {
+                string sql = "";
+                switch (comboInfoEmpCriteria.SelectedItem.ToString())
+                {
+                    case "Tìm theo CCCD":
+                        {
+                            sql = $@"SELECT EmployeeID, FullName, Position, Status 
+                                        from Employees where EmployeeID LIKE '%{txtInfoContentEmpFind.Text}%'";
+                            break;
+                        }
+
+                    case "Tìm theo tên nhân viên":
+                        {
+                            sql = $@"SELECT EmployeeID, FullName, Position, Status 
+                                        from Employees where FullName LIKE '%{txtInfoContentEmpFind.Text}%'";
+                            break;
+                        }
+                }
+                var dt = DataProvider.LoadDB(sql);
+                DataProvider.FillDataGridViewEmployee(dtgvInfoEmp, dt);
+            }
         }
     }
 }

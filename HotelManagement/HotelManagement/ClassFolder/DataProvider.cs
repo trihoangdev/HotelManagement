@@ -861,7 +861,17 @@ namespace HotelManagement.ClassFolder
                 DataGridViewCell paymentCell = row.Cells[row.Cells.Count - 1];
             }
         }
+        public static void FillDataGridViewEmployee(Guna2DataGridView dtgv, DataTable dt)
+        {
+            // Xóa dữ liệu hiện tại trong DataGridView
+            dtgv.Rows.Clear();
 
+            // Thêm hàng vào DataGridView từ DataTable
+            foreach (DataRow row in dt.Rows)
+            {
+                dtgv.Rows.Add(row["EmployeeID"], row["FullName"], row["Position"], row["Status"], "Xem chi tiết");
+            }
+        }
         public static void RemoveRoom(string id)
         {
             using (SqlCommand command = new SqlCommand(
