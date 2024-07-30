@@ -710,7 +710,7 @@ namespace HotelManagement.Forms
                         DataGridViewRow row = dtgvInvoice.Rows[e.RowIndex];
                         //Cập nhật lại danh sách hóa đơn và lưu vào CSDL
                         var id = row.Cells["colBillId"].Value;
-                        DataProvider.UpdateInvoice(id);
+                        DataProvider.UpdateInvoice(id.ToString());
                         //Load lại bảng
                         DataProvider.GetAllInvoice();
                         DataProvider.FillDataGridViewInvoice(dtgvInvoice, DataProvider.Invoices);
@@ -733,7 +733,7 @@ namespace HotelManagement.Forms
                     case 0:
                         {
                             //Tìm bằng mã HĐ
-                            DataProvider.FindInvoiceById(txtInvoiceContentFind.Text);
+                            DataProvider.FilterInvoiceById(txtInvoiceContentFind.Text);
                             DataProvider.FillDataGridViewInvoice(dtgvInvoice, DataProvider.InvoiceFilter);
                             break;
                         }
@@ -1156,53 +1156,7 @@ namespace HotelManagement.Forms
 
                             break;
                         }
-                  /*  case "Thống kê doanh thu theo tháng":
-                        {
-                            string query = $@"SELECT 
-                                                YEAR(InvoiceDate) AS Year,
-                                                MONTH(InvoiceDate) AS Month,
-                                                COUNT(*) AS NumberOfInvoices
-                                            FROM Invoices
-                                            GROUP BY YEAR(InvoiceDate), MONTH(InvoiceDate)
-                                            ORDER BY Year, Month;";
-                            // Lấy dữ liệu từ cơ sở dữ liệu
-                            DataTable dataTable = DataProvider.LoadDB(query);
-
-                            // Xóa dữ liệu hiện có trong biểu đồ
-                            chart1.Series.Clear();
-
-                            // Tạo một series mới cho biểu đồ cột
-                            Series series = new Series("Monthly Invoices")
-                            {
-                                ChartType = SeriesChartType.Line // Hoặc Line, Pie, etc.
-                            };
-
-                            // Thêm dữ liệu vào series
-                            foreach (DataRow row in dataTable.Rows)
-                            {
-                                int year = Convert.ToInt32(row["Year"]);
-                                int month = Convert.ToInt32(row["Month"]);
-                                int numberOfInvoices = Convert.ToInt32(row["NumberOfInvoices"]);
-
-                                // Tạo nhãn cho điểm dữ liệu theo dạng "Tháng-Năm"
-                                string label = $"{month}/{year}";
-
-                                // Thêm điểm dữ liệu vào series
-                                series.Points.AddXY(label, numberOfInvoices);
-                            }
-
-                            // Thêm series vào biểu đồ
-                            chart1.Series.Add(series);
-
-                            // Đặt tiêu đề và các thuộc tính khác nếu cần
-                            chart1.Titles.Clear();
-                            chart1.Titles.Add("Thống kê doanh thu theo tháng");
-
-                            // Tùy chỉnh các thuộc tính khác của biểu đồ nếu cần
-                            chart1.ChartAreas[0].AxisX.Title = "Tháng/Năm";
-                            chart1.ChartAreas[0].AxisY.Title = "Doanh thu";
-                            break;
-                        }*/
+                   
                 }
                 // Chỉnh cỡ chữ cho trục X
                 chart1.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 14, FontStyle.Bold); // Tiêu đề trục X

@@ -662,12 +662,17 @@ namespace HotelManagement.ClassFolder
         }
 
         //Cập nhật lại hóa đơn sau khi thanh toán
-        public static void UpdateInvoice(object id)
+        public static void UpdateInvoice(string id)
         {
-            using (SqlCommand command = new SqlCommand(
-                "UPDATE Invoices " +
-                   "SET PaymentStatus = N'Đã thanh toán' " +
-                   "WHERE InvoiceID = @InvoiceID", DatabaseConnection.Connection))
+            var bookingId = FindInvoiceById(id).BookingID; //lấy mã phòng book
+            //Tìm số tiền của phòng cần thanh toán
+            var total = FindTotalPriceByBookingId(bookingId);
+            string query = $@"UPDATE Invoices
+                               SET
+                               PaymentStatus = N'Đã thanh toán',
+                               PaidAmount = {total}
+                               WHERE InvoiceID = @InvoiceID";
+            using (SqlCommand command = new SqlCommand(query, DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@InvoiceID", id);
 
@@ -686,6 +691,16 @@ namespace HotelManagement.ClassFolder
                     DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn thành
                 }
             }
+        }
+
+        private static double FindTotalPriceByBookingId(int id)
+        {
+            foreach (var r in RoomBookings)
+            {
+                if (r.Id == id)
+                    return r.TotalPrice;
+            }
+            return 0;
         }
 
         //cập nhật mật khẩu
@@ -1095,12 +1110,20 @@ namespace HotelManagement.ClassFolder
         }
 
         //Tìm HĐ bằng mã HĐ
-        internal static void FindInvoiceById(string id)
+        internal static void FilterInvoiceById(string id)
         {
             InvoiceFilter.Clear(); //xóa ds cũ
             foreach (var i in Invoices)
                 if (i.InvoiceID.ToString() == id)
                     InvoiceFilter.Add(i);
+        }
+
+        public static Invoice FindInvoiceById(string id)
+        {
+            foreach (var i in Invoices)
+                if (i.InvoiceID.ToString() == id)
+                    return i;
+            return null;
         }
 
         //Tìm HĐ bằng mã KH

@@ -74,6 +74,12 @@
             this.c = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dtgvRoom = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.roomIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.roomTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.capacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabRoomBooking = new System.Windows.Forms.TabPage();
             this.imgBookingFindCustomer = new Guna.UI2.WinForms.Guna2ImageButton();
             this.btnBooking = new Guna.UI2.WinForms.Guna2Button();
@@ -231,6 +237,10 @@
             this.colBillStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colBillPay = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabStat = new System.Windows.Forms.TabPage();
+            this.btnGetStat = new Guna.UI2.WinForms.Guna2Button();
+            this.comboCriteriaStat = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabEmpInfo = new System.Windows.Forms.TabPage();
             this.txtInfoEmpStatus = new Guna.UI2.WinForms.Guna2TextBox();
             this.label32 = new System.Windows.Forms.Label();
@@ -259,18 +269,8 @@
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2ControlBox2 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.label54 = new System.Windows.Forms.Label();
-            this.comboCriteriaStat = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.btnGetStat = new Guna.UI2.WinForms.Guna2Button();
             this.hotelManagementDataSet = new HotelManagement.HotelManagementDataSet();
             this.roomsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.capacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.roomTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.roomIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.roomsTableAdapter = new HotelManagement.HotelManagementDataSetTableAdapters.RoomsTableAdapter();
             this.controlTabHome.SuspendLayout();
             this.tabRoom.SuspendLayout();
@@ -296,8 +296,8 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvInvoice)).BeginInit();
             this.tabStat.SuspendLayout();
-            this.tabEmpInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabEmpInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.hotelManagementDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.roomsBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -676,6 +676,54 @@
             this.dtgvRoom.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(169)))), ((int)(((byte)(107)))));
             this.dtgvRoom.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dtgvRoom.SelectionChanged += new System.EventHandler(this.dtgvRoom_SelectionChanged);
+            // 
+            // roomIDDataGridViewTextBoxColumn
+            // 
+            this.roomIDDataGridViewTextBoxColumn.DataPropertyName = "RoomID";
+            this.roomIDDataGridViewTextBoxColumn.HeaderText = "Mã Phòng";
+            this.roomIDDataGridViewTextBoxColumn.Name = "roomIDDataGridViewTextBoxColumn";
+            this.roomIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.roomIDDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // roomTypeDataGridViewTextBoxColumn
+            // 
+            this.roomTypeDataGridViewTextBoxColumn.DataPropertyName = "RoomType";
+            this.roomTypeDataGridViewTextBoxColumn.HeaderText = "Loại Phòng";
+            this.roomTypeDataGridViewTextBoxColumn.Name = "roomTypeDataGridViewTextBoxColumn";
+            this.roomTypeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.roomTypeDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // capacityDataGridViewTextBoxColumn
+            // 
+            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "Capacity";
+            this.capacityDataGridViewTextBoxColumn.HeaderText = "Sức Chứa";
+            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
+            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
+            this.capacityDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // priceDataGridViewTextBoxColumn
+            // 
+            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
+            this.priceDataGridViewTextBoxColumn.HeaderText = "Giá Phòng/Đêm";
+            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
+            this.priceDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // statusDataGridViewTextBoxColumn
+            // 
+            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
+            this.statusDataGridViewTextBoxColumn.HeaderText = "Tình Trạng";
+            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
+            this.statusDataGridViewTextBoxColumn.ReadOnly = true;
+            this.statusDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Mô Tả";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.descriptionDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // tabRoomBooking
             // 
@@ -3137,6 +3185,71 @@
             this.tabStat.Text = "Thống Kê";
             this.tabStat.UseVisualStyleBackColor = true;
             // 
+            // btnGetStat
+            // 
+            this.btnGetStat.BorderRadius = 10;
+            this.btnGetStat.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnGetStat.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnGetStat.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnGetStat.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnGetStat.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnGetStat.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetStat.ForeColor = System.Drawing.Color.Black;
+            this.btnGetStat.Location = new System.Drawing.Point(948, 56);
+            this.btnGetStat.Name = "btnGetStat";
+            this.btnGetStat.Size = new System.Drawing.Size(232, 52);
+            this.btnGetStat.TabIndex = 41;
+            this.btnGetStat.Text = "Lấy dữ liệu";
+            this.btnGetStat.Click += new System.EventHandler(this.btnGetStat_Click);
+            // 
+            // comboCriteriaStat
+            // 
+            this.comboCriteriaStat.BackColor = System.Drawing.Color.Transparent;
+            this.comboCriteriaStat.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboCriteriaStat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboCriteriaStat.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.comboCriteriaStat.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.comboCriteriaStat.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.comboCriteriaStat.ForeColor = System.Drawing.Color.Black;
+            this.comboCriteriaStat.ItemHeight = 30;
+            this.comboCriteriaStat.Items.AddRange(new object[] {
+            "Theo loại phòng",
+            "Theo giới tính khách hàng",
+            "Theo tuổi khách hàng",
+            "Theo giới tính nhân viên",
+            "Theo tuổi nhân viên"});
+            this.comboCriteriaStat.Location = new System.Drawing.Point(261, 63);
+            this.comboCriteriaStat.Name = "comboCriteriaStat";
+            this.comboCriteriaStat.Size = new System.Drawing.Size(366, 36);
+            this.comboCriteriaStat.TabIndex = 7;
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label54.Location = new System.Drawing.Point(102, 72);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(74, 21);
+            this.label54.TabIndex = 1;
+            this.label54.Text = "Tiêu chí:";
+            // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(28, 235);
+            this.chart1.Name = "chart1";
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(1170, 518);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
+            // 
             // tabEmpInfo
             // 
             this.tabEmpInfo.Controls.Add(this.txtInfoEmpStatus);
@@ -3580,73 +3693,6 @@
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Width = 83;
             // 
-            // chart1
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(28, 235);
-            this.chart1.Name = "chart1";
-            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(1170, 518);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.Location = new System.Drawing.Point(102, 72);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(74, 21);
-            this.label54.TabIndex = 1;
-            this.label54.Text = "Tiêu chí:";
-            // 
-            // comboCriteriaStat
-            // 
-            this.comboCriteriaStat.BackColor = System.Drawing.Color.Transparent;
-            this.comboCriteriaStat.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboCriteriaStat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboCriteriaStat.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.comboCriteriaStat.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.comboCriteriaStat.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.comboCriteriaStat.ForeColor = System.Drawing.Color.Black;
-            this.comboCriteriaStat.ItemHeight = 30;
-            this.comboCriteriaStat.Items.AddRange(new object[] {
-            "Theo loại phòng",
-            "Theo giới tính khách hàng",
-            "Theo tuổi khách hàng",
-            "Theo giới tính nhân viên",
-            "Theo tuổi nhân viên",
-            "Thống kê doanh thu theo tháng",
-            "Thống kê doanh thu theo năm"});
-            this.comboCriteriaStat.Location = new System.Drawing.Point(261, 63);
-            this.comboCriteriaStat.Name = "comboCriteriaStat";
-            this.comboCriteriaStat.Size = new System.Drawing.Size(366, 36);
-            this.comboCriteriaStat.TabIndex = 7;
-            // 
-            // btnGetStat
-            // 
-            this.btnGetStat.BorderRadius = 10;
-            this.btnGetStat.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnGetStat.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnGetStat.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnGetStat.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnGetStat.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnGetStat.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGetStat.ForeColor = System.Drawing.Color.Black;
-            this.btnGetStat.Location = new System.Drawing.Point(948, 56);
-            this.btnGetStat.Name = "btnGetStat";
-            this.btnGetStat.Size = new System.Drawing.Size(232, 52);
-            this.btnGetStat.TabIndex = 41;
-            this.btnGetStat.Text = "Lấy dữ liệu";
-            this.btnGetStat.Click += new System.EventHandler(this.btnGetStat_Click);
-            // 
             // hotelManagementDataSet
             // 
             this.hotelManagementDataSet.DataSetName = "HotelManagementDataSet";
@@ -3656,54 +3702,6 @@
             // 
             this.roomsBindingSource.DataMember = "Rooms";
             this.roomsBindingSource.DataSource = this.hotelManagementDataSet;
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Mô Tả";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
-            this.descriptionDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // statusDataGridViewTextBoxColumn
-            // 
-            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
-            this.statusDataGridViewTextBoxColumn.HeaderText = "Tình Trạng";
-            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
-            this.statusDataGridViewTextBoxColumn.ReadOnly = true;
-            this.statusDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // priceDataGridViewTextBoxColumn
-            // 
-            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            this.priceDataGridViewTextBoxColumn.HeaderText = "Giá Phòng/Đêm";
-            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
-            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
-            this.priceDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // capacityDataGridViewTextBoxColumn
-            // 
-            this.capacityDataGridViewTextBoxColumn.DataPropertyName = "Capacity";
-            this.capacityDataGridViewTextBoxColumn.HeaderText = "Sức Chứa";
-            this.capacityDataGridViewTextBoxColumn.Name = "capacityDataGridViewTextBoxColumn";
-            this.capacityDataGridViewTextBoxColumn.ReadOnly = true;
-            this.capacityDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // roomTypeDataGridViewTextBoxColumn
-            // 
-            this.roomTypeDataGridViewTextBoxColumn.DataPropertyName = "RoomType";
-            this.roomTypeDataGridViewTextBoxColumn.HeaderText = "Loại Phòng";
-            this.roomTypeDataGridViewTextBoxColumn.Name = "roomTypeDataGridViewTextBoxColumn";
-            this.roomTypeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.roomTypeDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // roomIDDataGridViewTextBoxColumn
-            // 
-            this.roomIDDataGridViewTextBoxColumn.DataPropertyName = "RoomID";
-            this.roomIDDataGridViewTextBoxColumn.HeaderText = "Mã Phòng";
-            this.roomIDDataGridViewTextBoxColumn.Name = "roomIDDataGridViewTextBoxColumn";
-            this.roomIDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.roomIDDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // roomsTableAdapter
             // 
@@ -3764,9 +3762,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgvInvoice)).EndInit();
             this.tabStat.ResumeLayout(false);
             this.tabStat.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tabEmpInfo.ResumeLayout(false);
             this.tabEmpInfo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hotelManagementDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.roomsBindingSource)).EndInit();
             this.ResumeLayout(false);
