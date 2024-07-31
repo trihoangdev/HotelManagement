@@ -668,7 +668,7 @@ namespace HotelManagement.Forms
             DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, DataProvider.Customers);
 
             //reset các button unenable
-            ControlHelper.UnEnableControl(new List<Control> { btnInfoCustomerUpdate, btnInfoCustomerDelete });
+            ControlHelper.UnEnableControl(new List<Control> { btnInfoCustomerUpdate });
         }
 
         //Handler các radio trong hóa đơn
@@ -824,7 +824,7 @@ namespace HotelManagement.Forms
                 txtInfoCustomerNote.Text = customer.Notes;
 
                 //Hiện các button sửa/xóa
-                btnInfoCustomerDelete.Enabled = true;
+                //btnInfoCustomerDelete.Enabled = true;
                 btnInfoCustomerUpdate.Enabled = true;
             }
         }
