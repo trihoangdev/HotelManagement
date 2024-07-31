@@ -148,7 +148,6 @@
             this.gbInfoCustomerGender = new System.Windows.Forms.GroupBox();
             this.radioInfoCustomerGenderFemale = new Guna.UI2.WinForms.Guna2RadioButton();
             this.radioInfoCustomerGenderMale = new Guna.UI2.WinForms.Guna2RadioButton();
-            this.btnInfoCustomerDelete = new Guna.UI2.WinForms.Guna2Button();
             this.btnInfoCustomerUpdate = new Guna.UI2.WinForms.Guna2Button();
             this.dateTimeInfoCustomerBirthDate = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.txtInfoCustomerPhone = new Guna.UI2.WinForms.Guna2TextBox();
@@ -1680,7 +1679,6 @@
             this.tabCustomerDetail.Controls.Add(this.txtInfoCustomerAddress);
             this.tabCustomerDetail.Controls.Add(this.label50);
             this.tabCustomerDetail.Controls.Add(this.gbInfoCustomerGender);
-            this.tabCustomerDetail.Controls.Add(this.btnInfoCustomerDelete);
             this.tabCustomerDetail.Controls.Add(this.btnInfoCustomerUpdate);
             this.tabCustomerDetail.Controls.Add(this.dateTimeInfoCustomerBirthDate);
             this.tabCustomerDetail.Controls.Add(this.txtInfoCustomerPhone);
@@ -1820,24 +1818,6 @@
             this.radioInfoCustomerGenderMale.UncheckedState.BorderThickness = 2;
             this.radioInfoCustomerGenderMale.UncheckedState.FillColor = System.Drawing.Color.Transparent;
             this.radioInfoCustomerGenderMale.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
-            // 
-            // btnInfoCustomerDelete
-            // 
-            this.btnInfoCustomerDelete.BorderRadius = 10;
-            this.btnInfoCustomerDelete.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnInfoCustomerDelete.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnInfoCustomerDelete.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnInfoCustomerDelete.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnInfoCustomerDelete.Enabled = false;
-            this.btnInfoCustomerDelete.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.btnInfoCustomerDelete.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInfoCustomerDelete.ForeColor = System.Drawing.Color.Black;
-            this.btnInfoCustomerDelete.Location = new System.Drawing.Point(1083, 219);
-            this.btnInfoCustomerDelete.Name = "btnInfoCustomerDelete";
-            this.btnInfoCustomerDelete.Size = new System.Drawing.Size(124, 52);
-            this.btnInfoCustomerDelete.TabIndex = 24;
-            this.btnInfoCustomerDelete.Text = "Xóa KH";
-            this.btnInfoCustomerDelete.Click += new System.EventHandler(this.btnInfoCustomerDelete_Click);
             // 
             // btnInfoCustomerUpdate
             // 
@@ -3959,7 +3939,6 @@
         private Guna.UI2.WinForms.Guna2TextBox txtInfoCustomerEmail;
         private Guna.UI2.WinForms.Guna2TextBox txtInfoCustomerName;
         private Guna.UI2.WinForms.Guna2TextBox txtInfoCustomerId;
-        private Guna.UI2.WinForms.Guna2Button btnInfoCustomerDelete;
         private Guna.UI2.WinForms.Guna2Button btnInfoCustomerUpdate;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCustomerId;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCustomerName;

@@ -3,10 +3,8 @@ using HotelManagement.ClassFolder;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlTypes;
 using System.Drawing;
 using System.Globalization;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -23,42 +21,7 @@ namespace HotelManagement.Forms
             InitializeComponent();
         }
 
-        private void btnCreateNewCustomer_Click(object sender, EventArgs e)
-        {
-            //Kích hoạt các control
-            txtRegisCustomerId.Enabled = true;
-            txtRegisCustomerName.Enabled = true;
-            txtRegisCustomerAddress.Enabled = true;
-            txtRegisCustomerEmail.Enabled = true;
-            txtRegisCustomerPhone.Enabled = true;
-            dtRegisCustomerBirthDate.Enabled = true;
-            dtRegisCustomerDateJoined.Value = DateTime.Now;
-            gbRegisCustomerGender.Enabled = true;
-            txtRegisCustomerNote.Enabled = true;
-
-        }
-
-        private void btnCreateNewRoom_Click(object sender, EventArgs e)
-        {
-            //Khởi tạo mã phòng tự động tăng
-            DataProvider.GetAllRooms(); //Load lại danh sách
-            var idInt = DataProvider.Rooms.Count;//Lấy mã phòng hiện tại
-            idInt = idInt + 1;//Tăng mã phòng lên 1
-
-            var id = "RM" + idInt + "";
-            txtRoomId.Text = id;//set id ch text
-
-            //Set các control rỗng
-            txtRoomDes.Clear();
-            txtRoomPrice.Clear();
-            comboRoomType.SelectedIndex = -1;
-            numbericRoomCapacity.Text = "0";
-
-            btnUpdateRoom.Enabled = false;
-            btnDeleteRoom.Enabled = false;
-            btnAddNewRoom.Enabled = true;
-        }
-
+        //Chức năng load form
         private void HomeFrm_Load(object sender, EventArgs e)
         {
             //Load các danh sách lên
@@ -82,6 +45,45 @@ namespace HotelManagement.Forms
             roomsTableAdapter.Fill(this.hotelManagementDataSet.Rooms);
         }
 
+        //Chức năng thêm mới khách hàng
+        private void btnCreateNewCustomer_Click(object sender, EventArgs e)
+        {
+            //Kích hoạt các control
+            txtRegisCustomerId.Enabled = true;
+            txtRegisCustomerName.Enabled = true;
+            txtRegisCustomerAddress.Enabled = true;
+            txtRegisCustomerEmail.Enabled = true;
+            txtRegisCustomerPhone.Enabled = true;
+            dtRegisCustomerBirthDate.Enabled = true;
+            dtRegisCustomerDateJoined.Value = DateTime.Now;
+            gbRegisCustomerGender.Enabled = true;
+            txtRegisCustomerNote.Enabled = true;
+
+        }
+
+        //Chức năng tạo mới phòng
+        private void btnCreateNewRoom_Click(object sender, EventArgs e)
+        {
+            //Khởi tạo mã phòng tự động tăng
+            DataProvider.GetAllRooms(); //Load lại danh sách
+            var idInt = DataProvider.Rooms.Count;//Lấy mã phòng hiện tại
+            idInt = idInt + 1;//Tăng mã phòng lên 1
+
+            var id = "RM" + idInt + "";
+            txtRoomId.Text = id;//set id ch text
+
+            //Set các control rỗng
+            txtRoomDes.Clear();
+            txtRoomPrice.Clear();
+            comboRoomType.SelectedIndex = -1;
+            numbericRoomCapacity.Text = "0";
+
+            btnUpdateRoom.Enabled = false;
+            btnDeleteRoom.Enabled = false;
+            btnAddNewRoom.Enabled = true;
+        }
+
+        //Sự kiện điều khiển các tab control của form
         private void controlTabHome_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (controlTabHome.SelectedTab.Text.ToString())
@@ -144,7 +146,7 @@ namespace HotelManagement.Forms
             }
         }
 
-
+        //Setup cho tab quản lý phòng
         public void SetupManageEmployeTab()
         {
             DataProvider.GetAllEmployee();
@@ -155,6 +157,7 @@ namespace HotelManagement.Forms
             //Truyền dữ liệu từ danh sách vào DataGridView
             DataProvider.FillDataGridViewEmployee(dtgvInfoEmp, DataProvider.Employees);
         }
+
 
         //setup cho tab quản lý khách hàng
         private void SetupManageCustomerTab()
@@ -171,6 +174,7 @@ namespace HotelManagement.Forms
             //Xóa các textbox 
             ControlHelper.ClearDataInControls(new List<Control> { txtInfoCustomerId, txtInfoCustomerName, txtInfoCustomerEmail, txtInfoCustomerPhone, txtInfoCustomerAddress, txtInfoCustomerNote });
         }
+
 
         //setup cho tab hóa đơn
         private void SetupInvoiceTab()
@@ -211,7 +215,6 @@ namespace HotelManagement.Forms
         }
 
         //Sự kiện click vào dòng của bảng danh sách phòng -> fill data vào các control
-
         private void dtgvRoom_SelectionChanged(object sender, EventArgs e)
         {
             //Enable cac control
@@ -668,6 +671,7 @@ namespace HotelManagement.Forms
             ControlHelper.UnEnableControl(new List<Control> { btnInfoCustomerUpdate, btnInfoCustomerDelete });
         }
 
+        //Handler các radio trong hóa đơn
         private void radInvoice_CheckedChanged(object sender, EventArgs e)
         {
             if (radInvoiceAll.Checked)
@@ -690,6 +694,7 @@ namespace HotelManagement.Forms
             }
         }
 
+        //Chức năng thanh toán hóa đơn
         private void dtgvInvoice_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && dtgvInvoice.Columns[e.ColumnIndex].Name == "colBillPay")
@@ -719,6 +724,7 @@ namespace HotelManagement.Forms
             }
         }
 
+        //Chức năng tìm kiếm hóa đơn
         private void btnInvoiceFind_Click(object sender, EventArgs e)
         {
             if (comboInvoiceCriteria.SelectedIndex < 0)
@@ -760,9 +766,10 @@ namespace HotelManagement.Forms
             }
         }
 
+        //Chức năng đổi mật khẩu
         private void txtChangePassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ChangePasswordFrm f = new ChangePasswordFrm(emp);
+            ChangePasswordFrm f = new ChangePasswordFrm(emp); //mở form đổi mật khẩu
             f.ShowDialog();
         }
 
@@ -850,8 +857,9 @@ namespace HotelManagement.Forms
             DataProvider.FillDataGridViewCustomer(dtgvInfoCustomer, DataProvider.Customers);
         }
 
-        //Chức năng xóa khách hàng
-        private void btnInfoCustomerDelete_Click(object sender, EventArgs e)
+        //Chức năng xóa khách hàng --> bỏ
+        /*
+         private void btnInfoCustomerDelete_Click(object sender, EventArgs e)
         {
             var res = MessageBox.Show("Bạn có chắc chắn muốn xóa?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (res == DialogResult.Yes)
@@ -866,7 +874,7 @@ namespace HotelManagement.Forms
                     ShowMessageInfo("Xóa khách hàng thất bại");
             }
 
-        }
+        }*/
 
         //Click vào nút Xem chi tiết hiện form thông tin nhân viên
         private void dtgvInfoEmp_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -888,6 +896,7 @@ namespace HotelManagement.Forms
             }
         }
 
+        //Chức năng refresh bảng nhân viên
         private void btnInfoEmpRefresh_Click(object sender, EventArgs e)
         {
             SetupManageEmployeTab();
@@ -895,6 +904,7 @@ namespace HotelManagement.Forms
             comboInfoEmpCriteria.SelectedIndex = -1;
         }
 
+        //Chức năng tìm kếm nhân viên
         private void btnInfoEmpFind_Click(object sender, EventArgs e)
         {
             if (comboInfoEmpCriteria.SelectedIndex < 0)
@@ -929,6 +939,7 @@ namespace HotelManagement.Forms
             }
         }
 
+        //Chức năng đăng ký nhân viên
         private void btnRegisEmp_Click(object sender, EventArgs e)
         {
             if (ControlHelper.IsAnyControlEmpty(new List<Control> { txtRegisEmpId, txtRegisEmpName,
@@ -988,6 +999,7 @@ namespace HotelManagement.Forms
             }
         }
 
+        //Chức năng lấy thống kê
         private void btnGetStat_Click(object sender, EventArgs e)
         {
             if (comboCriteriaStat.SelectedIndex == -1)

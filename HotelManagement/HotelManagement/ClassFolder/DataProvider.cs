@@ -1,5 +1,4 @@
-﻿
-using Guna.UI2.WinForms;
+﻿using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -21,6 +20,7 @@ namespace HotelManagement.ClassFolder
         public static List<Invoice> Invoices = new List<Invoice>();
         public static List<Invoice> InvoiceFilter = new List<Invoice>();
 
+        //chức năng lấy data từ CSDL
         public static DataTable LoadDB(string sql)
         {
             DataTable dt = new DataTable();
@@ -41,6 +41,8 @@ namespace HotelManagement.ClassFolder
             }
             return dt;
         }
+
+        //Chức năng thêm, sửa, xóa và lưu vào CSDL
         public static int ModifyDB(string sql)
         {
             int kq = 0;
@@ -61,6 +63,7 @@ namespace HotelManagement.ClassFolder
             return kq;
         }
 
+        //Lấy thông tin tất cả các tài khoản
         public static void GetAllLogins()
         {
             try
@@ -103,6 +106,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        //Lấy thông tin tất cả nhân viên
         public static void GetAllEmployee()
         {
             try
@@ -157,6 +161,7 @@ namespace HotelManagement.ClassFolder
 
         }
 
+        //Lấy thông tin tất cả khách hàng
         public static void GetAllCustomer()
         {
             try
@@ -203,6 +208,7 @@ namespace HotelManagement.ClassFolder
 
         }
 
+        //Lấy thông tin tất cả phòng
         public static void GetAllRooms()
         {
             try
@@ -245,6 +251,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        //Lấy thông tin tất cả phòng trống
         public static void GetAllEmptyRooms()
         {
             try
@@ -290,6 +297,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        //Lấy thông tin tất cả phòng đặt
         public static void GetAllRoomBooking()
         {
             try
@@ -338,6 +346,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        //Lấy thông tin tất cả hóa đơn
         public static void GetAllInvoice()
         {
             try
@@ -378,7 +387,6 @@ namespace HotelManagement.ClassFolder
                 DatabaseConnection.CloseConnection();
             }
         }
-
 
         //lấy thông tin các hóa đơn đã thanh toán
         public static void GetAllPaidInvoice()
@@ -631,6 +639,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        //Cập nhật thông tin phòng
         public static void UpdateRoom(string id, string cap, string type, double price, string des)
         {
             using (SqlCommand command = new SqlCommand(
@@ -693,6 +702,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        //Tìm tổng số tiền bằng mã booking
         private static double FindTotalPriceByBookingId(int id)
         {
             foreach (var r in RoomBookings)
@@ -730,6 +740,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        //Cập nhật thông tin khách hàng
         public static void UpdateEmployee(string id, string name, string phone, string address)
         {
             using (SqlCommand command = new SqlCommand(
@@ -768,6 +779,8 @@ namespace HotelManagement.ClassFolder
             }
             return false;
         }
+        
+        //Fill data vào dtgv
         public static void FillDataGridView(Guna2DataGridView dtgv, string tableName)
         {
             try
@@ -791,6 +804,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        ////Fill data vào dtgv
         public static void FillDataGridViewBooking(Guna2DataGridView dtgv, List<Room> rooms)
         {
             //xóa các dòng trong bảng
@@ -803,6 +817,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        ////Fill data vào dtgv
         public static void FillDataGridViewCustomer(Guna2DataGridView dtgv, List<Customer> customers)
         {
             //xóa các dòng trong bảng
@@ -816,6 +831,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        ////Fill data vào dtgv
         public static void FillDataGridViewInvoice(Guna2DataGridView dtgv, List<Invoice> invoices)
         {
             // Xóa các dòng trong bảng
@@ -854,6 +870,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        ////Fill data vào dtgv
         internal static void FillDataGridViewEmployee(Guna2DataGridView dtgv, List<Employee> employees)
         {
             // Xóa các dòng trong bảng
@@ -876,6 +893,8 @@ namespace HotelManagement.ClassFolder
                 DataGridViewCell paymentCell = row.Cells[row.Cells.Count - 1];
             }
         }
+
+        ////Fill data vào dtgv
         public static void FillDataGridViewEmployee(Guna2DataGridView dtgv, DataTable dt)
         {
             // Xóa dữ liệu hiện tại trong DataGridView
@@ -887,6 +906,8 @@ namespace HotelManagement.ClassFolder
                 dtgv.Rows.Add(row["EmployeeID"], row["FullName"], row["Position"], row["Status"], "Xem chi tiết");
             }
         }
+        
+        //Chức năng xóa phòng
         public static void RemoveRoom(string id)
         {
             using (SqlCommand command = new SqlCommand(
@@ -909,7 +930,8 @@ namespace HotelManagement.ClassFolder
                 }
             }
         }
-
+        
+        //Tìm phòng trống theo số lượng khách
         public static List<Room> FindEmptyRoomByCapacity(string capacity)
         {
             if (RoomFilter.Count == 0)
@@ -949,6 +971,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        //Tìm phòng theo số lượng khách
         public static List<Room> FindRoomByCapacity(string capacity)
         {
             if (RoomFilter.Count == 0)
@@ -987,7 +1010,8 @@ namespace HotelManagement.ClassFolder
                 return RoomFilter;
             }
         }
-
+        
+        //Tìm phòng trống bằng kiểu phòng
         public static List<Room> FindEmptyRoomByType(string type)
         {
             if (RoomFilter.Count == 0)
@@ -1010,6 +1034,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        //Tìm phòng bằng kiểu phòng
         public static List<Room> FindRoomByType(string type)
         {
             if (RoomFilter.Count == 0)
@@ -1032,6 +1057,7 @@ namespace HotelManagement.ClassFolder
             }
         }
 
+        //Tìm kiếm khách hàng
         public static List<Customer> FindCustomer(string columnName, string content)
         {
             var foundedCustomers = new List<Customer>();
@@ -1079,12 +1105,14 @@ namespace HotelManagement.ClassFolder
             return foundedCustomers;
         }
 
+        //Xóa dtgv
         public static void ClearDataGridView(Guna2DataGridView dtgvBookingSelectedRoom)
         {
             // Xóa tất cả các dòng trong DataGridView
             dtgvBookingSelectedRoom.Rows.Clear();
         }
 
+        //Tìm phòng bằng mã phòng
         public static Room FindRoomById(string id)
         {
             foreach (var room in EmptyRooms)
