@@ -101,7 +101,11 @@ namespace HotelManagement.Forms
                         break;
                     }
                 //Đăng Ký Khách Hàng
-
+                case "Đăng Ký Khách Hàng":
+                {
+                        SetupRegisCustomerTab();
+                        break;
+                    }
                 //Quản Lý Khách Hàng
                 case "Quản Lý Khách Hàng":
                     {
@@ -144,6 +148,19 @@ namespace HotelManagement.Forms
                         break;
                     }
             }
+        }
+
+        //Setup cho tab Đăng ký khách hàng
+        private void SetupRegisCustomerTab()
+        {
+            //Xóa các ký tự trong form
+            ControlHelper.ClearDataInControls(new List<Control> { txtRegisCustomerId ,
+                txtRegisCustomerAddress,txtRegisCustomerEmail, txtRegisCustomerName,
+                txtRegisCustomerNote,txtRegisCustomerPhone});
+            //Chỉnh ngày về ngày hiện tại
+            dtRegisCustomerBirthDate.Value = DateTime.Now;
+            //Ngày tham gia là ngày hiện tại
+            dtRegisCustomerDateJoined.Value = DateTime.Now;
         }
 
         //Setup cho tab quản lý phòng
@@ -590,6 +607,9 @@ namespace HotelManagement.Forms
 
                 //lưu thông tin vào csdl
                 DataProvider.InsertCustomerToDB(id, name, birthDate, gender, address, phone, email, dateJoined, note);
+
+                //reset tab
+                SetupRegisCustomerTab();
             }
         }
 
