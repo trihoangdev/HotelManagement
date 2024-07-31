@@ -779,7 +779,7 @@ namespace HotelManagement.ClassFolder
             }
             return false;
         }
-        
+
         //Fill data vào dtgv
         public static void FillDataGridView(Guna2DataGridView dtgv, string tableName)
         {
@@ -906,19 +906,19 @@ namespace HotelManagement.ClassFolder
                 dtgv.Rows.Add(row["EmployeeID"], row["FullName"], row["Position"], row["Status"], "Xem chi tiết");
             }
         }
-        
-        //Chức năng xóa phòng
-        public static void RemoveRoom(string id)
+
+        //Chức năng xóa phòng --> Bỏ
+       /* public static int RemoveRoom(string id)
         {
+            int kq = 0;
             using (SqlCommand command = new SqlCommand(
-               "DELETE Rooms WHERE RoomId = @RoomId"))
+               "DELETE Rooms WHERE RoomId = @RoomId", DatabaseConnection.Connection))
             {
                 command.Parameters.AddWithValue("@RoomID", id);
                 try
                 {
                     DatabaseConnection.OpenConnection(); // Mở kết nối đến cơ sở dữ liệu
-                    int rowsAffected = command.ExecuteNonQuery();
-                    MessageBox.Show("Xóa phòng thành công!");
+                    kq = command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -929,8 +929,9 @@ namespace HotelManagement.ClassFolder
                     DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn thành
                 }
             }
-        }
-        
+            return kq;
+        }*/
+
         //Tìm phòng trống theo số lượng khách
         public static List<Room> FindEmptyRoomByCapacity(string capacity)
         {
@@ -1010,7 +1011,7 @@ namespace HotelManagement.ClassFolder
                 return RoomFilter;
             }
         }
-        
+
         //Tìm phòng trống bằng kiểu phòng
         public static List<Room> FindEmptyRoomByType(string type)
         {

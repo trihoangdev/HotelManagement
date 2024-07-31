@@ -79,7 +79,7 @@ namespace HotelManagement.Forms
             numbericRoomCapacity.Text = "0";
 
             btnUpdateRoom.Enabled = false;
-            btnDeleteRoom.Enabled = false;
+            //btnDeleteRoom.Enabled = false;
             btnAddNewRoom.Enabled = true;
         }
 
@@ -236,7 +236,7 @@ namespace HotelManagement.Forms
         {
             //Enable cac control
             ControlHelper.EnableControls(new List<Control> { comboRoomType, numbericRoomCapacity,
-                txtRoomPrice, txtRoomDes, btnUpdateRoom, btnDeleteRoom });
+                txtRoomPrice, txtRoomDes, btnUpdateRoom });
             btnAddNewRoom.Enabled = false;
 
             //Fill data vào các ô
@@ -316,18 +316,21 @@ namespace HotelManagement.Forms
             }
         }
 
-        //Sự kiện xóa phòng
-        private void btnDeleteRoom_Click(object sender, EventArgs e)
+        //Sự kiện xóa phòng --> Bỏ
+        /*private void btnDeleteRoom_Click(object sender, EventArgs e)
         {
             var res = MessageBox.Show("Bạn có chắc chắn muốn xóa?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.Yes)
             {
                 //Xóa phòng khỏi csdl
-                DataProvider.RemoveRoom(txtRoomId.Text);
+                if (DataProvider.RemoveRoom(txtRoomId.Text) == 0)
+                    ShowMessageInfo("Không thể xóa phòng đang được sử dụng!");
+                else 
+                    ShowMessageInfo("Xóa phòng thành công!");
                 //fill lại dtgv
                 DataProvider.FillDataGridView(dtgvRoom, "Rooms");
             }
-        }
+        }*/
 
         //Sự kiện tìm khách hàng đặt phòng bằng CCCD
         private void imgBookingFindCustomer_Click(object sender, EventArgs e)
