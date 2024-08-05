@@ -102,7 +102,7 @@ namespace HotelManagement.Forms
                     }
                 //Đăng Ký Khách Hàng
                 case "Đăng Ký Khách Hàng":
-                {
+                    {
                         SetupRegisCustomerTab();
                         break;
                     }
@@ -119,7 +119,11 @@ namespace HotelManagement.Forms
                         break;
                     }
                 //Đăng Ký Nhân Viên
-
+                case "Đăng Ký Nhân Viên":
+                    {
+                        SetupRegisEmpTab();
+                        break;
+                    }
                 //Thanh Toán
                 case "Thanh Toán":
                     {
@@ -148,6 +152,17 @@ namespace HotelManagement.Forms
                         break;
                     }
             }
+        }
+
+        //setup tab đăng ký nhân viên
+        private void SetupRegisEmpTab()
+        {
+            //Xóa các ký tự trong form
+            ControlHelper.ClearDataInControls(new List<Control> { txtRegisEmpId ,txtRegisEmpAddress,
+                txtRegisEmpEmail, txtRegisEmpName,txtRegisEmpNote,txtRegisEmpPhone,txtRegisEmpPos});
+            //Chỉnh ngày về ngày hiện tại
+            dtRegisEmpBirthDate.Value = DateTime.Now;
+            dtRegisEmpHiredDate.Value = DateTime.Now;
         }
 
         //Setup cho tab Đăng ký khách hàng
@@ -1020,73 +1035,73 @@ namespace HotelManagement.Forms
             }
         }
 
-            //Chức năng lấy thống kê
-            private void btnGetStat_Click(object sender, EventArgs e)
+        //Chức năng lấy thống kê
+        private void btnGetStat_Click(object sender, EventArgs e)
+        {
+            if (comboCriteriaStat.SelectedIndex == -1)
             {
-                if (comboCriteriaStat.SelectedIndex == -1)
+                ShowMessageInfo("Vui phòng chọn tiêu chí thống kê!");
+            }
+            else
+            {
+                switch (comboCriteriaStat.SelectedItem.ToString())
                 {
-                    ShowMessageInfo("Vui phòng chọn tiêu chí thống kê!");
-                }
-                else
-                {
-                    switch (comboCriteriaStat.SelectedItem.ToString())
-                    {
-                        case "Theo loại phòng":
-                            {
-                                string query = @"SELECT RoomType, COUNT(*) AS RoomCount
+                    case "Theo loại phòng":
+                        {
+                            string query = @"SELECT RoomType, COUNT(*) AS RoomCount
                                              FROM Rooms
                                              GROUP BY RoomType;";
-                                DataTable dt = DataProvider.LoadDB(query);
-                                chart1.DataSource = dt;
+                            DataTable dt = DataProvider.LoadDB(query);
+                            chart1.DataSource = dt;
 
-                                // Đặt tên cho trục X và Y
-                                chart1.Series[0].XValueMember = "RoomType";
-                                chart1.Series[0].YValueMembers = "RoomCount";
+                            // Đặt tên cho trục X và Y
+                            chart1.Series[0].XValueMember = "RoomType";
+                            chart1.Series[0].YValueMembers = "RoomCount";
 
-                                // Đặt tên biểu đồ
-                                chart1.Series[0].Name = "Số lượng phòng theo loại";
+                            // Đặt tên biểu đồ
+                            chart1.Series[0].Name = "Số lượng phòng theo loại";
 
-                                // Đặt tiêu đề cho biểu đồ (nếu cần)
-                                chart1.Titles.Clear();
-                                Title chartTitle = chart1.Titles.Add("Biểu đồ số lượng phòng theo loại");
+                            // Đặt tiêu đề cho biểu đồ (nếu cần)
+                            chart1.Titles.Clear();
+                            Title chartTitle = chart1.Titles.Add("Biểu đồ số lượng phòng theo loại");
 
-                                chartTitle.Font = new Font("Arial", 16, FontStyle.Bold); // Chỉnh cỡ chữ cho tiêu đề biểu đồ
+                            chartTitle.Font = new Font("Arial", 16, FontStyle.Bold); // Chỉnh cỡ chữ cho tiêu đề biểu đồ
 
-                                // Làm mới lại biểu đồ để hiển thị dữ liệu mới
-                                chart1.DataBind();
+                            // Làm mới lại biểu đồ để hiển thị dữ liệu mới
+                            chart1.DataBind();
 
-                                break;
-                            }
-                        case "Theo giới tính khách hàng":
-                            {
-                                string query = @"SELECT Gender, COUNT(*) AS GenderCount
+                            break;
+                        }
+                    case "Theo giới tính khách hàng":
+                        {
+                            string query = @"SELECT Gender, COUNT(*) AS GenderCount
                                                 FROM Customers
                                                 GROUP BY Gender;
                                                 ";
-                                DataTable dt = DataProvider.LoadDB(query);
-                                chart1.DataSource = dt;
+                            DataTable dt = DataProvider.LoadDB(query);
+                            chart1.DataSource = dt;
 
-                                // Đặt tên cho trục X và Y
-                                chart1.Series[0].XValueMember = "Gender";
-                                chart1.Series[0].YValueMembers = "GenderCount";
+                            // Đặt tên cho trục X và Y
+                            chart1.Series[0].XValueMember = "Gender";
+                            chart1.Series[0].YValueMembers = "GenderCount";
 
-                                // Đặt tên biểu đồ
-                                chart1.Series[0].Name = "Số lượng khách hàng theo giới tính";
+                            // Đặt tên biểu đồ
+                            chart1.Series[0].Name = "Số lượng khách hàng theo giới tính";
 
-                                // Đặt tiêu đề cho biểu đồ (nếu cần)
-                                chart1.Titles.Clear();
-                                Title chartTitle = chart1.Titles.Add("Biểu đồ số lượng khách hàng theo giới tính");
+                            // Đặt tiêu đề cho biểu đồ (nếu cần)
+                            chart1.Titles.Clear();
+                            Title chartTitle = chart1.Titles.Add("Biểu đồ số lượng khách hàng theo giới tính");
 
-                                chartTitle.Font = new Font("Arial", 16, FontStyle.Bold); // Chỉnh cỡ chữ cho tiêu đề biểu đồ
+                            chartTitle.Font = new Font("Arial", 16, FontStyle.Bold); // Chỉnh cỡ chữ cho tiêu đề biểu đồ
 
-                                // Làm mới lại biểu đồ để hiển thị dữ liệu mới
-                                chart1.DataBind();
+                            // Làm mới lại biểu đồ để hiển thị dữ liệu mới
+                            chart1.DataBind();
 
-                                break;
-                            }
-                        case "Theo tuổi khách hàng":
-                            {
-                                string query = @"SELECT Age, COUNT(*) AS NumberOfCustomers
+                            break;
+                        }
+                    case "Theo tuổi khách hàng":
+                        {
+                            string query = @"SELECT Age, COUNT(*) AS NumberOfCustomers
                                                 FROM (
                                                     SELECT 
                                                         DATEDIFF(YEAR, DateOfBirth, GETDATE()) - 
@@ -1102,57 +1117,57 @@ namespace HotelManagement.Forms
                                                 ORDER BY Age;
 
                                                 ";
-                                DataTable dt = DataProvider.LoadDB(query);
-                                chart1.DataSource = dt;
+                            DataTable dt = DataProvider.LoadDB(query);
+                            chart1.DataSource = dt;
 
-                                // Đặt tên cho trục X và Y
-                                chart1.Series[0].XValueMember = "Age";
-                                chart1.Series[0].YValueMembers = "NumberOfCustomers";
+                            // Đặt tên cho trục X và Y
+                            chart1.Series[0].XValueMember = "Age";
+                            chart1.Series[0].YValueMembers = "NumberOfCustomers";
 
-                                // Đặt tên biểu đồ
-                                chart1.Series[0].Name = "Số lượng khách hàng theo tuổi";
+                            // Đặt tên biểu đồ
+                            chart1.Series[0].Name = "Số lượng khách hàng theo tuổi";
 
-                                // Đặt tiêu đề cho biểu đồ (nếu cần)
-                                chart1.Titles.Clear();
-                                Title chartTitle = chart1.Titles.Add("Biểu đồ số lượng khách hàng theo tuổi");
+                            // Đặt tiêu đề cho biểu đồ (nếu cần)
+                            chart1.Titles.Clear();
+                            Title chartTitle = chart1.Titles.Add("Biểu đồ số lượng khách hàng theo tuổi");
 
-                                chartTitle.Font = new Font("Arial", 16, FontStyle.Bold); // Chỉnh cỡ chữ cho tiêu đề biểu đồ
+                            chartTitle.Font = new Font("Arial", 16, FontStyle.Bold); // Chỉnh cỡ chữ cho tiêu đề biểu đồ
 
-                                // Làm mới lại biểu đồ để hiển thị dữ liệu mới
-                                chart1.DataBind();
+                            // Làm mới lại biểu đồ để hiển thị dữ liệu mới
+                            chart1.DataBind();
 
-                                break;
-                            }
-                        case "Theo giới tính nhân viên":
-                            {
-                                string query = @"SELECT Gender, COUNT(*) AS GenderCount
+                            break;
+                        }
+                    case "Theo giới tính nhân viên":
+                        {
+                            string query = @"SELECT Gender, COUNT(*) AS GenderCount
                                                 FROM Employees
                                                 GROUP BY Gender;
                                                 ";
-                                DataTable dt = DataProvider.LoadDB(query);
-                                chart1.DataSource = dt;
+                            DataTable dt = DataProvider.LoadDB(query);
+                            chart1.DataSource = dt;
 
-                                // Đặt tên cho trục X và Y
-                                chart1.Series[0].XValueMember = "Gender";
-                                chart1.Series[0].YValueMembers = "GenderCount";
+                            // Đặt tên cho trục X và Y
+                            chart1.Series[0].XValueMember = "Gender";
+                            chart1.Series[0].YValueMembers = "GenderCount";
 
-                                // Đặt tên biểu đồ
-                                chart1.Series[0].Name = "Số lượng nhân viên theo giới tính";
+                            // Đặt tên biểu đồ
+                            chart1.Series[0].Name = "Số lượng nhân viên theo giới tính";
 
-                                // Đặt tiêu đề cho biểu đồ (nếu cần)
-                                chart1.Titles.Clear();
-                                Title chartTitle = chart1.Titles.Add("Biểu đồ số lượng nhân viên theo giới tính");
+                            // Đặt tiêu đề cho biểu đồ (nếu cần)
+                            chart1.Titles.Clear();
+                            Title chartTitle = chart1.Titles.Add("Biểu đồ số lượng nhân viên theo giới tính");
 
-                                chartTitle.Font = new Font("Arial", 16, FontStyle.Bold); // Chỉnh cỡ chữ cho tiêu đề biểu đồ
+                            chartTitle.Font = new Font("Arial", 16, FontStyle.Bold); // Chỉnh cỡ chữ cho tiêu đề biểu đồ
 
-                                // Làm mới lại biểu đồ để hiển thị dữ liệu mới
-                                chart1.DataBind();
+                            // Làm mới lại biểu đồ để hiển thị dữ liệu mới
+                            chart1.DataBind();
 
-                                break;
-                            }
-                        case "Theo tuổi nhân viên":
-                            {
-                                string query = @"SELECT Age, COUNT(*) AS NumberOfEmployees
+                            break;
+                        }
+                    case "Theo tuổi nhân viên":
+                        {
+                            string query = @"SELECT Age, COUNT(*) AS NumberOfEmployees
                                                 FROM (
                                                     SELECT 
                                                         DATEDIFF(YEAR, DateOfBirth, GETDATE()) - 
@@ -1168,38 +1183,38 @@ namespace HotelManagement.Forms
                                                 ORDER BY Age;
 
                                                 ";
-                                DataTable dt = DataProvider.LoadDB(query);
-                                chart1.DataSource = dt;
+                            DataTable dt = DataProvider.LoadDB(query);
+                            chart1.DataSource = dt;
 
-                                // Đặt tên cho trục X và Y
-                                chart1.Series[0].XValueMember = "Age";
-                                chart1.Series[0].YValueMembers = "NumberOfEmployees";
+                            // Đặt tên cho trục X và Y
+                            chart1.Series[0].XValueMember = "Age";
+                            chart1.Series[0].YValueMembers = "NumberOfEmployees";
 
-                                // Đặt tên biểu đồ
-                                chart1.Series[0].Name = "Số lượng nhân viên theo tuổi";
+                            // Đặt tên biểu đồ
+                            chart1.Series[0].Name = "Số lượng nhân viên theo tuổi";
 
-                                // Đặt tiêu đề cho biểu đồ (nếu cần)
-                                chart1.Titles.Clear();
-                                Title chartTitle = chart1.Titles.Add("Biểu đồ số lượng nhân viên theo tuổi");
+                            // Đặt tiêu đề cho biểu đồ (nếu cần)
+                            chart1.Titles.Clear();
+                            Title chartTitle = chart1.Titles.Add("Biểu đồ số lượng nhân viên theo tuổi");
 
-                                chartTitle.Font = new Font("Arial", 16, FontStyle.Bold); // Chỉnh cỡ chữ cho tiêu đề biểu đồ
+                            chartTitle.Font = new Font("Arial", 16, FontStyle.Bold); // Chỉnh cỡ chữ cho tiêu đề biểu đồ
 
-                                // Làm mới lại biểu đồ để hiển thị dữ liệu mới
-                                chart1.DataBind();
+                            // Làm mới lại biểu đồ để hiển thị dữ liệu mới
+                            chart1.DataBind();
 
-                                break;
-                            }
-                   
-                    }
-                    // Chỉnh cỡ chữ cho trục X
-                    chart1.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 14, FontStyle.Bold); // Tiêu đề trục X
-                    chart1.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Arial", 12); // Nhãn trục X
-
-                    // Chỉnh cỡ chữ cho trục Y
-                    chart1.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 14, FontStyle.Bold); // Tiêu đề trục Y
-                    chart1.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Arial", 12); // Nhãn trục Y
+                            break;
+                        }
 
                 }
+                // Chỉnh cỡ chữ cho trục X
+                chart1.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 14, FontStyle.Bold); // Tiêu đề trục X
+                chart1.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Arial", 12); // Nhãn trục X
+
+                // Chỉnh cỡ chữ cho trục Y
+                chart1.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 14, FontStyle.Bold); // Tiêu đề trục Y
+                chart1.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Arial", 12); // Nhãn trục Y
+
             }
+        }
     }
 }
