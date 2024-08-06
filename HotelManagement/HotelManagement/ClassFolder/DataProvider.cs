@@ -249,6 +249,16 @@ namespace HotelManagement.ClassFolder
             {
                 DatabaseConnection.CloseConnection();
             }
+
+            //Cập nhật trạng thái phòng khi ngày đặt phòng vượt quá ngày hiện tại
+            string sql = $@"UPDATE Rooms
+                                SET Status = N'Trống'
+                                WHERE RoomID IN (
+                                    SELECT RoomID
+                                    FROM RoomBookings
+                                    WHERE CheckOutDate < GETDATE());";
+            ModifyDB(sql);
+
         }
 
         //Lấy thông tin tất cả phòng trống
@@ -908,29 +918,29 @@ namespace HotelManagement.ClassFolder
         }
 
         //Chức năng xóa phòng --> Bỏ
-       /* public static int RemoveRoom(string id)
-        {
-            int kq = 0;
-            using (SqlCommand command = new SqlCommand(
-               "DELETE Rooms WHERE RoomId = @RoomId", DatabaseConnection.Connection))
-            {
-                command.Parameters.AddWithValue("@RoomID", id);
-                try
-                {
-                    DatabaseConnection.OpenConnection(); // Mở kết nối đến cơ sở dữ liệu
-                    kq = command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
-                finally
-                {
-                    DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn thành
-                }
-            }
-            return kq;
-        }*/
+        /* public static int RemoveRoom(string id)
+         {
+             int kq = 0;
+             using (SqlCommand command = new SqlCommand(
+                "DELETE Rooms WHERE RoomId = @RoomId", DatabaseConnection.Connection))
+             {
+                 command.Parameters.AddWithValue("@RoomID", id);
+                 try
+                 {
+                     DatabaseConnection.OpenConnection(); // Mở kết nối đến cơ sở dữ liệu
+                     kq = command.ExecuteNonQuery();
+                 }
+                 catch (Exception ex)
+                 {
+                     MessageBox.Show("Error: " + ex.Message);
+                 }
+                 finally
+                 {
+                     DatabaseConnection.CloseConnection(); // Đóng kết nối sau khi hoàn thành
+                 }
+             }
+             return kq;
+         }*/
 
         //Tìm phòng trống theo số lượng khách
         public static List<Room> FindEmptyRoomByCapacity(string capacity)
