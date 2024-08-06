@@ -43,6 +43,9 @@ namespace HotelManagement.Forms
                 controlTabHome.Controls.Remove(tabRegisterEmp);
             }
             roomsTableAdapter.Fill(this.hotelManagementDataSet.Rooms);
+
+            //Load mặc định tab quản lý phòng lên đầu tiên
+            SetupManageRoomTab();
         }
 
         //Chức năng thêm mới khách hàng
