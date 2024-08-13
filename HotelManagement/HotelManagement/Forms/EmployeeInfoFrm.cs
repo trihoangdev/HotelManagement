@@ -16,6 +16,7 @@ namespace HotelManagement.Forms
             _id = id;
             _emp = new Employee();
             _parentFrm = parentFrm;
+            DataProvider.GetAllEmployee();
             _emp = _emp.FindEmpById(DataProvider.Employees, _id);
             _login = _login.FindLoginById(DataProvider.Logins, _id);
         }
