@@ -298,6 +298,8 @@ namespace HotelManagement.Forms
                 //Lưu vào CSDL
                 DataProvider.InsertRoomToDB(txtRoomId.Text, numbericRoomCapacity.Text,
                     comboRoomType.SelectedItem.ToString(), Double.Parse(txtRoomPrice.Text), txtRoomDes.Text);
+                //Load lai dữ liệu
+                DataProvider.FillDataGridView(dtgvRoom, "Rooms");
             }
         }
 
